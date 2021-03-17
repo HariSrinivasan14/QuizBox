@@ -14,9 +14,9 @@ app.use(express.static(path.join(__dirname, '/pub')))
 
 
 
-app.get('/', (req, res) => {
-	res.send('<h1>hello world</h1>')
-})
+// app.get('/', (req, res) => {
+
+// })
 
 const port = process.env.PORT || 5000
 app.listen(port, () => {
