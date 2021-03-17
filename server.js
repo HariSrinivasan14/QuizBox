@@ -11,6 +11,9 @@ const path = require('path');
 
 app.use(express.static(path.join(__dirname, '/pub')))
 
+
+
+
 app.get('/', (req, res) => {
 	res.send('<h1>hello world</h1>')
 })
