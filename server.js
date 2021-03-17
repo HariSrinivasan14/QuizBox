@@ -14,10 +14,6 @@ app.use(express.static(path.join(__dirname, '/pub')))
 
 
 
-// app.get('/', (req, res) => {
-
-// })
-
 const port = process.env.PORT || 5000
 app.listen(port, () => {
 	log(`Listening on port ${port}...`)
