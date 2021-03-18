@@ -42,15 +42,7 @@
 	margin-left: 10px;
 }
 
-.toolTipDiv .toolTipText::after{
-	position: absolute;
-	top: 50%;
-	right: 100%;
-	margin-top: -5px;
-	border-width: 5px;
-	border-style: solid;
-	border-color: transparent black transparent transparent;
-}
+
 
 .toolTipDiv:hover .toolTipText{
 	visibility: visible;
@@ -215,6 +207,10 @@
 	margin-top: 30px;
 	overflow: auto;
 }
+
+/* .questionMultipleChoiceOne-style .noClick{ */
+	/* pointer-events: none; */
+/* } */
 
 .questionMultipleChoiceOneText-style{
 	font-size: large;

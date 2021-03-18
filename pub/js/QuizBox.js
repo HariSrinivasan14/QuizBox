@@ -8,7 +8,7 @@ function QuizBox(mainDiv) {
 	this.typeQuestions = [];
 	this.currentQuestion = 0;
 	this.numQuestions = 0;
-	
+	this.answersToQuestions = [];
 	
 	this.QuizBoxDiv = document.createElement('div');
 	this.QuizBoxDiv.className = "QuizBox-style";
@@ -158,6 +158,8 @@ QuizBox.prototype = {
 		submitButton.innerHTML = "Submit";
 		submitButton.className = "submitButton";
 		
+		submitButton.addEventListener('click', this.gradeAnswers.bind(this));
+		
 		lastDivQuestions.appendChild(questionBox);
 		lastDiv.appendChild(lastDivQuestions);
 		
@@ -190,6 +192,7 @@ QuizBox.prototype = {
 	
 	createMultipleChoiceOne: function(question, options, answer) {
 		// TODO
+		this.answersToQuestions.push(answer);
 		const questionMultipleOne = document.createElement('div');
 		const questionText = document.createElement('p');
 		
@@ -239,7 +242,7 @@ QuizBox.prototype = {
 
 	createMultipleChoiceMany: function(question, options, answer) {
 		// TODO
-		
+		this.answersToQuestions.push(answer);
 		const questionMultipleMany = document.createElement('div');
 		const questionText = document.createElement('p');
 		
@@ -309,6 +312,7 @@ QuizBox.prototype = {
 	
 	
 	createTrueOrFalseQuestion: function(question, answer){
+		this.answersToQuestions.push(answer);
 		const mainDiv = document.createElement('div');
 		const trueDiv = document.createElement('div');
 		const falseDiv = document.createElement('div');
@@ -397,11 +401,37 @@ QuizBox.prototype = {
 	
 	
 	gradeAnswers: function() {
-		// TODO
+		console.log(this.answersToQuestions); 
+		const questionToBeGraded = this.QuizBoxDiv.children;
+		let totalScore = 0;
+		for(let counter = 1; counter < questionToBeGraded.length; counter++){
+			if(this.typeQuestions[counter - 1] ===  "questionMultipleChoiceOne-style"){
+				totalScore += this.gradeMultipleChoice(questionToBeGraded[counter].children, this.answersToQuestions[counter - 1]);
+			}else if(this.typeQuestions[counter - 1] ===  "questionMultipleChoiceMany-style"){
+				
+			}else if(this.typeQuestions[counter - 1] === "questionTrueOrFalse-style"){
+				
+			}
+		}
 		return;
+	},
+	
+	gradeMultipleChoice: function(optionsToBeGraded, answer) {
+		
+		for(let optionCounter = 1; optionCounter < optionsToBeGraded.length; optionCounter++){
+			let tempOption = optionsToBeGraded[optionCounter];
+			if(tempOption.className === "questionMultipleChoiceOneDivBlue-style"){
+				if(tempOption.children[0].innerHTML === answer){
+					return 1;
+				}else{
+					return 0;
+				}
+			}
+		}
+		return 0;
 	}
 	
-
+	
 }
 
 
