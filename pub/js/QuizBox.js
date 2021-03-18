@@ -152,8 +152,11 @@ QuizBox.prototype = {
 		questionTextBox.className = "questionLastDivText"; 
 		questionBox.appendChild(questionTextBox);
 		questionBox.classList = "questionLastDiv";
+		lastDivQuestions. className = "lastDivQuestion-style" 
+		
 		
 		submitButton.innerHTML = "Submit";
+		submitButton.className = "submitButton";
 		
 		lastDivQuestions.appendChild(questionBox);
 		lastDiv.appendChild(lastDivQuestions);
