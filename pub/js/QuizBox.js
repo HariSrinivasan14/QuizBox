@@ -449,6 +449,7 @@ QuizBox.prototype = {
 		return 0;
 	},
 	
+	
 	gradeMultipleChoiceMany: function(optionsToBeGraded, answer) {
 		let score = 0;
 		for(let optionCounter = 1; optionCounter < optionsToBeGraded.length; optionCounter++){
