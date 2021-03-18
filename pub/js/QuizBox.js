@@ -456,8 +456,8 @@ QuizBox.prototype = {
 			if(tempOption.className === "questionMultipleChoiceManyDivBlue-style"){
 				if(answer.indexOf(tempOption.children[0].innerHTML) >= 0){
 					score += 1
-				}else if(score === answer.length){
-					return -1
+				}else{
+					return -1;
 				}
 			}
 		}
