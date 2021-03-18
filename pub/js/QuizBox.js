@@ -401,17 +401,35 @@ QuizBox.prototype = {
 	
 	
 	gradeAnswers: function() {
-		console.log(this.answersToQuestions); 
 		const questionToBeGraded = this.QuizBoxDiv.children;
+		const boxesChangeColor = this.QuizBoxDiv.lastChild.children[0].children;
+		console.log(this.QuizBoxDiv.lastChild.children[0].children);
 		let totalScore = 0;
 		for(let counter = 1; counter < questionToBeGraded.length; counter++){
+			let tempScore = 0;
 			if(this.typeQuestions[counter - 1] ===  "questionMultipleChoiceOne-style"){
-				totalScore += this.gradeMultipleChoice(questionToBeGraded[counter].children, this.answersToQuestions[counter - 1]);
+				tempScore = this.gradeMultipleChoice(questionToBeGraded[counter].children, this.answersToQuestions[counter - 1]);
+				if(tempScore === 0){
+					boxesChangeColor[counter - 1].className = "questionLastDivIncorrect";
+				}else{
+					boxesChangeColor[counter - 1].className = "questionLastDivCorrect";
+				}
 			}else if(this.typeQuestions[counter - 1] ===  "questionMultipleChoiceMany-style"){
-				
+				tempScore = this.gradeMultipleChoiceMany(questionToBeGraded[counter].children, this.answersToQuestions[counter - 1]);
+				if(tempScore === 0){
+					boxesChangeColor[counter - 1].className = "questionLastDivIncorrect";
+				}else if((tempScore > 0 && tempScore < this.answersToQuestions[counter - 1].length) || tempScore === -1){
+					boxesChangeColor[counter - 1].className = "questionLastDivPartialCorrect";
+					if(tempScore === -1){
+						tempScore = 0;
+					}
+				}else{
+					boxesChangeColor[counter - 1].className = "questionLastDivCorrect";
+				}
 			}else if(this.typeQuestions[counter - 1] === "questionTrueOrFalse-style"){
 				
 			}
+			totalScore += tempScore;
 		}
 		return;
 	},
@@ -429,8 +447,22 @@ QuizBox.prototype = {
 			}
 		}
 		return 0;
-	}
+	},
 	
+	gradeMultipleChoiceMany: function(optionsToBeGraded, answer) {
+		let score = 0;
+		for(let optionCounter = 1; optionCounter < optionsToBeGraded.length; optionCounter++){
+			let tempOption = optionsToBeGraded[optionCounter];
+			if(tempOption.className === "questionMultipleChoiceManyDivBlue-style"){
+				if(answer.indexOf(tempOption.children[0].innerHTML) >= 0){
+					score += 1
+				}else if(score === answer.length){
+					return -1
+				}
+			}
+		}
+		return score;
+	}
 	
 }
 

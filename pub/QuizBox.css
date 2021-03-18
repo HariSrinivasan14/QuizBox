@@ -85,6 +85,43 @@
 	border-radius: 10px;
 }
 
+.questionLastDivIncorrect{
+	width: 120px;
+	height: 60px;
+	display: inline-block;
+	border: 1px solid #ff4d4d; 
+	margin-left: 20px;
+	margin-bottom: 20px;
+	margin-top: 20px;
+	background-color: #ff9999;
+	border-radius: 10px;
+}
+
+.questionLastDivCorrect{
+	width: 120px;
+	height: 60px;
+	display: inline-block;
+	border: 1px solid #66ff66; 
+	margin-left: 20px;
+	margin-bottom: 20px;
+	margin-top: 20px;
+	background-color: #b3ffb3;
+	border-radius: 10px;
+}
+
+.questionLastDivPartialCorrect{
+	width: 120px;
+	height: 60px;
+	display: inline-block;
+	border: 1px solid #ffff00; 
+	margin-left: 20px;
+	margin-bottom: 20px;
+	margin-top: 20px; 
+	background-color: #ffffb3;
+	border-radius: 10px;
+}
+
+
 .questionLastDivText{
 	color: Black;
 	margin-left: 20px;
