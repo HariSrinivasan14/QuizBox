@@ -304,7 +304,9 @@ QuizBox.prototype = {
 		e.preventDefault();
 		const elementDragging = document.querySelector('.dragging');
 		try{
-			e.target.appendChild(elementDragging);
+			if(e.target.className === "trueDiv" || e.target.className === "falseDiv" || e.target.className === "startDiv"){
+				e.target.appendChild(elementDragging);
+			}
 		}catch{
 			return;
 		}
@@ -337,7 +339,7 @@ QuizBox.prototype = {
 		toolTip.innerHTML = "(How to answer?)"
 		toolTip.className = "toolTipDiv";
 		const toolTipText = document.createElement('span');
-		toolTipText.innerHTML = "Drag the blue tiles into true box if the statement is true. Otherwise drag the tile into the false box. Note S1 refers to statement 1, S2 refers to statement 2, etc.";
+		toolTipText.innerHTML = "Drag the blue tiles into green box if the statement is true. Otherwise drag the tile into the red box. Note S1 refers to statement 1, S2 refers to statement 2, etc.";
 		toolTipText.className = "toolTipText";
 		toolTip.appendChild(toolTipText);
 		
@@ -348,7 +350,7 @@ QuizBox.prototype = {
 		for(let counter = 0; counter < question.length; counter++){
 			const tempP = document.createElement('p');
 			const tempQuestion = document.createElement('p');
-			tempQuestion.innerHTML = question[counter];
+			tempQuestion.innerHTML = (counter + 1) +") "+ question[counter];
 			tempQuestion.className = "questionTrueOrFalseText-style";
 			tempP.className = "questionP";
 			tempP.innerHTML = "S" + (counter + 1) + "";
@@ -427,7 +429,7 @@ QuizBox.prototype = {
 					boxesChangeColor[counter - 1].className = "questionLastDivCorrect";
 				}
 			}else if(this.typeQuestions[counter - 1] === "questionTrueOrFalse-style"){
-				
+				tempScore = this.gradeTrueOrFalse(questionToBeGraded[counter].children[3].children[0], questionToBeGraded[counter].children[3].children[1], this.answersToQuestions[counter - 1]);
 			}
 			totalScore += tempScore;
 		}
@@ -463,7 +465,24 @@ QuizBox.prototype = {
 			}
 		}
 		return score;
+	},
+	
+	gradeTrueOrFalse: function(falseChoices, trueChoices, answer) {
+		let score = 0;
+		const test1234 = trueChoices.children[0].innerHTML[1];
+		// console.log(test1234);
+		// console.log(trueChoices.children[0]);
+		for(let counter = 0; counter < trueChoices.children.length; counter++){
+			let statementNum = trueChoices.children[counter].innerHTML[1];
+			console.log(statementNum);
+			if(answer[parseInt(statementNum) - 1] === true){
+				score += 1;
+			}
+		}
+		console.log(score);
+		return score;
 	}
+	
 	
 }
 

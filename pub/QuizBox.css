@@ -56,6 +56,7 @@
 }
 
 
+
 /* MAIN DIV STYLE END */
 
 
@@ -245,9 +246,6 @@
 	overflow: auto;
 }
 
-/* .questionMultipleChoiceOne-style .noClick{ */
-	/* pointer-events: none; */
-/* } */
 
 .questionMultipleChoiceOneText-style{
 	font-size: large;
@@ -411,33 +409,37 @@
 }
 .trueDiv{
 	margin-top: 20px;
-	border: 3px dashed black;
+	border: 3px dashed #00ff00;
 	float: left;
 	height: 190px;
 	width: 45%;
 	margin-left: 30px;
 	margin-right: 0px;
+	overflow: auto;
 }
 
 .falseDiv{
 	margin-top: 20px;
-	border: 3px dashed black;
+	border: 3px dashed #ff5050;
 	float: left;
 	height: 190px;
 	width: 45%;
 	margin-left: 0px;
+	overflow: auto;
 }
 
 .startDiv{
-	border: 2px solid black;
+	border: none;
 	float: left;
-	height: 80px;
-	width: 90%;
-	margin-left: 20px;
+	height: 75px;
+	width: 410px;
+	margin-left: 15px;
 	overflow: auto;
 	margin-top: 20px;
 	white-space: nowrap;
+	box-shadow: 0px 9px 20px #cccccc;
 }
+
 
 .interactDiv{
 	margin-left: 0px;
@@ -454,14 +456,16 @@
 .questionP{
 	padding: 12px;
 	background-color: #18A0FB;
-	border: 1px solid #ccefff;
+	border: none;
 	cursor: move;
-	width: 30px;
-	height: 30px;
-	margin: 10px;
+	width: 20px;
+	height: 20px;
+	margin-top: 10px;
+	margin-left: 12px;
 	display: inline-block;
 	border-radius: 8px;
 	text-align: center;
+	margin-bottom: 0px;
 }
 
 .questionP.dragging{
