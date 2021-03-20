@@ -409,14 +409,14 @@ QuizBox.prototype = {
 		let totalScore = 0;
 		for(let counter = 1; counter < questionToBeGraded.length; counter++){
 			let tempScore = 0;
-			if(this.typeQuestions[counter - 1] ===  "questionMultipleChoiceOne-style"){
+			if(this.typeQuestions[counter - 1] ===  "questionMultipleChoiceOne-style"){ // multipleChoice question
 				tempScore = this.gradeMultipleChoice(questionToBeGraded[counter].children, this.answersToQuestions[counter - 1]);
 				if(tempScore === 0){
 					boxesChangeColor[counter - 1].className = "questionLastDivIncorrect";
 				}else{
 					boxesChangeColor[counter - 1].className = "questionLastDivCorrect";
 				}
-			}else if(this.typeQuestions[counter - 1] ===  "questionMultipleChoiceMany-style"){
+			}else if(this.typeQuestions[counter - 1] ===  "questionMultipleChoiceMany-style"){ // multipleChoice question many
 				tempScore = this.gradeMultipleChoiceMany(questionToBeGraded[counter].children, this.answersToQuestions[counter - 1]);
 				if(tempScore === 0){
 					boxesChangeColor[counter - 1].className = "questionLastDivIncorrect";
@@ -428,11 +428,20 @@ QuizBox.prototype = {
 				}else{
 					boxesChangeColor[counter - 1].className = "questionLastDivCorrect";
 				}
-			}else if(this.typeQuestions[counter - 1] === "questionTrueOrFalse-style"){
+			}else if(this.typeQuestions[counter - 1] === "questionTrueOrFalse-style"){ // true or false question
 				tempScore = this.gradeTrueOrFalse(questionToBeGraded[counter].children[3].children[0], questionToBeGraded[counter].children[3].children[1], this.answersToQuestions[counter - 1]);
+				if(tempScore === this.answersToQuestions[counter - 1].length){
+					boxesChangeColor[counter - 1].className = "questionLastDivCorrect";
+				}else if (tempScore === 0){
+					boxesChangeColor[counter - 1].className = "questionLastDivIncorrect";
+				}else{
+					boxesChangeColor[counter - 1].className = "questionLastDivPartialCorrect";
+				}
 			}
 			totalScore += tempScore;
 		}
+		
+		
 		return;
 	},
 	
@@ -469,13 +478,19 @@ QuizBox.prototype = {
 	
 	gradeTrueOrFalse: function(falseChoices, trueChoices, answer) {
 		let score = 0;
-		const test1234 = trueChoices.children[0].innerHTML[1];
-		// console.log(test1234);
-		// console.log(trueChoices.children[0]);
+		let statementNum = 0;
 		for(let counter = 0; counter < trueChoices.children.length; counter++){
-			let statementNum = trueChoices.children[counter].innerHTML[1];
+			statementNum = trueChoices.children[counter].innerHTML[1];
 			console.log(statementNum);
-			if(answer[parseInt(statementNum) - 1] === true){
+			if(answer[parseInt(statementNum) - 1]){
+				score += 1;
+			}
+		}
+		console.log("doing false now");
+		for(let counter = 0; counter < falseChoices.children.length; counter++){
+			statementNum = falseChoices.children[counter].innerHTML[1];
+			console.log(statementNum);
+			if(answer[parseInt(statementNum) - 1] === false){
 				score += 1;
 			}
 		}
