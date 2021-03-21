@@ -56,6 +56,9 @@
 }
 
 
+.graded{
+	pointer-events: none; 
+}
 
 /* MAIN DIV STYLE END */
 
@@ -81,7 +84,7 @@
 	border: 1px solid #66c2ff; 
 	margin-left: 20px;
 	margin-bottom: 20px;
-	margin-top: 20px;
+	margin-top: 15px;
 	background-color: #ccebff;
 	border-radius: 10px;
 }
@@ -131,7 +134,7 @@
 
 
 .lastDivQuestion-style{
-	height:400px;
+	height:300px;
 	width: 450px;
 	overflow: auto;
 }
@@ -139,22 +142,49 @@
 .submitButton{
 	height: 40px;
 	width: 90px;
-	margin-top: 5px;
-	margin-right: 20px;
-	float: right;
+	margin-top: 30px;
+	margin-left: 20px;
+	float: left;
 	border-radius: 10px;
 	background-color: #ccebff;
 	border: 1px solid #66c2ff;
 	color:#66c2ff;
 	outline: None;
+	display: inline-block;
 }
 
 .submitButton:hover{
 	transform: translateY(-5px);
-	/* color: #66c2ff; */
 }
 
+.scoreAndSubmitDiv{
+	margin-top: 55px;
+	width: 450px;
+	height: 90px;
+}
 
+.finalScoreDiv{
+	border-radius: 30px;
+	width: 55px;
+	height: 55px;
+	display: inline-block;
+	border: 1px solid #00ff00;
+	background-color: #ccffcc;
+	text-align: center;
+	float: right;
+	margin-right: 20px;
+	margin-bottom: 20px;
+	margin-top: 20px;
+}
+
+.finalScoreText{
+	margin-top: 19px;
+	font-size: 17px;
+	margin-left: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+	
+}
 /* LAST DIV STYLE END */
 
 
@@ -199,12 +229,10 @@
 
 .preButton-style:hover{
 	transform: translateY(-5px);
-	/* color: #66c2ff; */
 }
 
 .nextButton-style:hover{
 	transform: translateY(-5px);
-	/* color: #66c2ff; */
 }
 
 .navQuestionDiv{
@@ -253,8 +281,6 @@
 	margin-top: 0px;
 }
 
-
-
 .questionMultipleChoiceOneDivBlue-style{
 	width: 300px;
 	height: 40px;
@@ -291,17 +317,16 @@
 	transform: translateY(-5px);
 	border: 1px solid #66c2ff;
 	background-color: #ccebff;
-	/* color: #66c2ff; */
 	
 }
 
 
-.questionMultipleChoiceOneP-style{
-   pointer-events: none;
-   cursor: default;
-   margin:auto;
+/* .questionMultipleChoiceOneP-style{ */
+   /* pointer-events: none; */
+   /* cursor: default; */
+   /* margin:auto; */
    
-}
+/* } */
 
 .questionMultipleChoiceOneSpan{
 	margin-left: 10px;  
@@ -391,9 +416,10 @@
 }
 
 .questionTrueOrFalseText-style{
-	font-size: large;
+	font-size: 16px;
 	margin-bottom: 13px;
-	margin-top: 0px;
+	margin-top: 8px;
+	margin-left: 5px;
 }
 .questionTrueOrFalseHeader-style{
 	font-size: 150%;
@@ -451,6 +477,7 @@
 	width: 90%;
 	margin-left: 20px;
 	overflow: auto;
+	box-shadow: 0px 9px 20px #cccccc;
 }
 
 .questionP{
@@ -472,10 +499,80 @@
 	opacity: 0.2;
 }
 
-
 /* TRUE OR FALSE QUESTION STYLES END */
 
 
+
+/*  SEQUENCE QUESTION STYLES START */
+
+
+.questionSequence-style{
+	background-color: white;
+	height: 455px;
+	width: 470px;
+	margin-left: 15px;
+	margin-right: 0px;
+	margin-bottom: auto;
+	margin-top: 30px;
+	overflow: auto;
+}
+
+
+.sequenceQuestionDiv-style{
+	width: 90%;
+	margin-left: 20px;
+	overflow: auto;
+	margin-bottom: 20px;
+}
+
+.title-style{
+	font-size: 20px;
+	margin-top: 0px;
+	margin-bottom: 8px;
+}
+
+.eventTile{
+	padding-top: 12px;
+	padding-right: 10px;
+	padding-bottom: 10px;
+	padding-left: 10px;
+	background-color: #18A0FB;
+	border: none;
+	cursor: move;
+	width: 170px;
+	min-height: 30px;
+	text-align: left;
+	margin-top: 10px;
+	margin-left: 12px;
+	border-radius: 8px;
+	margin-bottom: 0px;
+}
+
+.eventTextDiv-style{
+	border: 1px solid black;
+	width: 223px;
+	height: 320px;
+	overflow: auto;
+	display: inline-block;
+}
+
+.eventDropDiv-style{
+	border: 1px solid #0099ff;
+	width: 223px;
+	height: 320px;
+	overflow: auto;
+	display: inline-block;
+	margin-left: 20px;
+}
+.eventStartDiv-style{
+	height: 350px;
+}
+.sequenceQuestionDivText-style{
+	
+}
+
+
+/*  SEQUENCE QUESTION STYLES END */
 
 
 

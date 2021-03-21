@@ -1,20 +1,20 @@
 /* JS Libraries */
 "use strict";
-console.log('----------')
-console.log('SCRIPT: Creating and loading the JS libraries')
+
 
 function QuizBox(mainDiv) {
-	this.questions = [];
-	this.typeQuestions = [];
+
 	this.currentQuestion = 0;
 	this.numQuestions = 0;
-	this.answersToQuestions = [];
+	this.isGraded = false;
 	
 	this.QuizBoxDiv = document.createElement('div');
 	this.QuizBoxDiv.className = "QuizBox-style";
 	mainDiv.append(this.QuizBoxDiv);
 	this.addNavigationButtons();
 	
+	
+	this.questionObjects = [];
 
 }
 
@@ -25,9 +25,12 @@ QuizBox.prototype = {
 		if((this.currentQuestion - 1) < 0){
 			return;
 		}
-		this.questions[this.currentQuestion].className = "displayNone";
+		this.questionObjects[this.currentQuestion].question.className = "displayNone";
 		this.currentQuestion -= 1;
-		this.questions[this.currentQuestion].className = this.typeQuestions[this.currentQuestion];
+		this.questionObjects[this.currentQuestion].question.className = this.questionObjects[this.currentQuestion].typeQuestion;
+		if(this.isGraded){
+			this.questionObjects[this.currentQuestion].question.classList.add('graded');
+		}
 		const updateSelectNum = this.QuizBoxDiv.children[0].children[1].children[0];
 		updateSelectNum.value = this.currentQuestion + 1;
 	},
@@ -38,9 +41,12 @@ QuizBox.prototype = {
 			return;
 		}
 
-		this.questions[this.currentQuestion].className = "displayNone";
+		this.questionObjects[this.currentQuestion].question.className = "displayNone";
 		this.currentQuestion += 1;
-		this.questions[this.currentQuestion].className = this.typeQuestions[this.currentQuestion];
+		this.questionObjects[this.currentQuestion].question.className = this.questionObjects[this.currentQuestion].typeQuestion;
+		if(this.isGraded){
+			this.questionObjects[this.currentQuestion].question.classList.add('graded');
+		}
 		const updateSelectNum = this.QuizBoxDiv.children[0].children[1].children[0];
 		updateSelectNum.value = this.currentQuestion + 1;
 	},
@@ -93,9 +99,12 @@ QuizBox.prototype = {
 	},
 	changeQuestion: function(e) {
 		
-		this.questions[this.currentQuestion].className = "displayNone";
+		this.questionObjects[this.currentQuestion].question.className = "displayNone";
 		this.currentQuestion = e.target.value - 1;
-		this.questions[this.currentQuestion].className = this.typeQuestions[this.currentQuestion];
+		this.questionObjects[this.currentQuestion].question.className = this.questionObjects[this.currentQuestion].typeQuestion;
+		if(this.isGraded){
+			this.questionObjects[this.currentQuestion].question.className.classList.add('graded');
+		}
 		
 	},
 	
@@ -152,7 +161,7 @@ QuizBox.prototype = {
 		questionTextBox.className = "questionLastDivText"; 
 		questionBox.appendChild(questionTextBox);
 		questionBox.classList = "questionLastDiv";
-		lastDivQuestions. className = "lastDivQuestion-style" 
+		lastDivQuestions.className = "lastDivQuestion-style" 
 		
 		
 		submitButton.innerHTML = "Submit";
@@ -164,12 +173,17 @@ QuizBox.prototype = {
 		lastDiv.appendChild(lastDivQuestions);
 		
 		lastDivSubmit.appendChild(submitButton);
+		lastDivSubmit.className = "scoreAndSubmitDiv";
 		lastDiv.appendChild(lastDivSubmit);
 		
 		lastDiv.className = "displayNone";
+		
+		const questionObject = {question: lastDiv, typeQuestion: "lastDiv-style", answersToQuestion: null};
+		this.questionObjects.push(questionObject);
+		
+		
 		this.QuizBoxDiv.append(lastDiv);
-		this.questions.push(lastDiv);
-		this.typeQuestions.push("lastDiv-style");
+
 		this.updateNav(this.numQuestions + 1);
 		this.numQuestions += 1;
 		
@@ -190,9 +204,32 @@ QuizBox.prototype = {
 		
 	},
 	
+	updateAttributes: function(div, divClassName, answers) {
+		const questionObject = {question: div, typeQuestion: divClassName, answersToQuestion: answers};
+		this.questionObjects.push(questionObject);
+		
+		if(this.numQuestions !== 0){
+			questionObject.question.className = "displayNone";
+			
+			[this.questionObjects[this.questionObjects.length - 1], this.questionObjects[this.questionObjects.length - 2]] = [this.questionObjects[this.questionObjects.length - 2], this.questionObjects[this.questionObjects.length - 1]];
+			
+			this.QuizBoxDiv.insertBefore(div, this.QuizBoxDiv.lastChild);
+			this.updateSubmitPage(this.numQuestions);
+			
+		}else{
+			questionObject.question.className = divClassName;
+			
+			this.QuizBoxDiv.appendChild(div);
+			this.createSubmitPage();
+		}
+		
+		this.updateNav(this.numQuestions + 1);
+		this.numQuestions += 1;
+	},
+	
+	
 	createMultipleChoiceOne: function(question, options, answer) {
 		// TODO
-		this.answersToQuestions.push(answer);
 		const questionMultipleOne = document.createElement('div');
 		const questionText = document.createElement('p');
 		
@@ -214,35 +251,11 @@ QuizBox.prototype = {
 			
 		}
 		
-		this.typeQuestions.push("questionMultipleChoiceOne-style");
-		this.questions.push(questionMultipleOne);
-		
-		if(this.numQuestions !== 0){
-			questionMultipleOne.className = "displayNone";
-			
-			[this.typeQuestions[this.typeQuestions.length - 1], this.typeQuestions[this.typeQuestions.length - 2]] = [this.typeQuestions[this.typeQuestions.length - 2], this.typeQuestions[this.typeQuestions.length - 1]];
-			
-			
-			[this.questions[this.questions.length - 1], this.questions[this.questions.length - 2]] = [this.questions[this.questions.length - 2], this.questions[this.questions.length - 1]];
-			
-			this.QuizBoxDiv.insertBefore(questionMultipleOne, this.QuizBoxDiv.lastChild);
-			this.updateSubmitPage(this.numQuestions);
-			
-		}else{
-			questionMultipleOne.className = "questionMultipleChoiceOne-style";
-
-			this.QuizBoxDiv.appendChild(questionMultipleOne);
-			this.createSubmitPage();
-		}
-		
-		this.updateNav(this.numQuestions + 1);
-		this.numQuestions += 1;
+		this.updateAttributes(questionMultipleOne ,"questionMultipleChoiceOne-style", answer);
 		return;
 	},
 
 	createMultipleChoiceMany: function(question, options, answer) {
-		// TODO
-		this.answersToQuestions.push(answer);
 		const questionMultipleMany = document.createElement('div');
 		const questionText = document.createElement('p');
 		
@@ -263,29 +276,9 @@ QuizBox.prototype = {
 			
 		}
 		
-		this.typeQuestions.push("questionMultipleChoiceMany-style");
-		this.questions.push(questionMultipleMany);
 
 
-		if(this.numQuestions !== 0){
-			questionMultipleMany.className = "displayNone";
-			
-			[this.typeQuestions[this.typeQuestions.length - 1], this.typeQuestions[this.typeQuestions.length - 2]] = [this.typeQuestions[this.typeQuestions.length - 2], this.typeQuestions[this.typeQuestions.length - 1]];
-			
-			[this.questions[this.questions.length - 1], this.questions[this.questions.length - 2]] = [this.questions[this.questions.length - 2], this.questions[this.questions.length - 1]];
-			
-			this.QuizBoxDiv.insertBefore(questionMultipleMany, this.QuizBoxDiv.lastChild);
-			this.updateSubmitPage(this.numQuestions);
-			
-		}else{
-			questionMultipleMany.className = "questionMultipleChoiceMany-style";
-			this.QuizBoxDiv.appendChild(questionMultipleMany);
-			this.createSubmitPage();
-		}
-
-		this.updateNav(this.numQuestions + 1);
-		this.numQuestions += 1;
-
+		this.updateAttributes(questionMultipleMany ,"questionMultipleChoiceMany-style", answer);
 		return;
 	},
 	
@@ -312,9 +305,20 @@ QuizBox.prototype = {
 		}
 	},
 	
+	sequenceDragOver: function(e){
+		e.preventDefault();
+		const elementDragging = document.querySelector('.dragging');
+		try{
+			if(e.target.className === "eventTextDiv-style" || e.target.className === "eventDropDiv-style"){
+				e.target.appendChild(elementDragging);
+			}
+		}catch{
+			return;
+		}
+	},
+	
 	
 	createTrueOrFalseQuestion: function(question, answer){
-		this.answersToQuestions.push(answer);
 		const mainDiv = document.createElement('div');
 		const trueDiv = document.createElement('div');
 		const falseDiv = document.createElement('div');
@@ -375,52 +379,83 @@ QuizBox.prototype = {
 		mainDiv.appendChild(interactDiv);
 
 		
-		
-
-		this.questions.push(mainDiv);
-		this.typeQuestions.push("questionTrueOrFalse-style");
-		
-		if(this.numQuestions !== 0){
-			mainDiv.className = "displayNone";
-			
-			[this.typeQuestions[this.typeQuestions.length - 1], this.typeQuestions[this.typeQuestions.length - 2]] = [this.typeQuestions[this.typeQuestions.length - 2], this.typeQuestions[this.typeQuestions.length - 1]];
-			
-			
-			[this.questions[this.questions.length - 1], this.questions[this.questions.length - 2]] = [this.questions[this.questions.length - 2], this.questions[this.questions.length - 1]];
-			
-			this.QuizBoxDiv.insertBefore(mainDiv, this.QuizBoxDiv.lastChild);
-			this.updateSubmitPage(this.numQuestions);
-			
-		}else{
-			mainDiv.className = "questionTrueOrFalse-style";
-			this.QuizBoxDiv.appendChild(mainDiv);
-			this.createSubmitPage();
-		}
-
-		this.updateNav(this.numQuestions + 1);
-		this.numQuestions += 1;
+		this.updateAttributes(mainDiv ,"questionTrueOrFalse-style", answer);
 	},
 	
+	createSequenceQuestion: function(events, answer) {
+		const mainDivSequence = document.createElement('div');
+		const questionDiv = document.createElement('div');
+		const eventDiv = document.createElement('div');
+		const eventStartDiv = document.createElement('div');
+		const eventTextDiv = document.createElement('div');
+		const eventDropDiv = document.createElement('div');
+		
+		
+		mainDivSequence.className = "questionSequence-style";
+		questionDiv.className = "sequenceQuestionDiv-style";
+		eventStartDiv.className = "eventStartDiv-style";
+		eventTextDiv.className = "eventTextDiv-style";
+		eventDropDiv.className = "eventDropDiv-style";
+
+		const title = document.createElement('p');
+		title.innerHTML = " Correctly rearrange the events in the order in which it happened.";
+		title.className = "title-style";
+		const toolTip = document.createElement('div');
+		toolTip.innerHTML = "(How to answer?)";
+		toolTip.className = "toolTipDiv";
+		const toolTipText = document.createElement('span');
+		toolTipText.innerHTML = "Drag the grey tile into the blue rectangle in the order in which the events occured.";
+		toolTipText.className = "toolTipText";
+		
+		questionDiv.appendChild(title);
+		questionDiv.appendChild(toolTip);
+		toolTip.appendChild(toolTipText);
+		
+		for(let counter = 0; counter < events.length; counter++){
+			const tempQuestion = document.createElement('p');
+			tempQuestion.className = "eventTile";
+			tempQuestion.innerHTML = events[counter];
+			tempQuestion.setAttribute('draggable', true);
+			
+			tempQuestion.addEventListener("dragstart", this.trueOrFalseDragStart);
+			tempQuestion.addEventListener("dragend", this.trueOrFalseDragEnd);
+			
+			eventTextDiv.appendChild(tempQuestion);
+		}
+		
+		
+		eventTextDiv.addEventListener("dragover", this.sequenceDragOver);
+		eventDropDiv.addEventListener("dragover", this.sequenceDragOver);
+		
+		eventStartDiv.appendChild(eventTextDiv);
+		eventStartDiv.appendChild(eventDropDiv);
+		
+		mainDivSequence.append(questionDiv);
+		mainDivSequence.append(eventStartDiv);
+		
+		this.updateAttributes(mainDivSequence ,"questionTrueOrFalse-style", answer);
+	},
 	
 	gradeAnswers: function() {
 		const questionToBeGraded = this.QuizBoxDiv.children;
 		const boxesChangeColor = this.QuizBoxDiv.lastChild.children[0].children;
-		console.log(this.QuizBoxDiv.lastChild.children[0].children);
 		let totalScore = 0;
+		let totalQuestion = 0;
 		for(let counter = 1; counter < questionToBeGraded.length; counter++){
 			let tempScore = 0;
-			if(this.typeQuestions[counter - 1] ===  "questionMultipleChoiceOne-style"){ // multipleChoice question
-				tempScore = this.gradeMultipleChoice(questionToBeGraded[counter].children, this.answersToQuestions[counter - 1]);
+			if(this.questionObjects[counter - 1].typeQuestion ===  "questionMultipleChoiceOne-style"){ // multipleChoice question
+				tempScore = this.gradeMultipleChoice(questionToBeGraded[counter].children, this.questionObjects[counter - 1].answersToQuestion);
 				if(tempScore === 0){
 					boxesChangeColor[counter - 1].className = "questionLastDivIncorrect";
 				}else{
 					boxesChangeColor[counter - 1].className = "questionLastDivCorrect";
 				}
-			}else if(this.typeQuestions[counter - 1] ===  "questionMultipleChoiceMany-style"){ // multipleChoice question many
-				tempScore = this.gradeMultipleChoiceMany(questionToBeGraded[counter].children, this.answersToQuestions[counter - 1]);
+				totalQuestion += 1;
+			}else if(this.questionObjects[counter - 1].typeQuestion ===  "questionMultipleChoiceMany-style"){ // multipleChoice question many
+				tempScore = this.gradeMultipleChoiceMany(questionToBeGraded[counter].children, this.questionObjects[counter - 1].answersToQuestion);
 				if(tempScore === 0){
 					boxesChangeColor[counter - 1].className = "questionLastDivIncorrect";
-				}else if((tempScore > 0 && tempScore < this.answersToQuestions[counter - 1].length) || tempScore === -1){
+				}else if((tempScore > 0 && tempScore < this.questionObjects[counter].answersToQuestion) || tempScore === -1){
 					boxesChangeColor[counter - 1].className = "questionLastDivPartialCorrect";
 					if(tempScore === -1){
 						tempScore = 0;
@@ -428,20 +463,33 @@ QuizBox.prototype = {
 				}else{
 					boxesChangeColor[counter - 1].className = "questionLastDivCorrect";
 				}
-			}else if(this.typeQuestions[counter - 1] === "questionTrueOrFalse-style"){ // true or false question
-				tempScore = this.gradeTrueOrFalse(questionToBeGraded[counter].children[3].children[0], questionToBeGraded[counter].children[3].children[1], this.answersToQuestions[counter - 1]);
-				if(tempScore === this.answersToQuestions[counter - 1].length){
+				totalQuestion += this.questionObjects[counter - 1].answersToQuestion.length;
+			}else if(this.questionObjects[counter - 1].typeQuestion === "questionTrueOrFalse-style"){ // true or false question
+				tempScore = this.gradeTrueOrFalse(questionToBeGraded[counter].children[3].children[0], questionToBeGraded[counter].children[3].children[1], this.questionObjects[counter - 1].answersToQuestion);
+				if(tempScore === this.questionObjects[counter - 1].answersToQuestion.length){
 					boxesChangeColor[counter - 1].className = "questionLastDivCorrect";
 				}else if (tempScore === 0){
 					boxesChangeColor[counter - 1].className = "questionLastDivIncorrect";
 				}else{
 					boxesChangeColor[counter - 1].className = "questionLastDivPartialCorrect";
 				}
+				totalQuestion += this.questionObjects[counter - 1].answersToQuestion.length;
 			}
 			totalScore += tempScore;
 		}
+		this.isGraded = true;
+		const finalScore = document.createElement('div');
+		const finalScoreText = document.createElement('p');
 		
+		finalScoreText.innerHTML = totalScore + " / " + totalQuestion;
+		finalScore.appendChild(finalScoreText);
+		finalScoreText.className = "finalScoreText";
 		
+		finalScore.className = "finalScoreDiv";
+		
+		const divToAddTheFinalScore = this.QuizBoxDiv.lastChild.children[1];
+		
+		divToAddTheFinalScore.appendChild(finalScore);
 		return;
 	},
 	
@@ -481,20 +529,16 @@ QuizBox.prototype = {
 		let statementNum = 0;
 		for(let counter = 0; counter < trueChoices.children.length; counter++){
 			statementNum = trueChoices.children[counter].innerHTML[1];
-			console.log(statementNum);
 			if(answer[parseInt(statementNum) - 1]){
 				score += 1;
 			}
 		}
-		console.log("doing false now");
 		for(let counter = 0; counter < falseChoices.children.length; counter++){
 			statementNum = falseChoices.children[counter].innerHTML[1];
-			console.log(statementNum);
 			if(answer[parseInt(statementNum) - 1] === false){
 				score += 1;
 			}
 		}
-		console.log(score);
 		return score;
 	}
 	
