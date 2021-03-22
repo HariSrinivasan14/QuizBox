@@ -60,6 +60,9 @@
 	pointer-events: none; 
 }
 
+.draggingTile{
+	opacity: 0.2;
+}
 /* MAIN DIV STYLE END */
 
 
@@ -321,13 +324,6 @@
 }
 
 
-/* .questionMultipleChoiceOneP-style{ */
-   /* pointer-events: none; */
-   /* cursor: default; */
-   /* margin:auto; */
-   
-/* } */
-
 .questionMultipleChoiceOneSpan{
 	margin-left: 10px;  
 }
@@ -495,10 +491,6 @@
 	margin-bottom: 0px;
 }
 
-.questionP.dragging{
-	opacity: 0.2;
-}
-
 /* TRUE OR FALSE QUESTION STYLES END */
 
 
@@ -522,7 +514,7 @@
 	width: 90%;
 	margin-left: 20px;
 	overflow: auto;
-	margin-bottom: 20px;
+	margin-bottom: 0px;
 }
 
 .title-style{
@@ -533,11 +525,11 @@
 
 .eventTile{
 	padding-top: 12px;
-	padding-right: 10px;
+	padding-right: 5px;
 	padding-bottom: 10px;
 	padding-left: 10px;
-	background-color: #18A0FB;
-	border: none;
+	background-color: #ccebff;
+	border: 0.5px solid #0099ff;
 	cursor: move;
 	width: 170px;
 	min-height: 30px;
@@ -549,29 +541,49 @@
 }
 
 .eventTextDiv-style{
-	border: 1px solid black;
-	width: 223px;
-	height: 320px;
+	width: 220px;
+	height: 305px;
 	overflow: auto;
 	display: inline-block;
+	border-radius: 5px;
 }
 
 .eventDropDiv-style{
 	border: 1px solid #0099ff;
-	width: 223px;
-	height: 320px;
+	width: 220px;
+	height: 305px;
 	overflow: auto;
 	display: inline-block;
-	margin-left: 20px;
+	margin-left: 15px;
+	margin-right: 0px;
+	border-radius: 10px;
 }
 .eventStartDiv-style{
-	height: 350px;
-}
-.sequenceQuestionDivText-style{
-	
+	height: 315px;
+	width:470px;
 }
 
 
+.labelDiv{
+	width: 423px;
+	height: 25px;
+}
+.label{
+	float: right;
+	font-weight: bold;
+	font-size: 20px;
+	margin-top: 0px;
+	margin-right: 20px;
+	margin-bottom: 5px;
+}
+.label2{
+	float: right;
+	font-weight: bold;
+	font-size: 20px;
+	margin-top: 0px;
+	margin-right: 25px;
+	margin-bottom: 5px;
+}
 /*  SEQUENCE QUESTION STYLES END */
 
 

@@ -18,4 +18,4 @@ newQuiz.createMultipleChoiceMany("This is a test question. Please choose one of 
 newQuiz.createTrueOrFalseQuestion(["Australia is wider than the moon.", "An octopus has three hearts.", "Bananas are curved because they grow upwards towards the sun.", "the letter A is the most common letter used in the English language."], [true, true, true, false]);
 
 
-// newQuiz.createSequenceQuestion(["Treaty between England-France", " A political revolution in Turkey. this is a test. this is a test. this is a test. this is a test. this is a test. this is a test.", "A friendship treaty between England-Japan", "A friendship treaty between England-Russia. this is test text. this is test text. this is a test. this is a test. this is a test."], ["event 2", "event 3", "event 1"]);
+newQuiz.createSequenceQuestion(["Invention of the Turing Machine.", "American Civil War.", "Extinction of Dinosaurs.", "First time landing on the Moon", "COVID-19."], ["COVID-19.", "First time landing on the Moon", "Invention of the Turing Machine.", "American Civil War.", "Extinction of Dinosaurs."]);

@@ -178,8 +178,8 @@ QuizBox.prototype = {
 		
 		lastDiv.className = "displayNone";
 		
-		const questionObject = {question: lastDiv, typeQuestion: "lastDiv-style", answersToQuestion: null};
-		this.questionObjects.push(questionObject);
+		const QuestionObject = {question: lastDiv, typeQuestion: "lastDiv-style", answersToQuestion: null};
+		this.questionObjects.push(QuestionObject);
 		
 		
 		this.QuizBoxDiv.append(lastDiv);
@@ -205,11 +205,11 @@ QuizBox.prototype = {
 	},
 	
 	updateAttributes: function(div, divClassName, answers) {
-		const questionObject = {question: div, typeQuestion: divClassName, answersToQuestion: answers};
-		this.questionObjects.push(questionObject);
+		const QuestionObject = {question: div, typeQuestion: divClassName, answersToQuestion: answers};
+		this.questionObjects.push(QuestionObject);
 		
 		if(this.numQuestions !== 0){
-			questionObject.question.className = "displayNone";
+			QuestionObject.question.className = "displayNone";
 			
 			[this.questionObjects[this.questionObjects.length - 1], this.questionObjects[this.questionObjects.length - 2]] = [this.questionObjects[this.questionObjects.length - 2], this.questionObjects[this.questionObjects.length - 1]];
 			
@@ -217,7 +217,7 @@ QuizBox.prototype = {
 			this.updateSubmitPage(this.numQuestions);
 			
 		}else{
-			questionObject.question.className = divClassName;
+			QuestionObject.question.className = divClassName;
 			
 			this.QuizBoxDiv.appendChild(div);
 			this.createSubmitPage();
@@ -282,20 +282,20 @@ QuizBox.prototype = {
 		return;
 	},
 	
-	trueOrFalseDragStart: function(e){
-		e.target.classList.add('dragging');
+	dragStart: function(e){
+		e.target.classList.add('draggingTile');
 	},
 	
 	
-	trueOrFalseDragEnd: function(e){
-		e.target.classList.remove('dragging');
+	dragEnd: function(e){
+		e.target.classList.remove('draggingTile');
 
 	},
 	
 	
 	trueOrFalseDragOver: function(e){
 		e.preventDefault();
-		const elementDragging = document.querySelector('.dragging');
+		const elementDragging = document.querySelector('.draggingTile');
 		try{
 			if(e.target.className === "trueDiv" || e.target.className === "falseDiv" || e.target.className === "startDiv"){
 				e.target.appendChild(elementDragging);
@@ -304,20 +304,38 @@ QuizBox.prototype = {
 			return;
 		}
 	},
-	
+	getClosestElement: function(tileArray, cursorYPosition){
+		return tileArray.reduce((closestTile, tileElement) => {
+			const tileElementBounds = tileElement.getBoundingClientRect();
+			const position = cursorYPosition - (tileElementBounds.height / 2) - tileElementBounds.top;
+			if(position < 0 && position > closestTile.position){
+				return {tile: tileElement, position: position};
+			}else{
+				return closestTile;
+			}
+		}, {position: Number.NEGATIVE_INFINITY}).tile;
+	},
 	sequenceDragOver: function(e){
 		e.preventDefault();
-		const elementDragging = document.querySelector('.dragging');
+		const elementDragging = document.querySelector('.draggingTile');
+		let notDraggingElementsNodeList = e.target.querySelectorAll('.eventTile:not(.draggingTile)');
+		const notDraggingElements = [];
+		for(let counter = 0; counter < notDraggingElementsNodeList.length; counter++ ){
+			notDraggingElements.push(notDraggingElementsNodeList[counter]);
+		}
+		const closestElement = this.getClosestElement(notDraggingElements, e.clientY);
 		try{
 			if(e.target.className === "eventTextDiv-style" || e.target.className === "eventDropDiv-style"){
-				e.target.appendChild(elementDragging);
+				if(closestElement === null){
+					e.target.appendChild(elementDragging);
+				}else{
+					e.target.insertBefore(elementDragging, closestElement);
+				}
 			}
 		}catch{
 			return;
 		}
 	},
-	
-	
 	createTrueOrFalseQuestion: function(question, answer){
 		const mainDiv = document.createElement('div');
 		const trueDiv = document.createElement('div');
@@ -360,8 +378,8 @@ QuizBox.prototype = {
 			tempP.innerHTML = "S" + (counter + 1) + "";
 			tempP.setAttribute('draggable', true);
 			
-			tempP.addEventListener("dragstart", this.trueOrFalseDragStart );
-			tempP.addEventListener("dragend", this.trueOrFalseDragEnd);
+			tempP.addEventListener("dragstart", this.dragStart);
+			tempP.addEventListener("dragend", this.dragEnd);
 			
 			questionDiv.appendChild(tempQuestion);
 			startDiv.appendChild(tempP);
@@ -404,11 +422,25 @@ QuizBox.prototype = {
 		toolTip.innerHTML = "(How to answer?)";
 		toolTip.className = "toolTipDiv";
 		const toolTipText = document.createElement('span');
-		toolTipText.innerHTML = "Drag the grey tile into the blue rectangle in the order in which the events occured.";
+		toolTipText.innerHTML = "Drag the blue tile into the blue rectangle in the order in which the events occured.";
 		toolTipText.className = "toolTipText";
+		const labelDiv1 = document.createElement('div');
+		const label1 = document.createElement('p');
+		label1.innerHTML = "Most Recent Event";
+		labelDiv1.appendChild(label1);
+		labelDiv1.className = "labelDiv";
+		label1.className = "label";
+		
+		const labelDiv2 = document.createElement('div');
+		labelDiv2.className = "labelDiv";
+		const label2 = document.createElement('p');
+		labelDiv2.appendChild(label2);
+		label2.innerHTML = "Oldest Event";
+		label2.className = "label2";
 		
 		questionDiv.appendChild(title);
 		questionDiv.appendChild(toolTip);
+		questionDiv.appendChild(labelDiv1);
 		toolTip.appendChild(toolTipText);
 		
 		for(let counter = 0; counter < events.length; counter++){
@@ -417,23 +449,24 @@ QuizBox.prototype = {
 			tempQuestion.innerHTML = events[counter];
 			tempQuestion.setAttribute('draggable', true);
 			
-			tempQuestion.addEventListener("dragstart", this.trueOrFalseDragStart);
-			tempQuestion.addEventListener("dragend", this.trueOrFalseDragEnd);
+			tempQuestion.addEventListener("dragstart", this.dragStart);
+			tempQuestion.addEventListener("dragend", this.dragEnd);
 			
 			eventTextDiv.appendChild(tempQuestion);
 		}
 		
 		
-		eventTextDiv.addEventListener("dragover", this.sequenceDragOver);
-		eventDropDiv.addEventListener("dragover", this.sequenceDragOver);
+		eventTextDiv.addEventListener("dragover", this.sequenceDragOver.bind(this));
+		eventDropDiv.addEventListener("dragover", this.sequenceDragOver.bind(this));
 		
 		eventStartDiv.appendChild(eventTextDiv);
 		eventStartDiv.appendChild(eventDropDiv);
 		
 		mainDivSequence.append(questionDiv);
 		mainDivSequence.append(eventStartDiv);
+		mainDivSequence.append(labelDiv2);
 		
-		this.updateAttributes(mainDivSequence ,"questionTrueOrFalse-style", answer);
+		this.updateAttributes(mainDivSequence ,"questionSequence-style", answer);
 	},
 	
 	gradeAnswers: function() {
@@ -466,6 +499,16 @@ QuizBox.prototype = {
 				totalQuestion += this.questionObjects[counter - 1].answersToQuestion.length;
 			}else if(this.questionObjects[counter - 1].typeQuestion === "questionTrueOrFalse-style"){ // true or false question
 				tempScore = this.gradeTrueOrFalse(questionToBeGraded[counter].children[3].children[0], questionToBeGraded[counter].children[3].children[1], this.questionObjects[counter - 1].answersToQuestion);
+				if(tempScore === this.questionObjects[counter - 1].answersToQuestion.length){
+					boxesChangeColor[counter - 1].className = "questionLastDivCorrect";
+				}else if (tempScore === 0){
+					boxesChangeColor[counter - 1].className = "questionLastDivIncorrect";
+				}else{
+					boxesChangeColor[counter - 1].className = "questionLastDivPartialCorrect";
+				}
+				totalQuestion += this.questionObjects[counter - 1].answersToQuestion.length;
+			}else if(this.questionObjects[counter - 1].typeQuestion === "questionSequence-style"){
+				tempScore = this.gradeSequence(questionToBeGraded[counter].children[1].children[1].children, this.questionObjects[counter - 1].answersToQuestion);
 				if(tempScore === this.questionObjects[counter - 1].answersToQuestion.length){
 					boxesChangeColor[counter - 1].className = "questionLastDivCorrect";
 				}else if (tempScore === 0){
@@ -540,7 +583,19 @@ QuizBox.prototype = {
 			}
 		}
 		return score;
-	}
+	},
+	
+	gradeSequence: function(events, answer) {
+		let score = 0;
+		console.log(events);
+		for(let counter = 0; counter < events.length; counter++){
+			let eventText = events[counter].innerHTML;
+			if(eventText === answer[counter]){
+				score += 1
+			}	
+		}
+		return score;
+	},
 	
 	
 }
