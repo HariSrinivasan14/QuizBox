@@ -308,7 +308,7 @@ QuizBox.prototype = {
 		return tileArray.reduce((closestTile, tileElement) => {
 			const tileElementBounds = tileElement.getBoundingClientRect();
 			const position = cursorYPosition - (tileElementBounds.height / 2) - tileElementBounds.top;
-			if(position < 0 && position > closestTile.position){
+			if(position > closestTile.position && position < 0){
 				return {tile: tileElement, position: position};
 			}else{
 				return closestTile;
