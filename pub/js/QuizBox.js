@@ -416,7 +416,7 @@ QuizBox.prototype = {
 		eventDropDiv.className = "eventDropDiv-style";
 
 		const title = document.createElement('p');
-		title.innerHTML = " Correctly rearrange the events in the order in which it happened.";
+		title.innerHTML = " Correctly rearrange the events from the most recent event to the oldest event.";
 		title.className = "title-style";
 		const toolTip = document.createElement('div');
 		toolTip.innerHTML = "(How to answer?)";
