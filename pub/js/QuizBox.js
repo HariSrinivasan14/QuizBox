@@ -488,7 +488,7 @@ QuizBox.prototype = {
 				tempScore = this.gradeMultipleChoiceMany(questionToBeGraded[counter].children, this.questionObjects[counter - 1].answersToQuestion);
 				if(tempScore === 0){
 					boxesChangeColor[counter - 1].className = "questionLastDivIncorrect";
-				}else if((tempScore > 0 && tempScore < this.questionObjects[counter].answersToQuestion) || tempScore === -1){
+				}else if((tempScore > 0 && tempScore < this.questionObjects[counter].answersToQuestion.length) || tempScore === -1){
 					boxesChangeColor[counter - 1].className = "questionLastDivPartialCorrect";
 					if(tempScore === -1){
 						tempScore = 0;
