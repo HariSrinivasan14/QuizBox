@@ -153,7 +153,6 @@
 	border: 1px solid #66c2ff;
 	color:#66c2ff;
 	outline: None;
-	display: inline-block;
 }
 
 .submitButton:hover{
@@ -170,7 +169,6 @@
 	border-radius: 30px;
 	width: 55px;
 	height: 55px;
-	display: inline-block;
 	border: 1px solid #00ff00;
 	background-color: #ccffcc;
 	text-align: center;
@@ -250,11 +248,11 @@
 	display: inline-block;
 	width: 60px;
 	height: 30px;
-	background-color: #f2f2f2;
+	background-color: #ccebff;
 	outline: none;
 	border-radius: 5px;
-	border: 1px solid #b3b3b3;
-	color: #b3b3b3;
+	border: 1px solid #66c2ff;
+	color: #66c2ff;
 	
 }
 
@@ -433,23 +431,29 @@
 }
 .trueDiv{
 	margin-top: 20px;
-	border: 3px dashed #00ff00;
+	border: 3px dashed #66ff66;
 	float: left;
 	height: 190px;
 	width: 45%;
 	margin-left: 30px;
 	margin-right: 0px;
 	overflow: auto;
+	background-image: url(./images/true_image.jpg);
+	background-repeat: no-repeat;
+	background-position: center;
 }
 
 .falseDiv{
 	margin-top: 20px;
-	border: 3px dashed #ff5050;
+	border: 3px dashed #ff4d4d;
 	float: left;
 	height: 190px;
 	width: 45%;
 	margin-left: 0px;
 	overflow: auto;
+	background-image: url(./images/false_image.jpg);
+	background-repeat: no-repeat;
+	background-position: center;
 }
 
 .startDiv{
@@ -486,7 +490,7 @@
 	width: 20px;
 	height: 20px;
 	margin-top: 10px;
-	margin-left: 12px;
+	margin-left: 17px;
 	display: inline-block;
 	border-radius: 8px;
 	text-align: center;
@@ -589,7 +593,45 @@
 /*  SEQUENCE QUESTION STYLES END */
 
 
+/*  FILL IN THE BLANKS QUESTION STYLES START */
 
+.questionFillInBlank-style{
+	background-color: white;
+	height: 460px;
+	width: 90%;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: auto;
+	margin-top: 30px;
+	overflow: auto;
+}
+
+.titleFill-style{
+	font-size: 150%;
+	margin-bottom: 13px;
+	margin-top: 0px;
+	font-weight: bold;
+}
+
+.questionText-style{
+	display: inline-block;
+}
+
+.questionDivFillInBlank-style{
+	margin-top: 30px;
+}
+
+.inputBox-style{
+	display: inline-block;
+	width:  90px;
+	margin-left: 5px;
+	margin-right: 5px;
+}
+
+
+
+
+/*  FILL IN THE BLANKS QUESTION STYLES END */
 
 
 

@@ -375,7 +375,7 @@ QuizBox.prototype = {
 			tempQuestion.innerHTML = (counter + 1) +") "+ question[counter];
 			tempQuestion.className = "questionTrueOrFalseText-style";
 			tempP.className = "questionP";
-			tempP.innerHTML = "S" + (counter + 1) + "";
+			tempP.innerHTML = (counter + 1);
 			tempP.setAttribute('draggable', true);
 			
 			tempP.addEventListener("dragstart", this.dragStart);
@@ -468,6 +468,49 @@ QuizBox.prototype = {
 		
 		this.updateAttributes(mainDivSequence ,"questionSequence-style", answer);
 	},
+
+	createFillInTheBlank: function(questions, answers) {
+		const mainDivFill = document.createElement('div');
+		const titleDiv = document.createElement('div');
+		const questionMainDiv = document.createElement('div');
+		
+		
+		mainDivFill.className = "questionFillInBlanks-style";
+		// questionDiv.className = "sequenceQuestionDiv-style";
+
+		const title = document.createElement('p');
+		titleDiv.appendChild(title);
+		title.innerHTML = "Fill in the Blank";
+		title.className = "titleFill-style";
+		
+		for(let counter = 0; counter < questions.length; counter++){
+			let questionDivided = questions[counter].split("___");
+			let dividedText = document.createElement("p");
+			dividedText.className = "questionText-style";
+			for(let counter2 = 0; counter2 < questionDivided.length; counter2++){
+				if(counter2 === 0){
+					dividedText.innerHTML = (counter + 1) + ") ";
+					dividedText.className = "questionText-style";
+					dividedText.innerHTML = dividedText.innerHTML + questionDivided[counter2];
+				}else{
+					let inputBox = document.createElement("input");
+					inputBox.className = "inputBox-style";
+					dividedText.className = "questionText-style"
+					dividedText.append(inputBox);
+					dividedText.innerHTML += questionDivided[counter2]
+				}
+				questionMainDiv.append(dividedText);
+				
+			}
+		}
+	
+		
+		mainDivFill.append(titleDiv);
+		mainDivFill.append(questionMainDiv);
+		
+		this.updateAttributes(mainDivFill ,"questionFillInBlank-style", answers);
+	},
+
 	
 	gradeAnswers: function() {
 		const questionToBeGraded = this.QuizBoxDiv.children;
@@ -571,13 +614,13 @@ QuizBox.prototype = {
 		let score = 0;
 		let statementNum = 0;
 		for(let counter = 0; counter < trueChoices.children.length; counter++){
-			statementNum = trueChoices.children[counter].innerHTML[1];
+			statementNum = trueChoices.children[counter].innerHTML;
 			if(answer[parseInt(statementNum) - 1]){
 				score += 1;
 			}
 		}
 		for(let counter = 0; counter < falseChoices.children.length; counter++){
-			statementNum = falseChoices.children[counter].innerHTML[1];
+			statementNum = falseChoices.children[counter].innerHTML;
 			if(answer[parseInt(statementNum) - 1] === false){
 				score += 1;
 			}
