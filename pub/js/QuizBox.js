@@ -292,7 +292,13 @@ QuizBox.prototype = {
 	
 	trueOrFalseDragOver: function(e){
 		e.preventDefault();
+		console.log(e)
 		const elementDragging = document.querySelector('.draggingTile');
+		// console.log(elementDragging.parentNode.parentNode.parentNode.parentNode)
+		// console.log(e.target.parentNode.parentNode.parentNode.parentNode)
+		// let temp = elementDragging.parentNode.parentNode.parentNode.parentNode;
+		// let temp2 = e.target.parentNode.parentNode.parentNode.parentNode;
+		// console.log(temp === temp2)
 		try{
 			if(e.target.className === "trueDiv" || e.target.className === "falseDiv" || e.target.className === "startDiv"){
 				e.target.appendChild(elementDragging);
@@ -505,20 +511,48 @@ QuizBox.prototype = {
 		this.updateAttributes(mainDivFill ,"questionFillInBlank-style", answers, answers.length);
 	},
 
+	handleMatchClick: function(e){
+		console.log(e);
+		const tempArr = []
+
+	},
+
 	createMatching: function(match1, match2, answer) {
 		const mainDivMatching = document.createElement('div');
 		const titleDiv = document.createElement('div');
 		const questionMainDiv = document.createElement('div');
 		
-			
-		for(let counter = 0; counter < options.length; counter++){
-
-			
-		}
+		mainDivMatching.className = "questionMatching-style";
 		
+		const title = document.createElement('p');
+		titleDiv.appendChild(title);
+		title.innerHTML = "Matching";
+		title.className = "titleMatching-style";
+		const match1Div = document.createElement('div');
+		match1Div.className ="matchTileDiv";
+		for(let counter = 0; counter < match1.length; counter++){
+			const matchQuestion = document.createElement('p');
+			matchQuestion.className = "matchTile1-style";
+			matchQuestion.innerHTML = match1[counter];
+			match1Div.append(matchQuestion);
+			matchQuestion.addEventListener("click", this.handleMatchClick.bind(this));
+		}
 
+		const match2Div = document.createElement('div');
+		match2Div.className ="matchTileDiv";
+		for(let counter = 0; counter < match2.length; counter++){
+			const matchQuestion = document.createElement('p');
+			matchQuestion.className = "matchTile2-style";
+			matchQuestion.innerHTML = match2[counter];
+			match2Div.append(matchQuestion);
+			matchQuestion.addEventListener("click", this.handleMatchClick.bind(this));
+		}
+		questionMainDiv.append(match1Div);
+		questionMainDiv.append(match2Div);
 
-		this.updateAttributes(questionMultipleMany ,"questionMultipleChoiceMany-style", answer, answer.length);
+		mainDivMatching.append(titleDiv);
+		mainDivMatching.append(questionMainDiv);
+		this.updateAttributes(mainDivMatching ,"questionMatching-style", answer, answer.length);
 		return;
 	},
 
