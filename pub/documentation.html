@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>QuizBox JS Libraries</title>
+
+
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+ </head>
+ <body>
+    <header class = "header">
+        <div class = "titlediv">
+            <H1 class = "headerTitle">QuizBox</H1>
+            <h3>Easily Make Online Quizzes</h3>
+        </div>
+        <div class = "logo">
+            <H1 class = "logoText">Q</H1>
+            
+            <H1 class = "logoText">B</H1>
+        </div>
+    </header>
+
+    <div class="navBar">
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="documentation.html">Documentation</a></li>
+            <li><a href="example.html">Example</a></li>
+        </ul>
+    </div>
+
+    <div id='mainDiv'>
+        <h1 class="API-header">Question API</h1>
+        <div>
+            <table id='createQuizTable'>
+                <thead id='createQuizTableHead'>
+                    <tr>
+                        <th>
+                            Name
+                        </th>
+                        <th>
+                            Description
+                        </th>
+                        <th>
+                            Parameters
+                        </th>
+                        <th>
+                            Return Value
+                        </th>
+                        <th>
+                            Usage
+                        </th>
+                    </tr>
+                </thead>
+
+
+                <tbody>
+                    <tr class="createQuizTableRow">
+                        <td class="Name">
+                            <b><p>QuizBox</p></b>
+                        </td>
+                        <td class="description">
+                            <p>Given the parameter element, the function will return a JS object that represents a quiz.</p>
+                        </td>
+                        <td>
+                            <p><b>Element</b>: is a DOM element that the quiz will appear in the browser.</p>
+                        </td>
+                        <td>
+                            0
+                        </td>
+                        <td>
+                            <ul class="innerBullet">
+                                <li><b>Example:</b>
+                                    <ul>
+                                        <li><p>Const elementToAddQuizTo = document.querySelector('body');</p></li>
+                                        <li><p> <b>Const</b> newQuiz = <span class="Name">QuizBox</span>(elementToAddQuizTo);</p></li>
+                                        <li><p><b>NOTE:</b> the quiz will appear in the body element.</p></li>
+                                      </ul>
+                                </li>
+                              </ul>
+                        </td>
+                    </tr>
+                    <tr class="createQuizTableRow">
+                        <td class="Name">
+                            <b><p>createMultipleChoiceOne</p></b>
+                        </td>
+                        <td class="description">
+                            <p>Given the parameters, question, options and answer, the function will create a multiple-choice question and add it to the quiz. 
+                                Users can answer the question by selecting one of the options as their answer to the question.</p>
+                        </td>
+                        <td>
+                            <ul class="Bullet">
+                                <li><b>question:</b> is string that represents the question.</li>
+                                <br>
+                                <li><b>options::</b> is an array of strings where each string is an answer option to the question.</li>
+                                <br>
+                                <li><b>answer:</b> is a string that is contained in the “options” array. This string represents the answer to the question.</li>
+                            </ul>
+                        </td>
+                        <td>
+                            0
+                        </td>
+                        <td>
+                            <ul>
+                                <li><b>NOTE:</b> If a developer wants to create this type of multiple-choice question, they must first create a QuizBox object.</li>
+                                <br>
+                                <li><b>Example:</b>
+                                    <ul class="innerBullet">
+                                        <li><p>Const elementToAddQuizTo = document.querySelector('body');</p></li>
+                                        <li><p> <b>Const</b> newQuiz = <span class="Name">QuizBox</span>(elementToAddQuizTo);</p></li>
+                                        <li><p>newQuiz.<span class="Name">createMultipleChoiceOne</span> (“What is 2 + 2”, [“1”, “2”, “3”, “4”], “4”);</p></li>
+                                      </ul>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+
+                    <tr class="createQuizTableRow">
+                        <td class="Name">
+                            <b><p>createMultipleChoiceMany</p></b>
+                        </td>
+                        <td class="description">
+                            <p>Given the parameters, question, options and answers, the function will create a 
+                                multiple-choice question and add it to the quiz. Users can answer the question by 
+                                selecting multiple options as their answer to the question.</p>
+                        </td>
+                        <td>
+                            <ul class="Bullet">
+                                <li><b>question:</b> is string that represents the question.</li>
+                                <br>
+                                <li><b>options:</b> is an array of strings where each string is an answer option to the question.</li>
+                                <br>
+                                <li><b>answer:</b> is an array of strings that are contained in the “options” array. 
+                                    This array of strings represents the answers to the question.</li>
+                            </ul>
+                        </td>
+                        <td>
+                            0
+                        </td>
+                        <td>
+                            <ul>
+                                <li><b>NOTE:</b> If a developer wants to create this type of multiple-choice question, they must first create a QuizBox object.</li>
+                                <br>
+                                <li><b>Example:</b>
+                                    <ul class="innerBullet">
+                                        <li><p>Const elementToAddQuizTo = document.querySelector('body');</p></li>
+                                        <li><p> <b>Const</b> newQuiz = <span class="Name">QuizBox</span>(elementToAddQuizTo);</p></li>
+                                        <li><p>newQuiz.<span class="Name">createMultipleChoiceMany</span>(“Which of the following
+                                            cities are located in Ontario, Canada?”, [“Hamilton”, “Toronto”, “Mississauga”, “New York”], 
+                                            [“Hamilton”, “Toronto”, “Mississauga”]);</p></li>
+                                      </ul>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+
+                    <tr class="createQuizTableRow">
+                        <td class="Name">
+                            <b><p>createTrueOrFalseQuestion</p></b>
+                        </td>
+                        <td class="description">
+                            <p>Given the parameters, statements and answers, the function will create a true or false question and add it to the quiz. 
+                                Users can answer the question by dragging tiles (each tile represents a statement) into the red box 
+                                (statements in this box are considered false) or into green box (statements in this box are considered true).</p>
+                        </td>
+                        <td>
+                            <ul class="Bullet">
+                                <li><b>statements:</b> is string that represents the question.</li>
+                                <br>
+                                <li><b>answer:</b> is an array of Boolean values. The value at an index indicates
+                                    the validity of the statement at the same index in the array “statements”. 
+                                    For example, if the value at index 0 in the array “answers” is true then the 
+                                    statement at index 0 in the array “statements” is true.</li>
+                            </ul>
+                        </td>
+                        <td>
+                            0
+                        </td>
+                        <td>
+                            <ul>
+                                <li><b>NOTE:</b> If a developer wants to create this type of multiple-choice question, they must first create a QuizBox object.</li>
+                                <br>
+                                <li><b>Example:</b>
+                                    <ul class="innerBullet">
+                                        <li><p>Const elementToAddQuizTo = document.querySelector('body');</p></li>
+                                        <li><p> <b>Const</b> newQuiz = <span class="Name">QuizBox</span>(elementToAddQuizTo);</p></li>
+                                        <li><p>newQuiz.<span class="Name">createMultipleChoiceMany</span>([“URL stands for Uniform Resource Locator”, 
+                                            “HTTP stands for HyperText Translation Protocol”], [true, false]);</p></li>
+                                      </ul>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+
+                    <tr class="createQuizTableRow">
+                        <td class="Name">
+                            <b><p>createSequenceQuestion</p></b>
+                        </td>
+                        <td class="description">
+                            <p>Given the parameters, events and answer, the function will 
+                                create a sequence question and add it to the quiz. 
+                                Users can answer the question by dragging tiles (each tile represents an event) 
+                                into the blue box chronologically.</p>
+                        </td>
+                        <td>
+                            <ul class="Bullet">
+                                <li><b>Events:</b> is an array of strings where each string is an event.</li>
+                                <br>
+                                <li><b>answer:</b> is an array of strings that are contained in the array “events”. 
+                                    Note that the event at index 0 is the most recent event and the event at
+                                    length of “answer” - 1 is the oldest event.</li>
+                            </ul>
+                        </td>
+                        <td>
+                            0
+                        </td>
+                        <td>
+                            <ul>
+                                <li><b>NOTE:</b> If a developer wants to create this type of multiple-choice question, they must first create a QuizBox object.</li>
+                                <br>
+                                <li><b>Example:</b>
+                                    <ul class="innerBullet">
+                                        <li><p><b>Const</b> elementToAddQuizTo = document.querySelector('body');</p></li>
+                                        <li><p> <b>Const</b> newQuiz = <span class="Name">QuizBox</span>(elementToAddQuizTo);</p></li>
+                                        <li><p>newQuiz.<span class="Name">createSequenceQuestion</span> ([“World War 2”, “World
+                                            War 1”, “COVID-19”], [“COVID-19”, “World War 1”, “World War 2”]);</p></li>
+                                      </ul>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+
+
+ </body>
+
+</html>
