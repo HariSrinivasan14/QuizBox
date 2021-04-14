@@ -148,7 +148,7 @@ QuizBox.prototype = {
 		this.QuizBoxDiv.appendChild(navigationDiv);
 
 	},
-	createSubmitPage: function() {
+	createSubmitPage: function(points) {
 		const lastDiv = document.createElement('div');
 		const lastDivQuestions = document.createElement('div');
 		const lastDivSubmit = document.createElement('div');
@@ -157,7 +157,7 @@ QuizBox.prototype = {
 		const questionTextBox = document.createElement('p');
 		
 		
-		questionTextBox.innerHTML = "Question 1";
+		questionTextBox.innerHTML = "Q1: --/" + points;
 		questionTextBox.className = "questionLastDivText"; 
 		questionBox.appendChild(questionTextBox);
 		questionBox.classList = "questionLastDiv";
@@ -189,12 +189,12 @@ QuizBox.prototype = {
 		
 	},
 	
-	updateSubmitPage: function(questionNum) {
+	updateSubmitPage: function(questionNum, points) {
 		const questionBox = document.createElement('div');
 		const questionTextBox = document.createElement('p');
 		
 		
-		questionTextBox.innerHTML = "Question " + questionNum;
+		questionTextBox.innerHTML = "Q" + questionNum + ": --/" + points;
 		questionTextBox.className = "questionLastDivText"; 
 		questionBox.appendChild(questionTextBox);
 		questionBox.classList = "questionLastDiv";
@@ -204,7 +204,7 @@ QuizBox.prototype = {
 		
 	},
 	
-	updateAttributes: function(div, divClassName, answers) {
+	updateAttributes: function(div, divClassName, answers, points) {
 		const QuestionObject = {question: div, typeQuestion: divClassName, answersToQuestion: answers};
 		this.questionObjects.push(QuestionObject);
 		
@@ -214,13 +214,13 @@ QuizBox.prototype = {
 			[this.questionObjects[this.questionObjects.length - 1], this.questionObjects[this.questionObjects.length - 2]] = [this.questionObjects[this.questionObjects.length - 2], this.questionObjects[this.questionObjects.length - 1]];
 			
 			this.QuizBoxDiv.insertBefore(div, this.QuizBoxDiv.lastChild);
-			this.updateSubmitPage(this.numQuestions);
+			this.updateSubmitPage(this.numQuestions, points);
 			
 		}else{
 			QuestionObject.question.className = divClassName;
 			
 			this.QuizBoxDiv.appendChild(div);
-			this.createSubmitPage();
+			this.createSubmitPage(points);
 		}
 		
 		this.updateNav(this.numQuestions + 1);
@@ -229,12 +229,9 @@ QuizBox.prototype = {
 	
 	
 	createMultipleChoiceOne: function(question, options, answer) {
-		// TODO
 		const questionMultipleOne = document.createElement('div');
 		const questionText = document.createElement('p');
 		
-
-		// adding elements to the div
 		questionText.appendChild(document.createTextNode(question));
 		questionText.className = "questionMultipleChoiceOneText-style";
 		questionMultipleOne.appendChild(questionText);
@@ -251,7 +248,7 @@ QuizBox.prototype = {
 			
 		}
 		
-		this.updateAttributes(questionMultipleOne ,"questionMultipleChoiceOne-style", answer);
+		this.updateAttributes(questionMultipleOne ,"questionMultipleChoiceOne-style", answer, 1);
 		return;
 	},
 
@@ -278,7 +275,7 @@ QuizBox.prototype = {
 		
 
 
-		this.updateAttributes(questionMultipleMany ,"questionMultipleChoiceMany-style", answer);
+		this.updateAttributes(questionMultipleMany ,"questionMultipleChoiceMany-style", answer, answer.length);
 		return;
 	},
 	
@@ -361,7 +358,7 @@ QuizBox.prototype = {
 		toolTip.innerHTML = "(How to answer?)"
 		toolTip.className = "toolTipDiv";
 		const toolTipText = document.createElement('span');
-		toolTipText.innerHTML = "Drag the blue tiles into green box if the statement is true. Otherwise drag the tile into the red box. Note S1 refers to statement 1, S2 refers to statement 2, etc.";
+		toolTipText.innerHTML = "Drag the blue tiles into green box if the statement is true. Otherwise drag the tile into the red box. Note 1 refers to question 1, 2 refers to question 2, etc.";
 		toolTipText.className = "toolTipText";
 		toolTip.appendChild(toolTipText);
 		
@@ -397,7 +394,7 @@ QuizBox.prototype = {
 		mainDiv.appendChild(interactDiv);
 
 		
-		this.updateAttributes(mainDiv ,"questionTrueOrFalse-style", answer);
+		this.updateAttributes(mainDiv ,"questionTrueOrFalse-style", answer, answer.length);
 	},
 	
 	createSequenceQuestion: function(events, answer) {
@@ -466,7 +463,7 @@ QuizBox.prototype = {
 		mainDivSequence.append(eventStartDiv);
 		mainDivSequence.append(labelDiv2);
 		
-		this.updateAttributes(mainDivSequence ,"questionSequence-style", answer);
+		this.updateAttributes(mainDivSequence ,"questionSequence-style", answer, answer.length);
 	},
 
 	createFillInTheBlank: function(questions, answers) {
@@ -476,7 +473,6 @@ QuizBox.prototype = {
 		
 		
 		mainDivFill.className = "questionFillInBlanks-style";
-		// questionDiv.className = "sequenceQuestionDiv-style";
 
 		const title = document.createElement('p');
 		titleDiv.appendChild(title);
@@ -503,14 +499,33 @@ QuizBox.prototype = {
 				
 			}
 		}
-	
-		
 		mainDivFill.append(titleDiv);
 		mainDivFill.append(questionMainDiv);
 		
-		this.updateAttributes(mainDivFill ,"questionFillInBlank-style", answers);
+		this.updateAttributes(mainDivFill ,"questionFillInBlank-style", answers, answers.length);
 	},
 
+	createMatching: function(match1, match2, answer) {
+		const mainDivMatching = document.createElement('div');
+		const titleDiv = document.createElement('div');
+		const questionMainDiv = document.createElement('div');
+		
+			
+		for(let counter = 0; counter < options.length; counter++){
+
+			
+		}
+		
+
+
+		this.updateAttributes(questionMultipleMany ,"questionMultipleChoiceMany-style", answer, answer.length);
+		return;
+	},
+
+	updateScore(score, questionBox, questionNum){
+		const totalScore = questionBox.children[0].innerHTML[7];
+		questionBox.children[0].innerHTML = "Q" + questionNum + ": " + score  +" / " + totalScore;
+	},
 	
 	gradeAnswers: function() {
 		const questionToBeGraded = this.QuizBoxDiv.children;
@@ -527,19 +542,25 @@ QuizBox.prototype = {
 					boxesChangeColor[counter - 1].className = "questionLastDivCorrect";
 				}
 				totalQuestion += 1;
+				this.updateScore(tempScore, boxesChangeColor[counter - 1], counter);
 			}else if(this.questionObjects[counter - 1].typeQuestion ===  "questionMultipleChoiceMany-style"){ // multipleChoice question many
-				tempScore = this.gradeMultipleChoiceMany(questionToBeGraded[counter].children, this.questionObjects[counter - 1].answersToQuestion);
-				if(tempScore === 0){
+				let tempScoreArray = this.gradeMultipleChoiceMany(questionToBeGraded[counter].children, this.questionObjects[counter - 1].answersToQuestion);
+				if(tempScoreArray[0] <= 0 && tempScoreArray[1] === false){
 					boxesChangeColor[counter - 1].className = "questionLastDivIncorrect";
-				}else if((tempScore > 0 && tempScore < this.questionObjects[counter].answersToQuestion.length) || tempScore === -1){
-					boxesChangeColor[counter - 1].className = "questionLastDivPartialCorrect";
-					if(tempScore === -1){
-						tempScore = 0;
-					}
-				}else{
+					tempScore = 0;
+				}else if(tempScoreArray[0] === this.questionObjects[counter - 1].answersToQuestion.length){
 					boxesChangeColor[counter - 1].className = "questionLastDivCorrect";
+					tempScore = tempScoreArray[0];
+				}else{
+					boxesChangeColor[counter - 1].className = "questionLastDivPartialCorrect";
+					if(tempScoreArray[0] < 0){
+						tempScore = 0;
+					}else{
+						tempScore = tempScoreArray[0];
+					}
 				}
 				totalQuestion += this.questionObjects[counter - 1].answersToQuestion.length;
+				this.updateScore(tempScore, boxesChangeColor[counter - 1], counter);
 			}else if(this.questionObjects[counter - 1].typeQuestion === "questionTrueOrFalse-style"){ // true or false question
 				tempScore = this.gradeTrueOrFalse(questionToBeGraded[counter].children[3].children[0], questionToBeGraded[counter].children[3].children[1], this.questionObjects[counter - 1].answersToQuestion);
 				if(tempScore === this.questionObjects[counter - 1].answersToQuestion.length){
@@ -550,6 +571,7 @@ QuizBox.prototype = {
 					boxesChangeColor[counter - 1].className = "questionLastDivPartialCorrect";
 				}
 				totalQuestion += this.questionObjects[counter - 1].answersToQuestion.length;
+				this.updateScore(tempScore, boxesChangeColor[counter - 1], counter);
 			}else if(this.questionObjects[counter - 1].typeQuestion === "questionSequence-style"){
 				tempScore = this.gradeSequence(questionToBeGraded[counter].children[1].children[1].children, this.questionObjects[counter - 1].answersToQuestion);
 				if(tempScore === this.questionObjects[counter - 1].answersToQuestion.length){
@@ -560,8 +582,21 @@ QuizBox.prototype = {
 					boxesChangeColor[counter - 1].className = "questionLastDivPartialCorrect";
 				}
 				totalQuestion += this.questionObjects[counter - 1].answersToQuestion.length;
+				this.updateScore(tempScore, boxesChangeColor[counter - 1], counter);
+			}else if(this.questionObjects[counter - 1].typeQuestion === "questionFillInBlank-style"){
+				tempScore = this.gradeFillInBlank(questionToBeGraded[counter].children[1].children, this.questionObjects[counter - 1].answersToQuestion);
+				if(tempScore === this.questionObjects[counter - 1].answersToQuestion.length){
+					boxesChangeColor[counter - 1].className = "questionLastDivCorrect";
+				}else if (tempScore === 0){
+					boxesChangeColor[counter - 1].className = "questionLastDivIncorrect";
+				}else{
+					boxesChangeColor[counter - 1].className = "questionLastDivPartialCorrect";
+				}
+				this.updateScore(tempScore, boxesChangeColor[counter - 1], counter);
+				totalQuestion += this.questionObjects[counter - 1].answersToQuestion.length;
 			}
 			totalScore += tempScore;
+
 		}
 		this.isGraded = true;
 		const finalScore = document.createElement('div');
@@ -597,17 +632,19 @@ QuizBox.prototype = {
 	
 	gradeMultipleChoiceMany: function(optionsToBeGraded, answer) {
 		let score = 0;
+		let answerCorrect = false;
 		for(let optionCounter = 1; optionCounter < optionsToBeGraded.length; optionCounter++){
 			let tempOption = optionsToBeGraded[optionCounter];
 			if(tempOption.className === "questionMultipleChoiceManyDivBlue-style"){
 				if(answer.indexOf(tempOption.children[0].innerHTML) >= 0){
+					answerCorrect = true;
 					score += 1
 				}else{
-					return -1;
+					score -= 1; // user picks more options 
 				}
 			}
 		}
-		return score;
+		return [score, answerCorrect];
 	},
 	
 	gradeTrueOrFalse: function(falseChoices, trueChoices, answer) {
@@ -630,7 +667,6 @@ QuizBox.prototype = {
 	
 	gradeSequence: function(events, answer) {
 		let score = 0;
-		console.log(events);
 		for(let counter = 0; counter < events.length; counter++){
 			let eventText = events[counter].innerHTML;
 			if(eventText === answer[counter]){
@@ -640,7 +676,19 @@ QuizBox.prototype = {
 		return score;
 	},
 	
-	
+	gradeFillInBlank: function(questions, answer) {
+		let score = 0;
+		for(let counter = 0; counter < questions.length; counter++){
+			let boxesArr = Array.from(questions[counter].querySelectorAll('.inputBox-style'));
+			for(let counter2 = 0; counter2 < boxesArr.length; counter2++){
+				console.log(boxesArr[counter2].value);
+				if (boxesArr[counter2].value.toLowerCase() === answer[counter + counter2].toLowerCase()){
+					score += 1
+				}
+			}
+		}
+		return score;
+	},
 }
 
 

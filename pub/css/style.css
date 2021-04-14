@@ -1,0 +1,82 @@
+body {
+	background-color: #e6ecf0;
+	margin: 0;
+	font-family: "Helvetica Neue", Helvetica, sans-serif;
+}
+
+.header {
+    /* background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 0%, rgba(0,212,255,1) 99%); */
+    background: #3385ff;
+    width:  100%;
+    height:  220px;
+    margin: 0px;
+    color: white;
+    padding-top: 10px;
+}
+
+.headerTitle {
+    margin-top: 0px;
+    color: white;
+    font-size: 46px;
+}
+
+.titlediv {
+    height: 100px;
+    width:  400px;
+    margin-top: 30px;
+    color: white;
+    margin-left: 5%;
+    font-size: 16px ;
+    float: left;
+}
+
+.logo {
+    display: inline;
+    float: right;
+    margin-right: 5%;
+    border: 3px solid white;
+    width: 150px;
+    height: 150px;
+    margin-top: 30px;
+}
+
+.logoText{
+    font-size: 76px;
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-right: 0;
+    margin-left: 10px;
+    height: 70px;
+    
+}
+
+
+.navBar {
+	padding: 5px;
+	background-color: white;
+    height: 50px;
+}
+.navBar ul {
+	margin: 0px;
+	padding: 3px;
+	
+	margin-left: 40px;
+}
+
+.navBar ul li {
+	margin-right: 20px;
+	font-weight: bold;
+	list-style: none; 
+	text-align: center;
+	display: inline-block;
+    margin-top: 10px;
+    font-size: 20px;
+    text-decoration: none;
+    
+}
+.navBar ul li a {
+    text-decoration: none;
+    color: black;
+}
+
+
