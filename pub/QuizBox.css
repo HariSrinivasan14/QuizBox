@@ -652,7 +652,7 @@
 	margin-left: auto;
 	margin-right: auto;
 	margin-bottom: auto;
-	margin-top: 40px;
+	margin-top: 30px;
 	overflow: auto;
 }
 
@@ -661,37 +661,69 @@
 	margin-bottom: 13px;
 	margin-top: 0px;
 	font-weight: bold;
+	display: inline-block;
 }
-.matchTileDiv{
-	width: 220px;
+.matchTile1Div{
+	width: 200px;
 	height: 405px;
 	float: left;
 	overflow: auto;
+	border: 1px #18A0FB solid;
+	border-radius: 10px;
+}
+.matchTile2Div{
+	width: 200px;
+	height: 405px;
+	float: left;
+	overflow: auto;
+	border: 1px grey solid;
+	margin-left: 30px;
+	border-radius: 10px;
 }
 .matchTile1-style{
 	display: inline-block;
-	width: 100px;
-	height: 50px;
+	min-width: 90px;
+	max-width: 120px;
+	max-height: 90px;
 	border: 1px solid #18A0FB;
 	margin-bottom: 10px;
-	margin-left: 10px;
-	padding-top: 12px;
-	padding-right: 5px;
-	padding-bottom: 10px;
-	padding-left: 10px;
+	margin-left: 15px;
+	padding-top: 20px;
+	padding-right: 20px;
+	padding-bottom: 20px;
+	padding-left: 20px;
+	border-radius: 10px;
+	text-align: left;
+	overflow: auto;
+
+}
+
+.matchTile1Selected-style{
+	background-color:  #ccebff;
+}
+
+.matched-style{
+	background-color: gray;
+	border: 1px solid gray;
 }
 
 .matchTile2-style{
 	display: inline-block;
-	width: 100px;
-	height: 50px;
-	border: 1px solid #18A0FB;
+	width: 140px;
+	height: 55px;
+	border: 1px solid grey;
 	margin-bottom: 10px;
-	margin-left: 10px;
-	padding-top: 12px;
+	margin-left: 15px;
+	padding-top: 10px;
 	padding-right: 5px;
 	padding-bottom: 10px;
 	padding-left: 10px;
+	border-radius: 10px;
+	overflow: auto;
+}
+.matchTile2Selected-style{
+	background-color:  #ccebff;
+	border: 1px solid #18A0FB;
 }
 
 .tileSelected{

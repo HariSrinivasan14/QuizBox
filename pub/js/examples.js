@@ -17,8 +17,8 @@ const newQuiz = new QuizBox(tempDiv);
 
 // newQuiz.createMultipleChoiceMany("Which of the following cities are located in Ontario? Select all that apply.", ["Toronto", "Brampton", "Hamilton", "Mississauga", "New York"], ["Toronto", "Brampton", "Hamilton", "Mississauga"]);
 
-newQuiz.createMatching(["choice 1", "choice 2", "choice 3", "choice 4"], ["option 1", "option 2", "option 3", "option 4"], [["choice 1", "option 1"], ["choice 2", "option 2"], ["choice 3", "option 3"], ["choice 4", "option 4"]]);
-//newQuiz.createTrueOrFalseQuestion(["Yellow is a primary colour.", "CPU stands for Central Processing Unit.", "An Octopus has three hearts.", "The letter A is the most common letter used in the English language."], [true, true, true, false]);
+newQuiz.createMatching(["discomfit", "minatory", "gallant", "drub"], ["to put into a state of perplexity and embarrassment", "having a menacing quality", "having a menacing quality", "to beat severely", "choice3", "choice3"], [["choice 1", "option 1"], ["choice 2", "option 2"], ["choice 3", "option 3"], ["choice 4", "option 4"]]);
+newQuiz.createTrueOrFalseQuestion(["Yellow is a primary colour.", "CPU stands for Central Processing Unit.", "An Octopus has three hearts.", "The letter A is the most common letter used in the English language."], [true, true, true, false]);
 
 
  

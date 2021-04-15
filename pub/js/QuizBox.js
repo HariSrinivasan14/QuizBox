@@ -4,17 +4,18 @@
 
 (function(global, document) { 
 
-	let _currentQuestion = 0;
 
 
 	function QuizBox(mainDiv) {
 
+		this.currentQuestion = 0;
 		this.numQuestions = 0;
 		this.isGraded = false;
 		this.QuizBoxDiv = document.createElement('div');
 		this.QuizBoxDiv.className = "QuizBox-style";	
 		mainDiv.append(this.QuizBoxDiv);
 		_addNavigationButtons.bind(this)();
+		this.userAnswers = []
 		this.questionObjects = [];
 
 	}
@@ -22,33 +23,33 @@
 
 
 	function _handleClickPre(e) {
-		if((_currentQuestion - 1) < 0){
+		if((this.currentQuestion - 1) < 0){
 			return;
 		}
-		this.questionObjects[_currentQuestion].question.className = "displayNone";
-		_currentQuestion -= 1;
-		this.questionObjects[_currentQuestion].question.className = this.questionObjects[_currentQuestion].typeQuestion;
+		this.questionObjects[this.currentQuestion].question.className = "displayNone";
+		this.currentQuestion -= 1;
+		this.questionObjects[this.currentQuestion].question.className = this.questionObjects[this.currentQuestion].typeQuestion;
 		if(this.isGraded){
-			this.questionObjects[_currentQuestion].question.classList.add('graded');
+			this.questionObjects[this.currentQuestion].question.classList.add('graded');
 		}
 		const updateSelectNum = this.QuizBoxDiv.children[0].children[1].children[0];
-		updateSelectNum.value = _currentQuestion + 1;
+		updateSelectNum.value = this.currentQuestion + 1;
 	}
 
 
 	function _handleClickNext(e) {
-		if(_currentQuestion === (this.numQuestions - 1) || (_currentQuestion === 0 && this.numQuestions === 0)){
+		if(this.currentQuestion === (this.numQuestions - 1) || (this.currentQuestion === 0 && this.numQuestions === 0)){
 			return;
 		}
 
-		this.questionObjects[_currentQuestion].question.className = "displayNone";
-		_currentQuestion += 1;
-		this.questionObjects[_currentQuestion].question.className = this.questionObjects[_currentQuestion].typeQuestion;
+		this.questionObjects[this.currentQuestion].question.className = "displayNone";
+		this.currentQuestion += 1;
+		this.questionObjects[this.currentQuestion].question.className = this.questionObjects[this.currentQuestion].typeQuestion;
 		if(this.isGraded){
-			this.questionObjects[_currentQuestion].question.classList.add('graded');
+			this.questionObjects[this.currentQuestion].question.classList.add('graded');
 		}
 		const updateSelectNum = this.QuizBoxDiv.children[0].children[1].children[0];
-		updateSelectNum.value = _currentQuestion + 1;
+		updateSelectNum.value = this.currentQuestion + 1;
 	}
 
 
@@ -99,11 +100,11 @@
 	}
 	function _changeQuestion(e) {
 		
-		this.questionObjects[_currentQuestion].question.className = "displayNone";
-		_currentQuestion = e.target.value - 1;
-		this.questionObjects[_currentQuestion].question.className = this.questionObjects[_currentQuestion].typeQuestion;
+		this.questionObjects[this.currentQuestion].question.className = "displayNone";
+		this.currentQuestion = e.target.value - 1;
+		this.questionObjects[this.currentQuestion].question.className = this.questionObjects[this.currentQuestion].typeQuestion;
 		if(this.isGraded){
-			this.questionObjects[_currentQuestion].question.className.classList.add('graded');
+			this.questionObjects[this.currentQuestion].question.className.classList.add('graded');
 		}
 		
 	}
@@ -207,7 +208,8 @@
 	function _updateAttributes(div, divClassName, answers, points) {
 		const QuestionObject = {question: div, typeQuestion: divClassName, answersToQuestion: answers};
 		this.questionObjects.push(QuestionObject);
-		
+		this.userAnswers.push(undefined);
+
 		if(this.numQuestions !== 0){
 			QuestionObject.question.className = "displayNone";
 			
@@ -451,6 +453,71 @@
 		return score;
 	}
 
+	function _handleMatchClick(e){
+		if(e.target.classList.contains('matched-style')){
+			let tempArr = this.userAnswers[this.currentQuestion];
+			for(let removeIndex = 0; removeIndex < tempArr.length; removeIndex++){
+				if(tempArr[removeIndex][0].innerHTML === e.target.innerHTML || tempArr[removeIndex][1].innerHTML === e.target.innerHTML){
+					tempArr[removeIndex][0].classList.remove('matched-style');
+					tempArr[removeIndex][1].classList.remove('matched-style');
+					[tempArr[removeIndex], tempArr[tempArr.length - 1]] = [tempArr[tempArr.length - 1], tempArr[removeIndex]]
+					tempArr.pop();
+					return;
+				}
+			}
+		}
+
+		//new choice
+		if(e.target.classList.contains('matchTile1Selected-style')){
+			e.target.classList.remove('matchTile1Selected-style');
+
+		}else if(e.target.className === "matchTile1-style"){
+			const childArr = e.target.parentElement.children;
+			for(let counter = 0; counter < childArr.length; counter++){
+				if(!(childArr[counter].classList.contains('matched-style'))){
+					childArr[counter].className = "matchTile1-style"
+				}	
+			}
+			e.target.classList.add('matchTile1Selected-style');
+		}
+
+
+		if(e.target.classList.contains('matchTile2Selected-style')){
+			e.target.classList.remove('matchTile2Selected-style');
+
+		}else if(e.target.className === "matchTile2-style"){
+			const childArr = e.target.parentElement.children;
+			for(let counter = 0; counter < childArr.length; counter++){
+				if(!(childArr[counter].classList.contains('matched-style'))){
+					childArr[counter].className = "matchTile2-style"
+				}	
+			}
+			e.target.classList.add('matchTile2Selected-style');
+		}
+		const leftChoices = e.target.parentElement.parentElement.children[0].children;
+		const rightChoices = e.target.parentElement.parentElement.children[1].children;
+		let leftIndex = null;
+		for(let child1 = 0; child1 < leftChoices.length; child1++){
+			if(leftChoices[child1].classList.contains('matchTile1Selected-style')){
+				leftIndex = child1;
+			}
+
+		}
+		for(let child = 0; child < rightChoices.length; child++){
+			if(rightChoices[child].classList.contains('matchTile2Selected-style') && leftIndex !== null){
+				if(this.userAnswers[this.currentQuestion] === undefined){
+					this.userAnswers[this.currentQuestion] = []
+				}
+				this.userAnswers[this.currentQuestion].push([leftChoices[leftIndex], rightChoices[child]]);
+				leftChoices[leftIndex].classList.remove('matchTile1Selected-style');
+				rightChoices[child].classList.remove('matchTile2Selected-style');
+				leftChoices[leftIndex].classList.add("matched-style");
+				rightChoices[child].classList.add("matched-style");
+			}
+
+		}
+	}
+
 QuizBox.prototype = {
 
 	
@@ -674,11 +741,7 @@ QuizBox.prototype = {
 		_updateAttributes.bind(this)(mainDivFill ,"questionFillInBlank-style", answers, answers.length);
 	},
 
-	handleMatchClick: function(e){
-		console.log(e);
-		const tempArr = []
-
-	},
+	
 
 	createMatching: function(match1, match2, answer) {
 		const mainDivMatching = document.createElement('div');
@@ -692,23 +755,33 @@ QuizBox.prototype = {
 		title.innerHTML = "Matching";
 		title.className = "titleMatching-style";
 		const match1Div = document.createElement('div');
-		match1Div.className ="matchTileDiv";
+		match1Div.className ="matchTile1Div";
+
+		const toolTip = document.createElement('div');
+		toolTip.innerHTML = "(How to answer?)";
+		toolTip.className = "toolTipDiv";
+		const toolTipText = document.createElement('span');
+		toolTipText.innerHTML = "To match, Click on a tile from the left column, then click on a tile from the right column. To unmatch two tiles, click on one of the two tiles.";
+		toolTipText.className = "toolTipText";
+		toolTip.appendChild(toolTipText);
+		titleDiv.appendChild(toolTip);
+
 		for(let counter = 0; counter < match1.length; counter++){
 			const matchQuestion = document.createElement('p');
 			matchQuestion.className = "matchTile1-style";
 			matchQuestion.innerHTML = match1[counter];
 			match1Div.append(matchQuestion);
-			matchQuestion.addEventListener("click", this.handleMatchClick.bind(this));
+			matchQuestion.addEventListener("click", _handleMatchClick.bind(this));
 		}
 
 		const match2Div = document.createElement('div');
-		match2Div.className ="matchTileDiv";
+		match2Div.className ="matchTile2Div";
 		for(let counter = 0; counter < match2.length; counter++){
 			const matchQuestion = document.createElement('p');
 			matchQuestion.className = "matchTile2-style";
 			matchQuestion.innerHTML = match2[counter];
 			match2Div.append(matchQuestion);
-			matchQuestion.addEventListener("click", this.handleMatchClick.bind(this));
+			matchQuestion.addEventListener("click", _handleMatchClick.bind(this));
 		}
 		questionMainDiv.append(match1Div);
 		questionMainDiv.append(match2Div);
