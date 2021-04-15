@@ -2,57 +2,57 @@
 "use strict";
 
 
-function QuizBox(mainDiv) {
+(function(global, document) { 
 
-	this.currentQuestion = 0;
-	this.numQuestions = 0;
-	this.isGraded = false;
-	
-	this.QuizBoxDiv = document.createElement('div');
-	this.QuizBoxDiv.className = "QuizBox-style";
-	mainDiv.append(this.QuizBoxDiv);
-	this.addNavigationButtons();
-	
-	
-	this.questionObjects = [];
-
-}
+	let _currentQuestion = 0;
 
 
-QuizBox.prototype = {
+	function QuizBox(mainDiv) {
 
-	handleClickPre: function(e) {
-		if((this.currentQuestion - 1) < 0){
+		this.numQuestions = 0;
+		this.isGraded = false;
+		this.QuizBoxDiv = document.createElement('div');
+		this.QuizBoxDiv.className = "QuizBox-style";	
+		mainDiv.append(this.QuizBoxDiv);
+		_addNavigationButtons.bind(this)();
+		this.questionObjects = [];
+
+	}
+
+
+
+	function _handleClickPre(e) {
+		if((_currentQuestion - 1) < 0){
 			return;
 		}
-		this.questionObjects[this.currentQuestion].question.className = "displayNone";
-		this.currentQuestion -= 1;
-		this.questionObjects[this.currentQuestion].question.className = this.questionObjects[this.currentQuestion].typeQuestion;
+		this.questionObjects[_currentQuestion].question.className = "displayNone";
+		_currentQuestion -= 1;
+		this.questionObjects[_currentQuestion].question.className = this.questionObjects[_currentQuestion].typeQuestion;
 		if(this.isGraded){
-			this.questionObjects[this.currentQuestion].question.classList.add('graded');
+			this.questionObjects[_currentQuestion].question.classList.add('graded');
 		}
 		const updateSelectNum = this.QuizBoxDiv.children[0].children[1].children[0];
-		updateSelectNum.value = this.currentQuestion + 1;
-	},
-	
-	
-	handleClickNext: function(e) {
-		if(this.currentQuestion === (this.numQuestions - 1) || (this.currentQuestion === 0 && this.numQuestions === 0)){
+		updateSelectNum.value = _currentQuestion + 1;
+	}
+
+
+	function _handleClickNext(e) {
+		if(_currentQuestion === (this.numQuestions - 1) || (_currentQuestion === 0 && this.numQuestions === 0)){
 			return;
 		}
 
-		this.questionObjects[this.currentQuestion].question.className = "displayNone";
-		this.currentQuestion += 1;
-		this.questionObjects[this.currentQuestion].question.className = this.questionObjects[this.currentQuestion].typeQuestion;
+		this.questionObjects[_currentQuestion].question.className = "displayNone";
+		_currentQuestion += 1;
+		this.questionObjects[_currentQuestion].question.className = this.questionObjects[_currentQuestion].typeQuestion;
 		if(this.isGraded){
-			this.questionObjects[this.currentQuestion].question.classList.add('graded');
+			this.questionObjects[_currentQuestion].question.classList.add('graded');
 		}
 		const updateSelectNum = this.QuizBoxDiv.children[0].children[1].children[0];
-		updateSelectNum.value = this.currentQuestion + 1;
-	},
-	
-	
-	handleClickChoiceOne: function(e) {
+		updateSelectNum.value = _currentQuestion + 1;
+	}
+
+
+	function _handleClickChoiceOne(e) {
 		let parentDivChildren = e.target.parentElement.children;
 		let isText = false;
 
@@ -70,10 +70,10 @@ QuizBox.prototype = {
 				parentDivChildren[counter].className = "questionMultipleChoiceOneDivDefault-style";
 			}
 		}
-	},
+	}
 
 
-	handleClickChoiceMany: function(e) {
+	function _handleClickChoiceMany(e) {
 		let parentDiv = e.target
 
 		if(e.target.parentElement.className === "questionMultipleChoiceManyDivDefault-style" || e.target.parentElement.className === "questionMultipleChoiceManyDivBlue-style"){
@@ -85,8 +85,8 @@ QuizBox.prototype = {
 		}else if(parentDiv.className === "questionMultipleChoiceManyDivBlue-style"){
 				parentDiv.className = "questionMultipleChoiceManyDivDefault-style";
 		}
-	},
-	updateNav: function(newQuestionNum) {
+	}
+	function _updateNav(newQuestionNum) {
 		let updateSelect = this.QuizBoxDiv.children[0].children[1].children[0];
 		let updateTotalQuestion = this.QuizBoxDiv.children[0].children[1].children[1];
 		
@@ -96,20 +96,19 @@ QuizBox.prototype = {
 		updateSelect.appendChild(tempOption);
 		
 		updateTotalQuestion.innerHTML = "of " + newQuestionNum;
-	},
-	changeQuestion: function(e) {
+	}
+	function _changeQuestion(e) {
 		
-		this.questionObjects[this.currentQuestion].question.className = "displayNone";
-		this.currentQuestion = e.target.value - 1;
-		this.questionObjects[this.currentQuestion].question.className = this.questionObjects[this.currentQuestion].typeQuestion;
+		this.questionObjects[_currentQuestion].question.className = "displayNone";
+		_currentQuestion = e.target.value - 1;
+		this.questionObjects[_currentQuestion].question.className = this.questionObjects[_currentQuestion].typeQuestion;
 		if(this.isGraded){
-			this.questionObjects[this.currentQuestion].question.className.classList.add('graded');
+			this.questionObjects[_currentQuestion].question.className.classList.add('graded');
 		}
 		
-	},
-	
-	addNavigationButtons: function() {
-		// TODO
+	}
+
+	function _addNavigationButtons() {
 		const nextButton = document.createElement('Button');
 		const preButton = document.createElement('Button');
 		const navigationDiv = document.createElement('div');
@@ -135,20 +134,21 @@ QuizBox.prototype = {
 		numQuestionDiv.appendChild(questionList);
 		numQuestionDiv.appendChild(totalQuestion);
 		
-		questionList.addEventListener("change", this.changeQuestion.bind(this));
+		questionList.addEventListener("change", _changeQuestion.bind(this));
 		
 		
 		navigationDiv.appendChild(preButton);
 		navigationDiv.appendChild(numQuestionDiv);
 		navigationDiv.appendChild(nextButton);
 		
-		preButton.addEventListener('click', this.handleClickPre.bind(this))
-		nextButton.addEventListener('click', this.handleClickNext.bind(this))
+		preButton.addEventListener('click', _handleClickPre.bind(this))
+		nextButton.addEventListener('click', _handleClickNext.bind(this))
 
 		this.QuizBoxDiv.appendChild(navigationDiv);
 
-	},
-	createSubmitPage: function(points) {
+	}
+
+	function _createSubmitPage(points) {
 		const lastDiv = document.createElement('div');
 		const lastDivQuestions = document.createElement('div');
 		const lastDivSubmit = document.createElement('div');
@@ -167,7 +167,7 @@ QuizBox.prototype = {
 		submitButton.innerHTML = "Submit";
 		submitButton.className = "submitButton";
 		
-		submitButton.addEventListener('click', this.gradeAnswers.bind(this));
+		submitButton.addEventListener('click', _gradeAnswers.bind(this));
 		
 		lastDivQuestions.appendChild(questionBox);
 		lastDiv.appendChild(lastDivQuestions);
@@ -184,12 +184,12 @@ QuizBox.prototype = {
 		
 		this.QuizBoxDiv.append(lastDiv);
 
-		this.updateNav(this.numQuestions + 1);
+		_updateNav.bind(this)(this.numQuestions + 1);
 		this.numQuestions += 1;
 		
-	},
-	
-	updateSubmitPage: function(questionNum, points) {
+	}
+
+	function _updateSubmitPage(questionNum, points) {
 		const questionBox = document.createElement('div');
 		const questionTextBox = document.createElement('p');
 		
@@ -202,9 +202,9 @@ QuizBox.prototype = {
 		this.QuizBoxDiv.lastChild.children[0].appendChild(questionBox);
 		
 		
-	},
-	
-	updateAttributes: function(div, divClassName, answers, points) {
+	}
+
+	function _updateAttributes(div, divClassName, answers, points) {
 		const QuestionObject = {question: div, typeQuestion: divClassName, answersToQuestion: answers};
 		this.questionObjects.push(QuestionObject);
 		
@@ -214,19 +214,245 @@ QuizBox.prototype = {
 			[this.questionObjects[this.questionObjects.length - 1], this.questionObjects[this.questionObjects.length - 2]] = [this.questionObjects[this.questionObjects.length - 2], this.questionObjects[this.questionObjects.length - 1]];
 			
 			this.QuizBoxDiv.insertBefore(div, this.QuizBoxDiv.lastChild);
-			this.updateSubmitPage(this.numQuestions, points);
+			_updateSubmitPage.bind(this)(this.numQuestions, points);
 			
 		}else{
 			QuestionObject.question.className = divClassName;
 			
 			this.QuizBoxDiv.appendChild(div);
-			this.createSubmitPage(points);
+			_createSubmitPage.bind(this)(points);
 		}
 		
-		this.updateNav(this.numQuestions + 1);
+		_updateNav.bind(this)(this.numQuestions + 1);
 		this.numQuestions += 1;
-	},
+	}
+
+
+	function _dragStart(e){
+		e.target.classList.add('draggingTile');
+	}
+
+
+	function _dragEnd(e){
+		e.target.classList.remove('draggingTile');
+
+	}
+
+
+	function _trueOrFalseDragOver(e){
+		e.preventDefault();
+		const elementDragging = document.querySelector('.draggingTile');
+		try{
+			if(e.target.className === "trueDiv" || e.target.className === "falseDiv" || e.target.className === "startDiv"){
+				e.target.appendChild(elementDragging);
+			}
+		}catch{
+			return;
+		}
+	}
+	function _getClosestElement(tileArray, cursorYPosition){
+		return tileArray.reduce((closestTile, tileElement) => {
+			const tileElementBounds = tileElement.getBoundingClientRect();
+			const position = cursorYPosition - (tileElementBounds.height / 2) - tileElementBounds.top;
+			if(position > closestTile.position && position < 0){
+				return {tile: tileElement, position: position};
+			}else{
+				return closestTile;
+			}
+		}, {position: Number.NEGATIVE_INFINITY}).tile;
+	}
+	function _sequenceDragOver(e){
+		e.preventDefault();
+		const elementDragging = document.querySelector('.draggingTile');
+		let notDraggingElementsNodeList = e.target.querySelectorAll('.eventTile:not(.draggingTile)');
+		const notDraggingElements = [];
+		for(let counter = 0; counter < notDraggingElementsNodeList.length; counter++ ){
+			notDraggingElements.push(notDraggingElementsNodeList[counter]);
+		}
+		const closestElement = _getClosestElement(notDraggingElements, e.clientY);
+		try{
+			if(e.target.className === "eventTextDiv-style" || e.target.className === "eventDropDiv-style"){
+				if(closestElement === null){
+					e.target.appendChild(elementDragging);
+				}else{
+					e.target.insertBefore(elementDragging, closestElement);
+				}
+			}
+		}catch{
+			return;
+		}
+	}
+
+	function _updateScore(score, questionBox, questionNum){
+		const totalScore = questionBox.children[0].innerHTML[7];
+		questionBox.children[0].innerHTML = "Q" + questionNum + ": " + score  +" / " + totalScore;
+	}
 	
+	function _gradeAnswers() {
+		const questionToBeGraded = this.QuizBoxDiv.children;
+		const boxesChangeColor = this.QuizBoxDiv.lastChild.children[0].children;
+		let totalScore = 0;
+		let totalQuestion = 0;
+		for(let counter = 1; counter < questionToBeGraded.length; counter++){
+			let tempScore = 0;
+			if(this.questionObjects[counter - 1].typeQuestion ===  "questionMultipleChoiceOne-style"){ // multipleChoice question
+				tempScore = _gradeMultipleChoice(questionToBeGraded[counter].children, this.questionObjects[counter - 1].answersToQuestion);
+				if(tempScore === 0){
+					boxesChangeColor[counter - 1].className = "questionLastDivIncorrect";
+				}else{
+					boxesChangeColor[counter - 1].className = "questionLastDivCorrect";
+				}
+				totalQuestion += 1;
+				_updateScore(tempScore, boxesChangeColor[counter - 1], counter);
+			}else if(this.questionObjects[counter - 1].typeQuestion ===  "questionMultipleChoiceMany-style"){ // multipleChoice question many
+				let tempScoreArray = _gradeMultipleChoiceMany(questionToBeGraded[counter].children, this.questionObjects[counter - 1].answersToQuestion);
+				if(tempScoreArray[0] <= 0 && tempScoreArray[1] === false){
+					boxesChangeColor[counter - 1].className = "questionLastDivIncorrect";
+					tempScore = 0;
+				}else if(tempScoreArray[0] === this.questionObjects[counter - 1].answersToQuestion.length){
+					boxesChangeColor[counter - 1].className = "questionLastDivCorrect";
+					tempScore = tempScoreArray[0];
+				}else{
+					boxesChangeColor[counter - 1].className = "questionLastDivPartialCorrect";
+					if(tempScoreArray[0] < 0){
+						tempScore = 0;
+					}else{
+						tempScore = tempScoreArray[0];
+					}
+				}
+				totalQuestion += this.questionObjects[counter - 1].answersToQuestion.length;
+				_updateScore(tempScore, boxesChangeColor[counter - 1], counter);
+			}else if(this.questionObjects[counter - 1].typeQuestion === "questionTrueOrFalse-style"){ // true or false question
+				tempScore = _gradeTrueOrFalse(questionToBeGraded[counter].children[3].children[0], questionToBeGraded[counter].children[3].children[1], this.questionObjects[counter - 1].answersToQuestion);
+				if(tempScore === this.questionObjects[counter - 1].answersToQuestion.length){
+					boxesChangeColor[counter - 1].className = "questionLastDivCorrect";
+				}else if (tempScore === 0){
+					boxesChangeColor[counter - 1].className = "questionLastDivIncorrect";
+				}else{
+					boxesChangeColor[counter - 1].className = "questionLastDivPartialCorrect";
+				}
+				totalQuestion += this.questionObjects[counter - 1].answersToQuestion.length;
+				_updateScore(tempScore, boxesChangeColor[counter - 1], counter);
+			}else if(this.questionObjects[counter - 1].typeQuestion === "questionSequence-style"){
+				tempScore = _gradeSequence(questionToBeGraded[counter].children[1].children[1].children, this.questionObjects[counter - 1].answersToQuestion);
+				if(tempScore === this.questionObjects[counter - 1].answersToQuestion.length){
+					boxesChangeColor[counter - 1].className = "questionLastDivCorrect";
+				}else if (tempScore === 0){
+					boxesChangeColor[counter - 1].className = "questionLastDivIncorrect";
+				}else{
+					boxesChangeColor[counter - 1].className = "questionLastDivPartialCorrect";
+				}
+				totalQuestion += this.questionObjects[counter - 1].answersToQuestion.length;
+				_updateScore(tempScore, boxesChangeColor[counter - 1], counter);
+			}else if(this.questionObjects[counter - 1].typeQuestion === "questionFillInBlank-style"){
+				tempScore = _gradeFillInBlank(questionToBeGraded[counter].children[1].children, this.questionObjects[counter - 1].answersToQuestion);
+				if(tempScore === this.questionObjects[counter - 1].answersToQuestion.length){
+					boxesChangeColor[counter - 1].className = "questionLastDivCorrect";
+				}else if (tempScore === 0){
+					boxesChangeColor[counter - 1].className = "questionLastDivIncorrect";
+				}else{
+					boxesChangeColor[counter - 1].className = "questionLastDivPartialCorrect";
+				}
+				_updateScore(tempScore, boxesChangeColor[counter - 1], counter);
+				totalQuestion += this.questionObjects[counter - 1].answersToQuestion.length;
+			}
+			totalScore += tempScore;
+
+		}
+		this.isGraded = true;
+		const finalScore = document.createElement('div');
+		const finalScoreText = document.createElement('p');
+		
+		finalScoreText.innerHTML = totalScore + " / " + totalQuestion;
+		finalScore.appendChild(finalScoreText);
+		finalScoreText.className = "finalScoreText";
+		
+		finalScore.className = "finalScoreDiv";
+		
+		const divToAddTheFinalScore = this.QuizBoxDiv.lastChild.children[1];
+		
+		divToAddTheFinalScore.appendChild(finalScore);
+		return;
+	}
+	
+	function _gradeMultipleChoice(optionsToBeGraded, answer) {
+		
+		for(let optionCounter = 1; optionCounter < optionsToBeGraded.length; optionCounter++){
+			let tempOption = optionsToBeGraded[optionCounter];
+			if(tempOption.className === "questionMultipleChoiceOneDivBlue-style"){
+				if(tempOption.children[0].innerHTML === answer){
+					return 1;
+				}else{
+					return 0;
+				}
+			}
+		}
+		return 0;
+	}
+	
+	
+	function _gradeMultipleChoiceMany(optionsToBeGraded, answer) {
+		let score = 0;
+		let answerCorrect = false;
+		for(let optionCounter = 1; optionCounter < optionsToBeGraded.length; optionCounter++){
+			let tempOption = optionsToBeGraded[optionCounter];
+			if(tempOption.className === "questionMultipleChoiceManyDivBlue-style"){
+				if(answer.indexOf(tempOption.children[0].innerHTML) >= 0){
+					answerCorrect = true;
+					score += 1
+				}else{
+					score -= 1; // user picks more options 
+				}
+			}
+		}
+		return [score, answerCorrect];
+	}
+	
+	function _gradeTrueOrFalse(falseChoices, trueChoices, answer) {
+		let score = 0;
+		let statementNum = 0;
+		for(let counter = 0; counter < trueChoices.children.length; counter++){
+			statementNum = trueChoices.children[counter].innerHTML;
+			if(answer[parseInt(statementNum) - 1]){
+				score += 1;
+			}
+		}
+		for(let counter = 0; counter < falseChoices.children.length; counter++){
+			statementNum = falseChoices.children[counter].innerHTML;
+			if(answer[parseInt(statementNum) - 1] === false){
+				score += 1;
+			}
+		}
+		return score;
+	}
+	
+	function _gradeSequence(events, answer) {
+		let score = 0;
+		for(let counter = 0; counter < events.length; counter++){
+			let eventText = events[counter].innerHTML;
+			if(eventText === answer[counter]){
+				score += 1
+			}	
+		}
+		return score;
+	}
+	
+	function _gradeFillInBlank(questions, answer) {
+		let score = 0;
+		for(let counter = 0; counter < questions.length; counter++){
+			let boxesArr = Array.from(questions[counter].querySelectorAll('.inputBox-style'));
+			for(let counter2 = 0; counter2 < boxesArr.length; counter2++){
+				console.log(boxesArr[counter2].value);
+				if (boxesArr[counter2].value.toLowerCase() === answer[counter + counter2].toLowerCase()){
+					score += 1
+				}
+			}
+		}
+		return score;
+	}
+
+QuizBox.prototype = {
+
 	
 	createMultipleChoiceOne: function(question, options, answer) {
 		const questionMultipleOne = document.createElement('div');
@@ -242,13 +468,13 @@ QuizBox.prototype = {
 			tempSpan.innerHTML = options[counter];
 			tempSpan.className = "questionMultipleChoiceOneSpan";
 			tempButton.appendChild(tempSpan);
-			tempButton.addEventListener('click', this.handleClickChoiceOne)
+			tempButton.addEventListener('click', _handleClickChoiceOne)
 			tempButton.className = "questionMultipleChoiceOneDivDefault-style";
 			questionMultipleOne.appendChild(tempButton);
 			
 		}
 		
-		this.updateAttributes(questionMultipleOne ,"questionMultipleChoiceOne-style", answer, 1);
+		_updateAttributes.bind(this)(questionMultipleOne ,"questionMultipleChoiceOne-style", answer, 1);
 		return;
 	},
 
@@ -267,78 +493,16 @@ QuizBox.prototype = {
 			tempSpan.className = "questionMultipleChoiceManySpan";
 			tempSpan.innerHTML = options[counter];
 			tempButton.appendChild(tempSpan);
-			tempButton.addEventListener('click', this.handleClickChoiceMany)
+			tempButton.addEventListener('click', _handleClickChoiceMany)
 			tempButton.className = "questionMultipleChoiceManyDivDefault-style";
 			questionMultipleMany.appendChild(tempButton);
 			
 		}
-		
 
-
-		this.updateAttributes(questionMultipleMany ,"questionMultipleChoiceMany-style", answer, answer.length);
+		_updateAttributes.bind(this)(questionMultipleMany ,"questionMultipleChoiceMany-style", answer, answer.length);
 		return;
 	},
 	
-	dragStart: function(e){
-		e.target.classList.add('draggingTile');
-	},
-	
-	
-	dragEnd: function(e){
-		e.target.classList.remove('draggingTile');
-
-	},
-	
-	
-	trueOrFalseDragOver: function(e){
-		e.preventDefault();
-		console.log(e)
-		const elementDragging = document.querySelector('.draggingTile');
-		// console.log(elementDragging.parentNode.parentNode.parentNode.parentNode)
-		// console.log(e.target.parentNode.parentNode.parentNode.parentNode)
-		// let temp = elementDragging.parentNode.parentNode.parentNode.parentNode;
-		// let temp2 = e.target.parentNode.parentNode.parentNode.parentNode;
-		// console.log(temp === temp2)
-		try{
-			if(e.target.className === "trueDiv" || e.target.className === "falseDiv" || e.target.className === "startDiv"){
-				e.target.appendChild(elementDragging);
-			}
-		}catch{
-			return;
-		}
-	},
-	getClosestElement: function(tileArray, cursorYPosition){
-		return tileArray.reduce((closestTile, tileElement) => {
-			const tileElementBounds = tileElement.getBoundingClientRect();
-			const position = cursorYPosition - (tileElementBounds.height / 2) - tileElementBounds.top;
-			if(position > closestTile.position && position < 0){
-				return {tile: tileElement, position: position};
-			}else{
-				return closestTile;
-			}
-		}, {position: Number.NEGATIVE_INFINITY}).tile;
-	},
-	sequenceDragOver: function(e){
-		e.preventDefault();
-		const elementDragging = document.querySelector('.draggingTile');
-		let notDraggingElementsNodeList = e.target.querySelectorAll('.eventTile:not(.draggingTile)');
-		const notDraggingElements = [];
-		for(let counter = 0; counter < notDraggingElementsNodeList.length; counter++ ){
-			notDraggingElements.push(notDraggingElementsNodeList[counter]);
-		}
-		const closestElement = this.getClosestElement(notDraggingElements, e.clientY);
-		try{
-			if(e.target.className === "eventTextDiv-style" || e.target.className === "eventDropDiv-style"){
-				if(closestElement === null){
-					e.target.appendChild(elementDragging);
-				}else{
-					e.target.insertBefore(elementDragging, closestElement);
-				}
-			}
-		}catch{
-			return;
-		}
-	},
 	createTrueOrFalseQuestion: function(question, answer){
 		const mainDiv = document.createElement('div');
 		const trueDiv = document.createElement('div');
@@ -381,16 +545,16 @@ QuizBox.prototype = {
 			tempP.innerHTML = (counter + 1);
 			tempP.setAttribute('draggable', true);
 			
-			tempP.addEventListener("dragstart", this.dragStart);
-			tempP.addEventListener("dragend", this.dragEnd);
+			tempP.addEventListener("dragstart", _dragStart);
+			tempP.addEventListener("dragend", _dragEnd);
 			
 			questionDiv.appendChild(tempQuestion);
 			startDiv.appendChild(tempP);
 		}
 		
-		startDiv.addEventListener("dragover", this.trueOrFalseDragOver);
-		falseDiv.addEventListener("dragover", this.trueOrFalseDragOver);
-		trueDiv.addEventListener("dragover", this.trueOrFalseDragOver);
+		startDiv.addEventListener("dragover", _trueOrFalseDragOver);
+		falseDiv.addEventListener("dragover", _trueOrFalseDragOver);
+		trueDiv.addEventListener("dragover", _trueOrFalseDragOver);
 		
 		
 		interactDiv.appendChild(falseDiv);
@@ -400,13 +564,12 @@ QuizBox.prototype = {
 		mainDiv.appendChild(interactDiv);
 
 		
-		this.updateAttributes(mainDiv ,"questionTrueOrFalse-style", answer, answer.length);
+		_updateAttributes.bind(this)(mainDiv ,"questionTrueOrFalse-style", answer, answer.length);
 	},
 	
 	createSequenceQuestion: function(events, answer) {
 		const mainDivSequence = document.createElement('div');
 		const questionDiv = document.createElement('div');
-		const eventDiv = document.createElement('div');
 		const eventStartDiv = document.createElement('div');
 		const eventTextDiv = document.createElement('div');
 		const eventDropDiv = document.createElement('div');
@@ -452,15 +615,15 @@ QuizBox.prototype = {
 			tempQuestion.innerHTML = events[counter];
 			tempQuestion.setAttribute('draggable', true);
 			
-			tempQuestion.addEventListener("dragstart", this.dragStart);
-			tempQuestion.addEventListener("dragend", this.dragEnd);
+			tempQuestion.addEventListener("dragstart", _dragStart);
+			tempQuestion.addEventListener("dragend", _dragEnd);
 			
 			eventTextDiv.appendChild(tempQuestion);
 		}
 		
 		
-		eventTextDiv.addEventListener("dragover", this.sequenceDragOver.bind(this));
-		eventDropDiv.addEventListener("dragover", this.sequenceDragOver.bind(this));
+		eventTextDiv.addEventListener("dragover", _sequenceDragOver.bind(this));
+		eventDropDiv.addEventListener("dragover", _sequenceDragOver.bind(this));
 		
 		eventStartDiv.appendChild(eventTextDiv);
 		eventStartDiv.appendChild(eventDropDiv);
@@ -469,7 +632,7 @@ QuizBox.prototype = {
 		mainDivSequence.append(eventStartDiv);
 		mainDivSequence.append(labelDiv2);
 		
-		this.updateAttributes(mainDivSequence ,"questionSequence-style", answer, answer.length);
+		_updateAttributes.bind(this)(mainDivSequence ,"questionSequence-style", answer, answer.length);
 	},
 
 	createFillInTheBlank: function(questions, answers) {
@@ -508,7 +671,7 @@ QuizBox.prototype = {
 		mainDivFill.append(titleDiv);
 		mainDivFill.append(questionMainDiv);
 		
-		this.updateAttributes(mainDivFill ,"questionFillInBlank-style", answers, answers.length);
+		_updateAttributes.bind(this)(mainDivFill ,"questionFillInBlank-style", answers, answers.length);
 	},
 
 	handleMatchClick: function(e){
@@ -552,177 +715,12 @@ QuizBox.prototype = {
 
 		mainDivMatching.append(titleDiv);
 		mainDivMatching.append(questionMainDiv);
-		this.updateAttributes(mainDivMatching ,"questionMatching-style", answer, answer.length);
+		_updateAttributes.bind(this)(mainDivMatching ,"questionMatching-style", answer, answer.length);
 		return;
 	},
 
-	updateScore(score, questionBox, questionNum){
-		const totalScore = questionBox.children[0].innerHTML[7];
-		questionBox.children[0].innerHTML = "Q" + questionNum + ": " + score  +" / " + totalScore;
-	},
-	
-	gradeAnswers: function() {
-		const questionToBeGraded = this.QuizBoxDiv.children;
-		const boxesChangeColor = this.QuizBoxDiv.lastChild.children[0].children;
-		let totalScore = 0;
-		let totalQuestion = 0;
-		for(let counter = 1; counter < questionToBeGraded.length; counter++){
-			let tempScore = 0;
-			if(this.questionObjects[counter - 1].typeQuestion ===  "questionMultipleChoiceOne-style"){ // multipleChoice question
-				tempScore = this.gradeMultipleChoice(questionToBeGraded[counter].children, this.questionObjects[counter - 1].answersToQuestion);
-				if(tempScore === 0){
-					boxesChangeColor[counter - 1].className = "questionLastDivIncorrect";
-				}else{
-					boxesChangeColor[counter - 1].className = "questionLastDivCorrect";
-				}
-				totalQuestion += 1;
-				this.updateScore(tempScore, boxesChangeColor[counter - 1], counter);
-			}else if(this.questionObjects[counter - 1].typeQuestion ===  "questionMultipleChoiceMany-style"){ // multipleChoice question many
-				let tempScoreArray = this.gradeMultipleChoiceMany(questionToBeGraded[counter].children, this.questionObjects[counter - 1].answersToQuestion);
-				if(tempScoreArray[0] <= 0 && tempScoreArray[1] === false){
-					boxesChangeColor[counter - 1].className = "questionLastDivIncorrect";
-					tempScore = 0;
-				}else if(tempScoreArray[0] === this.questionObjects[counter - 1].answersToQuestion.length){
-					boxesChangeColor[counter - 1].className = "questionLastDivCorrect";
-					tempScore = tempScoreArray[0];
-				}else{
-					boxesChangeColor[counter - 1].className = "questionLastDivPartialCorrect";
-					if(tempScoreArray[0] < 0){
-						tempScore = 0;
-					}else{
-						tempScore = tempScoreArray[0];
-					}
-				}
-				totalQuestion += this.questionObjects[counter - 1].answersToQuestion.length;
-				this.updateScore(tempScore, boxesChangeColor[counter - 1], counter);
-			}else if(this.questionObjects[counter - 1].typeQuestion === "questionTrueOrFalse-style"){ // true or false question
-				tempScore = this.gradeTrueOrFalse(questionToBeGraded[counter].children[3].children[0], questionToBeGraded[counter].children[3].children[1], this.questionObjects[counter - 1].answersToQuestion);
-				if(tempScore === this.questionObjects[counter - 1].answersToQuestion.length){
-					boxesChangeColor[counter - 1].className = "questionLastDivCorrect";
-				}else if (tempScore === 0){
-					boxesChangeColor[counter - 1].className = "questionLastDivIncorrect";
-				}else{
-					boxesChangeColor[counter - 1].className = "questionLastDivPartialCorrect";
-				}
-				totalQuestion += this.questionObjects[counter - 1].answersToQuestion.length;
-				this.updateScore(tempScore, boxesChangeColor[counter - 1], counter);
-			}else if(this.questionObjects[counter - 1].typeQuestion === "questionSequence-style"){
-				tempScore = this.gradeSequence(questionToBeGraded[counter].children[1].children[1].children, this.questionObjects[counter - 1].answersToQuestion);
-				if(tempScore === this.questionObjects[counter - 1].answersToQuestion.length){
-					boxesChangeColor[counter - 1].className = "questionLastDivCorrect";
-				}else if (tempScore === 0){
-					boxesChangeColor[counter - 1].className = "questionLastDivIncorrect";
-				}else{
-					boxesChangeColor[counter - 1].className = "questionLastDivPartialCorrect";
-				}
-				totalQuestion += this.questionObjects[counter - 1].answersToQuestion.length;
-				this.updateScore(tempScore, boxesChangeColor[counter - 1], counter);
-			}else if(this.questionObjects[counter - 1].typeQuestion === "questionFillInBlank-style"){
-				tempScore = this.gradeFillInBlank(questionToBeGraded[counter].children[1].children, this.questionObjects[counter - 1].answersToQuestion);
-				if(tempScore === this.questionObjects[counter - 1].answersToQuestion.length){
-					boxesChangeColor[counter - 1].className = "questionLastDivCorrect";
-				}else if (tempScore === 0){
-					boxesChangeColor[counter - 1].className = "questionLastDivIncorrect";
-				}else{
-					boxesChangeColor[counter - 1].className = "questionLastDivPartialCorrect";
-				}
-				this.updateScore(tempScore, boxesChangeColor[counter - 1], counter);
-				totalQuestion += this.questionObjects[counter - 1].answersToQuestion.length;
-			}
-			totalScore += tempScore;
-
-		}
-		this.isGraded = true;
-		const finalScore = document.createElement('div');
-		const finalScoreText = document.createElement('p');
-		
-		finalScoreText.innerHTML = totalScore + " / " + totalQuestion;
-		finalScore.appendChild(finalScoreText);
-		finalScoreText.className = "finalScoreText";
-		
-		finalScore.className = "finalScoreDiv";
-		
-		const divToAddTheFinalScore = this.QuizBoxDiv.lastChild.children[1];
-		
-		divToAddTheFinalScore.appendChild(finalScore);
-		return;
-	},
-	
-	gradeMultipleChoice: function(optionsToBeGraded, answer) {
-		
-		for(let optionCounter = 1; optionCounter < optionsToBeGraded.length; optionCounter++){
-			let tempOption = optionsToBeGraded[optionCounter];
-			if(tempOption.className === "questionMultipleChoiceOneDivBlue-style"){
-				if(tempOption.children[0].innerHTML === answer){
-					return 1;
-				}else{
-					return 0;
-				}
-			}
-		}
-		return 0;
-	},
-	
-	
-	gradeMultipleChoiceMany: function(optionsToBeGraded, answer) {
-		let score = 0;
-		let answerCorrect = false;
-		for(let optionCounter = 1; optionCounter < optionsToBeGraded.length; optionCounter++){
-			let tempOption = optionsToBeGraded[optionCounter];
-			if(tempOption.className === "questionMultipleChoiceManyDivBlue-style"){
-				if(answer.indexOf(tempOption.children[0].innerHTML) >= 0){
-					answerCorrect = true;
-					score += 1
-				}else{
-					score -= 1; // user picks more options 
-				}
-			}
-		}
-		return [score, answerCorrect];
-	},
-	
-	gradeTrueOrFalse: function(falseChoices, trueChoices, answer) {
-		let score = 0;
-		let statementNum = 0;
-		for(let counter = 0; counter < trueChoices.children.length; counter++){
-			statementNum = trueChoices.children[counter].innerHTML;
-			if(answer[parseInt(statementNum) - 1]){
-				score += 1;
-			}
-		}
-		for(let counter = 0; counter < falseChoices.children.length; counter++){
-			statementNum = falseChoices.children[counter].innerHTML;
-			if(answer[parseInt(statementNum) - 1] === false){
-				score += 1;
-			}
-		}
-		return score;
-	},
-	
-	gradeSequence: function(events, answer) {
-		let score = 0;
-		for(let counter = 0; counter < events.length; counter++){
-			let eventText = events[counter].innerHTML;
-			if(eventText === answer[counter]){
-				score += 1
-			}	
-		}
-		return score;
-	},
-	
-	gradeFillInBlank: function(questions, answer) {
-		let score = 0;
-		for(let counter = 0; counter < questions.length; counter++){
-			let boxesArr = Array.from(questions[counter].querySelectorAll('.inputBox-style'));
-			for(let counter2 = 0; counter2 < boxesArr.length; counter2++){
-				console.log(boxesArr[counter2].value);
-				if (boxesArr[counter2].value.toLowerCase() === answer[counter + counter2].toLowerCase()){
-					score += 1
-				}
-			}
-		}
-		return score;
-	},
 }
 
+global.QuizBox = global.QuizBox || QuizBox
 
+})(window, window.document);
