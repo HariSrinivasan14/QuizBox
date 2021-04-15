@@ -113,7 +113,7 @@
 			this.questionObjects[this.currentQuestion].question.classList.add(this.questionObjects[this.currentQuestion].animation);
 		}
 		if(this.isGraded){
-			this.questionObjects[this.currentQuestion].question.className.classList.add('graded');
+			this.questionObjects[this.currentQuestion].question.classList.add('graded');
 		}
 		
 	}
@@ -300,6 +300,9 @@
 	}
 	
 	function _gradeAnswers() {
+		if(this.isGraded){ // prevents the user from clicking the submit button again
+			return;
+		}
 		const questionToBeGraded = this.QuizBoxDiv.children;
 		const boxesChangeColor = this.QuizBoxDiv.lastChild.children[0].children;
 		let totalScore = 0;
@@ -307,7 +310,7 @@
 		for(let counter = 1; counter < questionToBeGraded.length; counter++){
 			let tempScore = 0;
 			if(this.questionObjects[counter - 1].typeQuestion ===  "questionMultipleChoiceOne-style"){ // multipleChoice question
-				tempScore = _gradeMultipleChoice(questionToBeGraded[counter].children, this.questionObjects[counter - 1].answersToQuestion);
+				tempScore = _gradeMultipleChoice.bind(this)(questionToBeGraded[counter].children, this.questionObjects[counter - 1].answersToQuestion, counter - 1);
 				if(tempScore === 0){
 					boxesChangeColor[counter - 1].className = "questionLastDivIncorrect";
 				}else{
@@ -316,7 +319,7 @@
 				totalQuestion += 1;
 				_updateScore(tempScore, boxesChangeColor[counter - 1], counter);
 			}else if(this.questionObjects[counter - 1].typeQuestion ===  "questionMultipleChoiceMany-style"){ // multipleChoice question many
-				let tempScoreArray = _gradeMultipleChoiceMany(questionToBeGraded[counter].children, this.questionObjects[counter - 1].answersToQuestion);
+				let tempScoreArray = _gradeMultipleChoiceMany.bind(this)(questionToBeGraded[counter].children, this.questionObjects[counter - 1].answersToQuestion, counter - 1);
 				if(tempScoreArray[0] <= 0 && tempScoreArray[1] === false){
 					boxesChangeColor[counter - 1].className = "questionLastDivIncorrect";
 					tempScore = 0;
@@ -334,7 +337,7 @@
 				totalQuestion += this.questionObjects[counter - 1].answersToQuestion.length;
 				_updateScore(tempScore, boxesChangeColor[counter - 1], counter);
 			}else if(this.questionObjects[counter - 1].typeQuestion === "questionTrueOrFalse-style"){ // true or false question
-				tempScore = _gradeTrueOrFalse(questionToBeGraded[counter].children[3].children[0], questionToBeGraded[counter].children[3].children[1], this.questionObjects[counter - 1].answersToQuestion);
+				tempScore = _gradeTrueOrFalse.bind(this)(questionToBeGraded[counter].children[3].children[0], questionToBeGraded[counter].children[3].children[1], this.questionObjects[counter - 1].answersToQuestion, counter - 1);
 				if(tempScore === this.questionObjects[counter - 1].answersToQuestion.length){
 					boxesChangeColor[counter - 1].className = "questionLastDivCorrect";
 				}else if (tempScore === 0){
@@ -345,7 +348,7 @@
 				totalQuestion += this.questionObjects[counter - 1].answersToQuestion.length;
 				_updateScore(tempScore, boxesChangeColor[counter - 1], counter);
 			}else if(this.questionObjects[counter - 1].typeQuestion === "questionSequence-style"){
-				tempScore = _gradeSequence(questionToBeGraded[counter].children[1].children[1].children, this.questionObjects[counter - 1].answersToQuestion);
+				tempScore = _gradeSequence.bind(this)(questionToBeGraded[counter].children[1].children[1].children, this.questionObjects[counter - 1].answersToQuestion, counter - 1);
 				if(tempScore === this.questionObjects[counter - 1].answersToQuestion.length){
 					boxesChangeColor[counter - 1].className = "questionLastDivCorrect";
 				}else if (tempScore === 0){
@@ -356,10 +359,21 @@
 				totalQuestion += this.questionObjects[counter - 1].answersToQuestion.length;
 				_updateScore(tempScore, boxesChangeColor[counter - 1], counter);
 			}else if(this.questionObjects[counter - 1].typeQuestion === "questionFillInBlank-style"){
-				tempScore = _gradeFillInBlank(questionToBeGraded[counter].children[1].children, this.questionObjects[counter - 1].answersToQuestion);
+				tempScore = _gradeFillInBlank.bind(this)(questionToBeGraded[counter].children[1].children, this.questionObjects[counter - 1].answersToQuestion, counter - 1);
 				if(tempScore === this.questionObjects[counter - 1].answersToQuestion.length){
 					boxesChangeColor[counter - 1].className = "questionLastDivCorrect";
 				}else if (tempScore === 0){
+					boxesChangeColor[counter - 1].className = "questionLastDivIncorrect";
+				}else{
+					boxesChangeColor[counter - 1].className = "questionLastDivPartialCorrect";
+				}
+				_updateScore(tempScore, boxesChangeColor[counter - 1], counter);
+				totalQuestion += this.questionObjects[counter - 1].answersToQuestion.length;
+			}else if(this.questionObjects[counter - 1].typeQuestion === "questionMatching-style"){
+				tempScore = _gradeMatching.bind(this)(this.userAnswers[counter - 1], this.questionObjects[counter - 1].answersToQuestion, counter - 1);
+				if(tempScore === this.questionObjects[counter - 1].answersToQuestion.length){
+					boxesChangeColor[counter - 1].className = "questionLastDivCorrect";
+				}else if(tempScore === 0){
 					boxesChangeColor[counter - 1].className = "questionLastDivIncorrect";
 				}else{
 					boxesChangeColor[counter - 1].className = "questionLastDivPartialCorrect";
@@ -386,11 +400,12 @@
 		return;
 	}
 	
-	function _gradeMultipleChoice(optionsToBeGraded, answer) {
+	function _gradeMultipleChoice(optionsToBeGraded, answer, questionNum) {
 		
 		for(let optionCounter = 1; optionCounter < optionsToBeGraded.length; optionCounter++){
 			let tempOption = optionsToBeGraded[optionCounter];
 			if(tempOption.className === "questionMultipleChoiceOneDivBlue-style"){
+				this.userAnswers[questionNum] = {userAnswer: tempOption.children[0].innerHTML}
 				if(tempOption.children[0].innerHTML === answer){
 					return 1;
 				}else{
@@ -398,16 +413,19 @@
 				}
 			}
 		}
+		this.userAnswers[questionNum] = {questionType: "Multiple Choice One", userAnswer: ""}
 		return 0;
 	}
 	
 	
-	function _gradeMultipleChoiceMany(optionsToBeGraded, answer) {
+	function _gradeMultipleChoiceMany(optionsToBeGraded, answer, questionNum) {
 		let score = 0;
 		let answerCorrect = false;
+		let userArr = [];
 		for(let optionCounter = 1; optionCounter < optionsToBeGraded.length; optionCounter++){
 			let tempOption = optionsToBeGraded[optionCounter];
 			if(tempOption.className === "questionMultipleChoiceManyDivBlue-style"){
+				userArr.push(tempOption.children[0].innerHTML);
 				if(answer.indexOf(tempOption.children[0].innerHTML) >= 0){
 					answerCorrect = true;
 					score += 1
@@ -416,49 +434,78 @@
 				}
 			}
 		}
+		this.userAnswers[questionNum] = {questionType: "Multiple Choice Many", userAnswer: userArr}
 		return [score, answerCorrect];
 	}
 	
-	function _gradeTrueOrFalse(falseChoices, trueChoices, answer) {
+	function _gradeTrueOrFalse(falseChoices, trueChoices, answer, questionNum) {
 		let score = 0;
 		let statementNum = 0;
+		let trueArr = [];
+		let falseArr = [];
 		for(let counter = 0; counter < trueChoices.children.length; counter++){
 			statementNum = trueChoices.children[counter].innerHTML;
+			trueArr.push(parseInt(statementNum))
 			if(answer[parseInt(statementNum) - 1]){
 				score += 1;
 			}
 		}
 		for(let counter = 0; counter < falseChoices.children.length; counter++){
 			statementNum = falseChoices.children[counter].innerHTML;
+			falseArr.push(parseInt(statementNum))
 			if(answer[parseInt(statementNum) - 1] === false){
 				score += 1;
 			}
 		}
+		this.userAnswers[questionNum] = {questionType: "True Or false", questionsUserAnswerAsTrue: trueArr, questionsUserAnswerAsFalse: falseArr}
 		return score;
 	}
 	
-	function _gradeSequence(events, answer) {
+	function _gradeSequence(events, answer, questionNum) {
 		let score = 0;
+		let seqArr= [];
 		for(let counter = 0; counter < events.length; counter++){
 			let eventText = events[counter].innerHTML;
+			seqArr.push(eventText)
 			if(eventText === answer[counter]){
 				score += 1
 			}	
 		}
+		this.userAnswers[questionNum] = {questionType: "Sequence Question", userAnswer: seqArr}
 		return score;
 	}
 	
-	function _gradeFillInBlank(questions, answer) {
+	function _gradeFillInBlank(questions, answer, questionNum) {
 		let score = 0;
+		let fillInBlankArr = [];
 		for(let counter = 0; counter < questions.length; counter++){
 			let boxesArr = Array.from(questions[counter].querySelectorAll('.inputBox-style'));
 			for(let counter2 = 0; counter2 < boxesArr.length; counter2++){
 				console.log(boxesArr[counter2].value);
+				fillInBlankArr.push(boxesArr[counter2].value);
 				if (boxesArr[counter2].value.toLowerCase() === answer[counter + counter2].toLowerCase()){
 					score += 1
 				}
 			}
 		}
+		this.userAnswers[questionNum] = {questionType: "Sequence Question", userAnswer: fillInBlankArr}
+		return score;
+	}
+
+	function _gradeMatching(userMatches, answer, questionNum) {
+		let score = 0;
+		let matchArr= [];
+		for(let counter = 0; counter < userMatches.length; counter++){
+			let match1 = userMatches[counter][0].innerHTML;
+			let match2 = userMatches[counter][1].innerHTML;
+			matchArr.push([match1, match2]);
+			for(let counter2 = 0; counter2 < answer.length; counter2++){
+				if((answer[counter2].indexOf(match1) > -1) && (answer[counter2].indexOf(match2) > -1)){
+					score += 1
+				}
+			}
+		}
+		this.userAnswers[questionNum] = {questionType: "Matching", userAnswer: matchArr}
 		return score;
 	}
 
@@ -815,9 +862,10 @@ QuizBox.prototype = {
 			}
 
 			if(questionNum === 1){ // animation when the browswer is refreshed
-				this.questionObjects[this.currentQuestion].question.classList.add("questionScroll") 
 				if(this.questionObjects[questionNum - 1].typeQuestion === "questionSequence-style"){
 					this.questionObjects[questionNum - 1].question.classList.add("questionScrollSequence");
+				}else{
+					this.questionObjects[this.currentQuestion].question.classList.add("questionScroll") 
 				}
 			}
 		}else if(animationName === "Reveal"){
@@ -828,10 +876,11 @@ QuizBox.prototype = {
 			}
 
 			if(questionNum === 1){ // animation when the browswer is refreshed
-				this.questionObjects[this.currentQuestion].question.classList.add("questionReveal") 
-
+				
 				if(this.questionObjects[questionNum - 1].typeQuestion === "questionTrueOrFalse-style"){
 					this.questionObjects[questionNum - 1].question.classList.add("questionRevealTrueOrFalse");
+				}else{
+					this.questionObjects[this.currentQuestion].question.classList.add("questionReveal") 
 				}
 			}
 		}else if(animationName === "Slide Down"){ 
@@ -850,6 +899,10 @@ QuizBox.prototype = {
 			this.addAnimation(animationName, counter + 1);
 		}
 	},
+
+	getUserAnswer: function(){
+		return this.userAnswers
+	}
 
 
 }
