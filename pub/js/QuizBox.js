@@ -29,6 +29,9 @@
 		this.questionObjects[this.currentQuestion].question.className = "displayNone";
 		this.currentQuestion -= 1;
 		this.questionObjects[this.currentQuestion].question.className = this.questionObjects[this.currentQuestion].typeQuestion;
+		if(!(this.questionObjects[this.currentQuestion].animation === null)){
+			this.questionObjects[this.currentQuestion].question.classList.add(this.questionObjects[this.currentQuestion].animation);
+		}
 		if(this.isGraded){
 			this.questionObjects[this.currentQuestion].question.classList.add('graded');
 		}
@@ -45,6 +48,9 @@
 		this.questionObjects[this.currentQuestion].question.className = "displayNone";
 		this.currentQuestion += 1;
 		this.questionObjects[this.currentQuestion].question.className = this.questionObjects[this.currentQuestion].typeQuestion;
+		if(!(this.questionObjects[this.currentQuestion].animation === null)){
+			this.questionObjects[this.currentQuestion].question.classList.add(this.questionObjects[this.currentQuestion].animation);
+		}
 		if(this.isGraded){
 			this.questionObjects[this.currentQuestion].question.classList.add('graded');
 		}
@@ -103,6 +109,9 @@
 		this.questionObjects[this.currentQuestion].question.className = "displayNone";
 		this.currentQuestion = e.target.value - 1;
 		this.questionObjects[this.currentQuestion].question.className = this.questionObjects[this.currentQuestion].typeQuestion;
+		if(!(this.questionObjects[this.currentQuestion].animation === null)){
+			this.questionObjects[this.currentQuestion].question.classList.add(this.questionObjects[this.currentQuestion].animation);
+		}
 		if(this.isGraded){
 			this.questionObjects[this.currentQuestion].question.className.classList.add('graded');
 		}
@@ -206,7 +215,7 @@
 	}
 
 	function _updateAttributes(div, divClassName, answers, points) {
-		const QuestionObject = {question: div, typeQuestion: divClassName, answersToQuestion: answers};
+		const QuestionObject = {question: div, typeQuestion: divClassName, answersToQuestion: answers, animation: null};
 		this.questionObjects.push(QuestionObject);
 		this.userAnswers.push(undefined);
 
@@ -741,8 +750,6 @@ QuizBox.prototype = {
 		_updateAttributes.bind(this)(mainDivFill ,"questionFillInBlank-style", answers, answers.length);
 	},
 
-	
-
 	createMatching: function(match1, match2, answer) {
 		const mainDivMatching = document.createElement('div');
 		const titleDiv = document.createElement('div');
@@ -791,6 +798,59 @@ QuizBox.prototype = {
 		_updateAttributes.bind(this)(mainDivMatching ,"questionMatching-style", answer, answer.length);
 		return;
 	},
+
+
+	addAnimation: function(animationName, questionNum) {
+		if(animationName === "Fade In"){ 
+			this.questionObjects[questionNum - 1].animation = "questionFadeIn";
+			
+			if(questionNum === 1){ // animation when the browswer is refreshed
+				this.questionObjects[this.currentQuestion].question.classList.add("questionFadeIn") 
+			}
+		}else if(animationName === "Scroll"){ 
+			this.questionObjects[questionNum - 1].animation = "questionScroll";
+
+			if(this.questionObjects[questionNum - 1].typeQuestion === "questionSequence-style"){
+				this.questionObjects[questionNum - 1].animation = "questionScrollSequence";
+			}
+
+			if(questionNum === 1){ // animation when the browswer is refreshed
+				this.questionObjects[this.currentQuestion].question.classList.add("questionScroll") 
+				if(this.questionObjects[questionNum - 1].typeQuestion === "questionSequence-style"){
+					this.questionObjects[questionNum - 1].question.classList.add("questionScrollSequence");
+				}
+			}
+		}else if(animationName === "Reveal"){
+			this.questionObjects[questionNum - 1].animation = "questionReveal";
+
+			if(this.questionObjects[questionNum - 1].typeQuestion === "questionTrueOrFalse-style"){
+				this.questionObjects[questionNum - 1].animation = "questionRevealTrueOrFalse";
+			}
+
+			if(questionNum === 1){ // animation when the browswer is refreshed
+				this.questionObjects[this.currentQuestion].question.classList.add("questionReveal") 
+
+				if(this.questionObjects[questionNum - 1].typeQuestion === "questionTrueOrFalse-style"){
+					this.questionObjects[questionNum - 1].question.classList.add("questionRevealTrueOrFalse");
+				}
+			}
+		}else if(animationName === "Slide Down"){ 
+			this.questionObjects[questionNum - 1].animation = "questionSlide";
+
+			if(questionNum === 1){ // animation when the browswer is refreshed
+				this.questionObjects[this.currentQuestion].question.classList.add("questionSlide") 
+			}
+		}else if(animationName === "Instant"){ // default
+			this.questionObjects[questionNum - 1].animation = null;
+		}
+	},
+
+	addAnimationAll: function(animationName) {
+		for(let counter = 0; counter < this.numQuestions; counter++){
+			this.addAnimation(animationName, counter + 1);
+		}
+	},
+
 
 }
 
