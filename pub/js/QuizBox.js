@@ -847,7 +847,7 @@ QuizBox.prototype = {
 	},
 
 
-	addAnimation: function(animationName, questionNum) {
+	setAnimation: function(animationName, questionNum) {
 		if(animationName === "Fade In"){ 
 			this.questionObjects[questionNum - 1].animation = "questionFadeIn";
 			
@@ -894,9 +894,9 @@ QuizBox.prototype = {
 		}
 	},
 
-	addAnimationAll: function(animationName) {
+	setAnimationAll: function(animationName) {
 		for(let counter = 0; counter < this.numQuestions; counter++){
-			this.addAnimation(animationName, counter + 1);
+			this.setAnimation(animationName, counter + 1);
 		}
 	},
 

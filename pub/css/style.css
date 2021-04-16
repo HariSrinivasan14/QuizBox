@@ -126,6 +126,20 @@ body {
     margin-left: 5%;
     color: #3385ff;
 }
+.API-header2{
+    margin-top: 60px;
+    margin-left: 5%;
+    color: #3385ff;
+}
+.API-header3{
+    padding-top: 40px;
+    margin-top: 0px;
+    margin-left: 5%;
+    margin-bottom: 0px;
+    color: #3385ff;
+}
+
+
 .innerBullet{
     color: #444;
     padding-left: 20px;
@@ -133,4 +147,73 @@ body {
 .Bullet{
     color: #444;
     padding-left: 20px;
+}
+
+#examplesDiv{
+    width:62%;
+    height: 650px;
+    background-color: white;
+    margin-top: 0px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    margin-left: 15%;
+}
+
+#examplesDiv2{
+    display: flex;
+    margin-top: 0px;
+    background-color: white;
+    width:62%;
+    height: 650px;
+    justify-content: center;
+    align-items: center;
+    margin-left: 15%;
+}
+
+.animationDiv-style{
+    display: flex;
+    margin-top: 0px;
+    background-color: white;
+    width:62%;
+    height: 600px;
+    justify-content: center;
+    align-items: center;
+    margin-left: 15%;
+}
+
+
+.SubHeaderDiv{
+    background-color: white;
+    width:62%;
+    margin-top: 60px;
+    margin-left: 15%;
+    margin-bottom: 0px;
+}
+.SubHeaderDiv2{
+    background-color: white;
+    width:62%;
+    margin-top: 0px;
+    margin-left: 15%;
+    margin-bottom: 0px;
+}
+
+
+.h2-style{
+    color: #3385ff;
+    margin-bottom: 0px;
+    margin-left: 7%;
+    margin-top: 0px;
+}
+
+.h2-style2{
+    color: #3385ff;
+    margin-bottom: 0px;
+    margin-left: 7%;
+    margin-top: 0px;
+    padding-top: 40px;
+}
+.p-style{
+    margin-left: 7%;
+    margin-bottom: 10px;
 }

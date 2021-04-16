@@ -31,7 +31,7 @@
     </div>
 
     <div id='mainDiv'>
-        <h1 class="API-header">Question API</h1>
+        <h1 class="API-header">Question APIs</h1>
         <div>
             <table id='createQuizTable'>
                 <thead id='createQuizTableHead'>
@@ -232,8 +232,100 @@
                     </tr>
                 </tbody>
             </table>
-
         </div>
+
+
+        <div>
+            <h1 class="API-header2">Animation APIs</h1>
+
+            <table id='createQuizTable'>
+                <thead id='createQuizTableHead'>
+                    <tr>
+                        <th>
+                            Name
+                        </th>
+                        <th>
+                            Description
+                        </th>
+                        <th>
+                            Parameters
+                        </th>
+                        <th>
+                            Return Value
+                        </th>
+                        <th>
+                            Usage
+                        </th>
+                    </tr>
+                </thead>
+
+
+                <tbody>
+                    <tr class="createQuizTableRow">
+                        <td class="Name">
+                            <b><p>setAnimation</p></b>
+                        </td>
+                        <td class="description">
+                            <p>Given the parameter element, the function will return a JS object that represents a quiz.</p>
+                        </td>
+                        <td>
+                            <p><b>Element</b>: is a DOM element that the quiz will appear in the browser.</p>
+                            <p><b>To see examples of different types of animations <a href="example.html#animationHeader">click here.</a></b></p>
+                        </td>
+                        <td>
+                            0
+                        </td>
+                        <td>
+                            <ul class="innerBullet">
+                                <li><b>Example:</b>
+                                    <ul>
+                                        <li><p>Const elementToAddQuizTo = document.querySelector('body');</p></li>
+                                        <li><p> <b>Const</b> newQuiz = <span class="Name">QuizBox</span>(elementToAddQuizTo);</p></li>
+                                        <li><p><b>NOTE:</b> the quiz will appear in the body element.</p></li>
+                                      </ul>
+                                </li>
+                              </ul>
+                        </td>
+                    </tr>
+                    <tr class="createQuizTableRow">
+                        <td class="Name">
+                            <b><p>createMultipleChoiceOne</p></b>
+                        </td>
+                        <td class="description">
+                            <p>Given the parameters, question, options and answer, the function will create a multiple-choice question and add it to the quiz. 
+                                Users can answer the question by selecting one of the options as their answer to the question.</p>
+                        </td>
+                        <td>
+                            <ul class="Bullet">
+                                <li><b>question:</b> is string that represents the question.</li>
+                                <br>
+                                <li><b>options::</b> is an array of strings where each string is an answer option to the question.</li>
+                                <br>
+                                <li><b>answer:</b> is a string that is contained in the “options” array. This string represents the answer to the question.</li>
+                            </ul>
+                        </td>
+                        <td>
+                            0
+                        </td>
+                        <td>
+                            <ul>
+                                <li><b>NOTE:</b> If a developer wants to create this type of multiple-choice question, they must first create a QuizBox object.</li>
+                                <br>
+                                <li><b>Example:</b>
+                                    <ul class="innerBullet">
+                                        <li><p>Const elementToAddQuizTo = document.querySelector('body');</p></li>
+                                        <li><p> <b>Const</b> newQuiz = <span class="Name">QuizBox</span>(elementToAddQuizTo);</p></li>
+                                        <li><p>newQuiz.<span class="Name">createMultipleChoiceOne</span> (“What is 2 + 2”, [“1”, “2”, “3”, “4”], “4”);</p></li>
+                                      </ul>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+
     </div>
 
 
