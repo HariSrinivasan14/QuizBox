@@ -31,26 +31,78 @@
         <ul>
             <li><a href="index.html">Home</a></li>
             <li><a href="documentation.html">Documentation</a></li>
-            <li><a href="example.html">Example</a></li>
+            <li><a href="example.html">Examples</a></li>
         </ul>
     </div>
 
-    <div class="SubHeaderDiv">
-        <H1 class = "API-header3">Example 1 </H1>
+    <div id="Examples">
+        <div class="SubHeaderDiv">
+            <H1 class = "API-header3">Example 1: </H1>
+        </div>
+
+        <div id="examplesDiv">
+            
+        </div>
+        <div class="CodeBoxMain">
+            <h3 class="h2-style"> Code used to create the above example:</h3>
+            <br>
+            <div class="codeBox">
+                <p>
+                    const tempDiv = document.querySelector(<span class="stringText">'#examplesDiv'</span>);
+                    <br>
+                    <br>
+                    const newQuiz = new <span class="Name">QuizBox</span>(tempDiv);
+                    <br>
+                    <br>
+                    newQuiz.<span class="Name">createMultipleChoiceOne</span>(<span class="stringText">"What does HTML stand for?"</span>, [<span class="stringText">"HyperText Machine Learning"</span>, 
+                    <span class="stringText">"HyperText Markup Language"</span>, <span class="stringText">"Hyper Machine Language"</span>, <span class="stringText">"None of the above"</span>, 
+                    <span class="stringText">"All of the above"</span>], <span class="stringText">"HyperText Markup Language"</span>);
+                    <br>
+                    <br>
+                    newQuiz.<span class="Name">createFillInTheBlank</span>([<span class="stringText">"Red is a ___ colour."</span>, <span class="stringText">"RAM stands for ___."</span>, 
+                    <span class="stringText">"The capital city of Canada is ___."</span>, <span class="stringText">"The hottest planet in our solar system is ___"</span>], 
+                    [<span class="stringText">"primary"</span>, <span class="stringText">"Random Access Memory"</span>, <span class="stringText">"Ottawa"</span>, <span class="stringText">"Venus"</span>]);
+                    <br>
+                    <br>
+                    newQuiz.<span class="Name">createMultipleChoiceMany</span>(<span class="stringText">"Which of the following cities are located in Ontario? 
+                    Select all that apply."</span>, [<span class="stringText">"Toronto"</span>, <span class="stringText">"Brampton"</span>, <span class="stringText">"Hamilton"</span>, 
+                    <span class="stringText">"Mississauga"</span>, <span class="stringText">"New York"</span>], [<span class="stringText">"Toronto"</span>, 
+                    <span class="stringText">"Brampton"</span>, <span class="stringText">"Hamilton"</span>, <span class="stringText">"Mississauga"</span>]);
+                    <br>
+                    <br>
+                    newQuiz.<span class="Name">createTrueOrFalseQuestion</span>([<span class="stringText">"Yellow is a primary colour."</span>, <span class="stringText">"CPU stands for Central Processing Unit."</span>, 
+                    <span class="stringText">"An Octopus has three hearts."</span>, <span class="stringText">"The letter A is the most common letter used in the English language."</span>], 
+                    [<span class="stringText">true</span>, <span class="stringText">true</span>, <span class="stringText">true</span>, <span class="stringText">false</span>]);
+                    <br>
+                    <br>
+                    newQuiz.<span class="Name">createSequenceQuestion</span>([<span class="stringText">"Invention of the Turing Machine."</span>, 
+                    <span class="stringText">"American Civil War."</span>, <span class="stringText">"Extinction of Dinosaurs."</span>, 
+                    <span class="stringText">"First time landing on the Moon"</span>, <span class="stringText">"COVID-19."</span>], [<span class="stringText">"COVID-19."</span>, 
+                    <span class="stringText">"First time landing on the Moon"</span>, <span class="stringText">"Invention of the Turing Machine."</span>, 
+                    <span class="stringText">"American Civil War."</span>, <span class="stringText">"Extinction of Dinosaurs."</span>]);
+                    <br>
+                    <br>
+                    newQuiz.<span class="Name">setAnimationAll</span>(<span class="stringText">"Fade In"</span>)
+
+                </p>
+            </div>
+        </div>
+
+        <div class="SubHeaderDiv">
+            <H1 class = "API-header3">Example 2: </H1>
+        </div>
+
+        <div id="examplesDiv2">
+
+        </div>
+        
+
+
+
     </div>
 
-    <div id="examplesDiv">
-    </div>
 
-    <div class="SubHeaderDiv">
-        <H1 class = "API-header3">Example 2 </H1>
-    </div>
-
-    <div id="examplesDiv2">
-    </div>
-
-
-    <div>
+    <div id = "Animation Example">
         <div class="SubHeaderDiv">
             <H1 class = "API-header3" id="animationHeader">Example of Animations:</H1>
             <p class="p-style">Here are some examples showing off the different types of animations. Click the "Next" and "Previous" button to play the animation</p>
@@ -60,7 +112,7 @@
 
 
         <div class="SubHeaderDiv2">
-            <h2 class="h2-style2"> Animation Name: Fade In</h2>
+            <h2 class="h2-style2"> Animation Name: Scroll</h2>
         </div>
         <div id="examplesDiv4" class="animationDiv-style"></div>
 
@@ -74,6 +126,11 @@
             <h2 class="h2-style2"> Animation Name: Slide Down</h2>
         </div>
         <div id="examplesDiv6" class="animationDiv-style"></div>
+
+        <div class="SubHeaderDiv2">
+            <h2 class="h2-style2"> Animation Name: Fade In</h2>
+        </div>
+        <div id="examplesDiv7" class="animationDiv-style"></div>
     </div>
 
 

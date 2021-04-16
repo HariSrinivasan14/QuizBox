@@ -26,11 +26,68 @@
         <ul>
             <li><a href="index.html">Home</a></li>
             <li><a href="documentation.html">Documentation</a></li>
-            <li><a href="example.html">Example</a></li>
+            <li><a href="example.html">Examples</a></li>
         </ul>
     </div>
 
+
+
     <div id='mainDiv'>
+        <h1 class="API-header" id="getting-started-id">Getting started:</h1>
+        <h2 class= "h2-style"> Step 1:</h2>
+            <p class="p-style2">
+                To start using this library, include the script tag, <codeText>&lt;script defer type=&quot;text/javascript&quot; 
+                src='js/QuizBox.js'&gt;&lt;/script&gt; </codeText>, and the link tag, <codeText> &lt;link rel=&quot;stylesheet&quot; 
+                type=&quot;text/css&quot; href=&quot;QuizBox.css&quot;&gt;</codeText> in the HTML file that you want to create the quiz in. 
+                Moreover, create a JS file and include it in the same HTML file (i.e. include the script tag, <codeText>&lt;script defer type=&quot;
+                text/javascript&quot; src='Path to the JS file'&gt;&lt;/script&gt; </codeText>) that contains the script tag and the link tag that was stated before. 
+            </p>
+            <br>
+            <p class="p-style">
+                <b>NOTE:</b> that the path for QuizBox.js and QuizBox.css could differ depending on where QuizBox.js and QuizBox.css is placed with repect to the HTML file.
+            </p>
+            <p class="p-style">
+                Before moving on to the next step, please ensure that the following tags in the HTML file:
+            </p>
+                <ul class="p-style">
+                    <li> <codeText> &lt;script defer type=&quot;text/javascript&quot; src='js/QuizBox.js'&gt;&lt;/script&gt; </codeText></li>
+                    <li> <codeText> &lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;QuizBox.css&quot;&gt; </codeText></li>
+                    <li> <codeText> &lt;script defer type=&quot;text/javascript&quot; src='example.js'&gt;&lt;/script&gt; </codeText></li>
+                </ul>
+            <p class="p-style">
+                    <b>NOTE:</b> For demonstration purposes the JS file is called <codeText>example.js</codeText>. The name of the JS file does not matter.
+            </p>
+
+
+
+        <h2 class= "h2-style2" > Step 2:</h2>
+        <div>
+            <p class="p-style">
+                To create your first quiz, you must first create a QuizBox object in your JS file that you included in your HTML file. This can be done as such:
+            </p>
+            <p class="p-style3"><codeText> const parentElementOfQuiz = document.querySelector('body'); </codeText> </p>
+            <p class="p-style3"><codeText> const quiz =  new QuizBox(parentElementOfQuiz); </codeText> </p>
+            <p class="p-style">
+                Now that your have a QuizBox object, you can start adding questions to the quiz.
+                For example, to make a multiple choice question with one correct answer:
+            </p>
+            <p class="p-style3">
+                <codeText> 
+                    quiz.createMultipleChoiceOne("What does HTML stand for?",
+                    ["HyperText Machine Learning", "HyperText Markup Language", "Hyper Machine Language", 
+                    "None of the above", "All of the above"], "HyperText Markup Language"); 
+                </codeText> 
+            </p>
+            <p class="p-style">
+                <br> 
+                Other types of questions can be created and added to the quiz in a similar manner.
+                <br> 
+                <br> 
+                Below are tables that describe different API functions that can be used to create the Quiz. 
+            </p>
+        </div>
+
+
         <h1 class="API-header">Question APIs</h1>
         <div>
             <table id='createQuizTable'>
@@ -67,16 +124,16 @@
                             <p><b>Element</b>: is a DOM element that the quiz will appear in the browser.</p>
                         </td>
                         <td>
-                            0
+                            <p>None</p>
                         </td>
                         <td>
                             <ul class="innerBullet">
                                 <li><b>Example:</b>
                                     <ul>
                                         <li><p>Const elementToAddQuizTo = document.querySelector('body');</p></li>
-                                        <li><p> <b>Const</b> newQuiz = <span class="Name">QuizBox</span>(elementToAddQuizTo);</p></li>
+                                        <li><p> <b>Const</b> newQuiz = new <span class="Name">QuizBox</span>(elementToAddQuizTo);</p></li>
                                         <li><p><b>NOTE:</b> the quiz will appear in the body element.</p></li>
-                                      </ul>
+                                    </ul>
                                 </li>
                               </ul>
                         </td>
@@ -93,13 +150,13 @@
                             <ul class="Bullet">
                                 <li><b>question:</b> is string that represents the question.</li>
                                 <br>
-                                <li><b>options::</b> is an array of strings where each string is an answer option to the question.</li>
+                                <li><b>options:</b> is an array of strings where each string is an answer option to the question.</li>
                                 <br>
                                 <li><b>answer:</b> is a string that is contained in the “options” array. This string represents the answer to the question.</li>
                             </ul>
                         </td>
                         <td>
-                            0
+                            <p>None</p>
                         </td>
                         <td>
                             <ul>
@@ -108,7 +165,7 @@
                                 <li><b>Example:</b>
                                     <ul class="innerBullet">
                                         <li><p>Const elementToAddQuizTo = document.querySelector('body');</p></li>
-                                        <li><p> <b>Const</b> newQuiz = <span class="Name">QuizBox</span>(elementToAddQuizTo);</p></li>
+                                        <li><p> <b>Const</b> newQuiz = new <span class="Name">QuizBox</span>(elementToAddQuizTo);</p></li>
                                         <li><p>newQuiz.<span class="Name">createMultipleChoiceOne</span> (“What is 2 + 2”, [“1”, “2”, “3”, “4”], “4”);</p></li>
                                       </ul>
                                 </li>
@@ -136,7 +193,7 @@
                             </ul>
                         </td>
                         <td>
-                            0
+                            <p>None</p>
                         </td>
                         <td>
                             <ul>
@@ -145,7 +202,7 @@
                                 <li><b>Example:</b>
                                     <ul class="innerBullet">
                                         <li><p>Const elementToAddQuizTo = document.querySelector('body');</p></li>
-                                        <li><p> <b>Const</b> newQuiz = <span class="Name">QuizBox</span>(elementToAddQuizTo);</p></li>
+                                        <li><p> <b>Const</b> newQuiz = new <span class="Name">QuizBox</span>(elementToAddQuizTo);</p></li>
                                         <li><p>newQuiz.<span class="Name">createMultipleChoiceMany</span>(“Which of the following
                                             cities are located in Ontario, Canada?”, [“Hamilton”, “Toronto”, “Mississauga”, “New York”], 
                                             [“Hamilton”, “Toronto”, “Mississauga”]);</p></li>
@@ -175,7 +232,7 @@
                             </ul>
                         </td>
                         <td>
-                            0
+                            <p>None</p>
                         </td>
                         <td>
                             <ul>
@@ -184,7 +241,7 @@
                                 <li><b>Example:</b>
                                     <ul class="innerBullet">
                                         <li><p>Const elementToAddQuizTo = document.querySelector('body');</p></li>
-                                        <li><p> <b>Const</b> newQuiz = <span class="Name">QuizBox</span>(elementToAddQuizTo);</p></li>
+                                        <li><p> <b>Const</b> newQuiz = new <span class="Name">QuizBox</span>(elementToAddQuizTo);</p></li>
                                         <li><p>newQuiz.<span class="Name">createMultipleChoiceMany</span>([“URL stands for Uniform Resource Locator”, 
                                             “HTTP stands for HyperText Translation Protocol”], [true, false]);</p></li>
                                       </ul>
@@ -213,7 +270,7 @@
                             </ul>
                         </td>
                         <td>
-                            0
+                            <p>None</p>
                         </td>
                         <td>
                             <ul>
@@ -222,7 +279,7 @@
                                 <li><b>Example:</b>
                                     <ul class="innerBullet">
                                         <li><p><b>Const</b> elementToAddQuizTo = document.querySelector('body');</p></li>
-                                        <li><p> <b>Const</b> newQuiz = <span class="Name">QuizBox</span>(elementToAddQuizTo);</p></li>
+                                        <li><p> <b>Const</b> newQuiz = new <span class="Name">QuizBox</span>(elementToAddQuizTo);</p></li>
                                         <li><p>newQuiz.<span class="Name">createSequenceQuestion</span> ([“World War 2”, “World
                                             War 1”, “COVID-19”], [“COVID-19”, “World War 1”, “World War 2”]);</p></li>
                                       </ul>
@@ -273,14 +330,14 @@
                             <p><b>To see examples of different types of animations <a href="example.html#animationHeader">click here.</a></b></p>
                         </td>
                         <td>
-                            0
+                            <p>None</p>
                         </td>
                         <td>
                             <ul class="innerBullet">
                                 <li><b>Example:</b>
                                     <ul>
                                         <li><p>Const elementToAddQuizTo = document.querySelector('body');</p></li>
-                                        <li><p> <b>Const</b> newQuiz = <span class="Name">QuizBox</span>(elementToAddQuizTo);</p></li>
+                                        <li><p> <b>Const</b> newQuiz = new <span class="Name">QuizBox</span>(elementToAddQuizTo);</p></li>
                                         <li><p><b>NOTE:</b> the quiz will appear in the body element.</p></li>
                                       </ul>
                                 </li>
@@ -305,7 +362,7 @@
                             </ul>
                         </td>
                         <td>
-                            0
+                            <p>None</p>
                         </td>
                         <td>
                             <ul>
@@ -314,7 +371,7 @@
                                 <li><b>Example:</b>
                                     <ul class="innerBullet">
                                         <li><p>Const elementToAddQuizTo = document.querySelector('body');</p></li>
-                                        <li><p> <b>Const</b> newQuiz = <span class="Name">QuizBox</span>(elementToAddQuizTo);</p></li>
+                                        <li><p> <b>Const</b> newQuiz = new <span class="Name">QuizBox</span>(elementToAddQuizTo);</p></li>
                                         <li><p>newQuiz.<span class="Name">createMultipleChoiceOne</span> (“What is 2 + 2”, [“1”, “2”, “3”, “4”], “4”);</p></li>
                                       </ul>
                                 </li>
