@@ -37,10 +37,10 @@
         <h2 class= "h2-style"> Step 1:</h2>
             <p class="p-style2">
                 To start using this library, include the script tag, <codeText>&lt;script defer type=&quot;text/javascript&quot; 
-                src='js/QuizBox.js'&gt;&lt;/script&gt; </codeText>, and the link tag, <codeText> &lt;link rel=&quot;stylesheet&quot; 
+                src='js/QuizBox.js'&gt;&lt;/script&gt;</codeText>, and the link tag, <codeText> &lt;link rel=&quot;stylesheet&quot; 
                 type=&quot;text/css&quot; href=&quot;QuizBox.css&quot;&gt;</codeText> in the HTML file. Moreover, create a JS file and include it in the 
                 same HTML file (i.e. include the script tag, <codeText>&lt;script defer type=&quot;
-                text/javascript&quot; src='Path to the JS file'&gt;&lt;/script&gt; </codeText>) that contains the script tag and the link tag. 
+                text/javascript&quot; src='Path to the JS file'&gt;&lt;/script&gt;</codeText>) that contains the script tag and the link tag. 
             </p>
             <br>
             <p class="p-style">
@@ -50,9 +50,9 @@
                 Before moving on to the next step, please ensure that the following tags are included in the HTML file:
             </p>
                 <ul class="p-style">
-                    <li> <codeText> &lt;script defer type=&quot;text/javascript&quot; src='js/QuizBox.js'&gt;&lt;/script&gt; </codeText></li>
+                    <li> <codeText> &lt;script defer type=&quot;text/javascript&quot; src='js/QuizBox.js'&gt;&lt;/script&gt;</codeText></li>
                     <li> <codeText> &lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;css/QuizBox.css&quot;&gt; </codeText></li>
-                    <li> <codeText> &lt;script defer type=&quot;text/javascript&quot; src='example.js'&gt;&lt;/script&gt; </codeText></li>
+                    <li> <codeText> &lt;script defer type=&quot;text/javascript&quot; src='example.js'&gt;&lt;/script&gt;</codeText></li>
                 </ul>
             <p class="p-style">
                     <b>NOTE:</b> For demonstration purposes the JS file is called <codeText>example.js</codeText>. The name of the JS file does not matter.
@@ -295,20 +295,20 @@
                         <td class="description">
                             <p>
                                 Given the parameters, questions and answers, 
-                                the function will create a fill in the blank question and add it to the quiz. 
+                                the function will create a fill-in-the-blank question and add it to the quiz. 
                                 Users can answer the question by typing into the text boxes.
                             </p>
                         </td>
                         <td>
                             <ul class="Bullet">
                                 <li>
-                                    <b>questions:</b> is an array of strings where each string is an question. 
+                                    <b>questions:</b> is an array of strings where each string is question. 
                                     To indicate a blank space, type three underscores without space. 
                                     For example, Blue is a ___ (three underscores) colour.
                                 </li>
                                 <br>
                                 <li>
-                                    <b>answer:</b> is an array of strings. The string at each index repersents the answer to a blank space in the questions array. Morover, 
+                                    <b>answer:</b> is an array of strings. The string at each index represents the answer to a blank space in the questions array. Moreover, 
                                     the string at index 0 represents the answer to the first blank space in questions, 
                                     the string at index 1 represents the answer to the second blank space in questions, etc. 
                                 </li>
@@ -319,7 +319,7 @@
                         </td>
                         <td>
                             <ul>
-                                <li><b>NOTE:</b> If a developer wants to create a fill in the blank question, they must first create a QuizBox object.</li>
+                                <li><b>NOTE:</b> If a developer wants to create a fill-in-the-blank question, they must first create a QuizBox object.</li>
                                 <br>
                                 <li><b>Example:</b>
                                     <ul class="innerBullet">
@@ -341,14 +341,14 @@
                             <p>
                                 Given the parameters, titleOfQuestion, match1, match2 and answers, the function 
                                 will create a matching question and add it to the quiz. Users can answer the 
-                                question by clicking a tile from first column and then clicking a tile from the second column.
+                                question by clicking a tile from the first column and then clicking a tile from the second column.
                             </p>
                         </td>
                         <td>
                             <ul class="Bullet">
                                 <li>
                                     <b>titleOfQuestion:</b> is a string that represents the title of the question. 
-                                    This title should be a description of what is suppose to be matched
+                                    This title should be a description of what is supposed to be matched.
                                 </li>
                                 <br>
                                 <li>
@@ -363,7 +363,7 @@
                                 <br>
                                 <li>
                                     <b>answer:</b> an array of arrays, where the nested array is an array of strings. The strings in the nested 
-                                    array are two words/phrases that are related to each other. Please note that the nested should contain exactly two strings 
+                                    array are two words/phrases that are related to each other. Please note that the nested array should contain exactly two strings 
                                 </li>
                             </ul>
                         </td>
@@ -393,8 +393,8 @@
                             <b><p>getUserAnswers</p></b>
                         </td>
                         <td class="description">
-                            <p>Returns the answers that were submitted by a user to the Quiz. Note that the user's answers will not be recorded and 
-                                formatted until they submitted the quiz. Hence, this function should only be called once it is known 
+                            <p>Returns the quiz's answers submitted by a user. Note that the user's answers will not be recorded and 
+                                formatted until they submit the quiz. Hence, this function should only be called once it is known 
                                 that the user has submitted the quiz.
                             </p>
                         </td>
@@ -404,11 +404,11 @@
                         </td>
                         <td>
                             <p>
-                                Is an array of JS objects where each contains the user's answers. The format of each JS objects depends on the type of question.
+                               Returns an array of JS objects where each JS object contains the user's answers. The format of each JS object depends on the type of question.
                             </p>
                             <b>Format of each JS Object:</b>
                                 <ul class="innerBullet">
-                                    <li>Multiple Choice One Question JS object has the following attributes:</li>
+                                    <li>Multiple Choice One JS object has the following attributes:</li>
                                         <br>
                                         <ul>
                                             <li>
@@ -418,6 +418,7 @@
                                                 <b>userAnswer:</b> A string that represents the option that the user picked
                                             </li>
                                         </ul>
+                                        <br>
                                     <li>Multiple Choice Many JS object has the following attributes:</li>
                                         <br>
                                         <ul>
@@ -425,9 +426,10 @@
                                                 <b>questionType:</b> "Multiple Choice Many"    
                                             </li>
                                             <li>
-                                                <b>userAnswer:</b> An array of strings, where each string repersents the an option that the user picked
+                                                <b>userAnswer:</b> An array of strings, where each string represents one of the options that the user picked
                                             </li>
                                         </ul>
+                                        <br>
                                     <li>True Or False JS object has the following attributes:</li>
                                         <br>
                                         <ul>
@@ -435,19 +437,20 @@
                                                 <b>questionType:</b> "True or False"    
                                             </li>
                                             <li>
-                                                <b>questionsUserAnswerAsTrue:</b> an array of integers where each integer repersents a statement number. 
+                                                <b>questionsUserAnswerAsTrue:</b> an array of integers where each integer represents a statement number. 
                                                 Statement numbers in this array indicate the statements that the user picked to be true. 
                                             </li>
                                             <li>
-                                                <b>questionsUserAnswerAsFalse:</b> an array of integers where each integer repersents a statement number. 
+                                                <b>questionsUserAnswerAsFalse:</b> an array of integers where each integer represents a statement number. 
                                                 Statement numbers in this array indicate the statements that the user picked to be false. 
                                             </li>
                                             <li>
                                                 <b>NOTE:</b> Statement numbers are determined based on the index the statement was at in the array, 
-                                                statements which is parameter that is passed in when creating the true or false question. 
-                                                Please see the "createTrueOrFalseQuestion" section that is located in this table for more information. 
+                                                statements, which is a parameter that is passed in when creating the true or false question. 
+                                                Please see the "createTrueOrFalseQuestion" section for more information. 
                                             </li>
                                         </ul>
+                                        <br>
                                     <li>Sequence JS object has the following attributes:</li>
                                         <br>
                                         <ul>
@@ -460,6 +463,7 @@
                                                 is the order in which the user rerranged the events from most recent to oldest 
                                             </li>
                                         </ul>
+                                        <br>
                                     <li>Fill in the blank JS object has the following attributes:</li>
                                         <br>
                                         <ul>
@@ -467,12 +471,13 @@
                                                 <b>questionType:</b> "Fill in the blank"    
                                             </li>
                                             <li>
-                                                <b>userAnswer:</b> an array of strings. The string at each index repersents the user's answer to a blank space. For example, 
+                                                <b>userAnswer:</b> an array of strings. The string at each index represents the user's answer to a blank space. For example, 
                                                 the string at index 0 represents the user's answer to the first blank space, the string at index 1 
                                                 represents the user's answer to the second blank space, etc.  
                                             </li>
                                         </ul>
-                                    <li>Matching</li>
+                                        <br>
+                                    <li>Matching JS object has the following attributes:</li>
                                         <br>
                                         <ul>
                                             <li>
@@ -537,7 +542,7 @@
                             <b><p>setAnimation</p></b>
                         </td>
                         <td class="description">
-                            <p>given the parameters animationName and questionNumber, 
+                            <p>Given the parameters animationName and questionNumber, 
                                 the function will set the transition animation (i.e. animation that occurs when going from one question to another) 
                                 for a question based on the questionNumber.
                             </p>
@@ -548,7 +553,7 @@
                         <td>
                             <ul class="innerBullet">
                                 <li>
-                                    <p><b>animationName:</b> a string that repersents the name of an animation</p>
+                                    <p><b>animationName:</b> a string that represents the name of an animation.</p>
                                     <ul>
                                         <li><p>there are four types of transition animation:</p></li>
                                             <ul>
@@ -562,7 +567,7 @@
                                 </li>
                                 <li> 
                                     <p><b>questionNumber:</b> an integer that represents a question number. The animation will be set to the question with this number. 
-                                    For example if questionNumber is 6, then transition animation will be set to question 6.</p> 
+                                    For example, if questionNumber is 6, then transition animation will be set to question 6.</p> 
                                 </li>
                                 <li>
                                     <p><b>To see examples of different types of animations <a href="example.html#animationHeader">click here.</a></b></p> 
@@ -573,7 +578,7 @@
                         </td>
                         <td>
                             <ul class="innerBullet">
-                                <li> <p>returns true if the animation was succussfully set to a question</p></li>
+                                <li> <p>returns true if the animation was successfully set to a question</p></li>
                                 <li><p>otherwise returns false.</p></li>
                               </ul>
                         </td>
@@ -598,16 +603,16 @@
                         </td>
                         <td class="description">
                             <p>Given the parameter animationName, the function will set the transition animation 
-                                (i.e. animation that occurs when going from one question to another) for all of the question that are created so far.
+                                (i.e. animation that occurs when going from one question to another) for all of the questions that are created so far.
                             </p>
                             <p>
-                                <b>Note:</b> setting a transition animation for all of the questions will remove any previous animation that was set to any of the questions.
+                                <b>Note:</b> setting a transition animation for all of the questions will remove any previous animation that was set.
                             </p>
                         </td>
                         <td>
                             <ul class="Bullet">
                                 <li>
-                                    <p><b>animationName:</b> a string that repersents the name of an animation</p>
+                                    <p><b>animationName:</b> a string that represents the name of an animation</p>
                                     <ul>
                                         <li><p>there are four types of transition animation:</p></li>
                                             <ul>
