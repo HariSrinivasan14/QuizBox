@@ -438,7 +438,7 @@
 	margin-left: 30px;
 	margin-right: 0px;
 	overflow: auto;
-	background-image: url(./images/true_image.jpg);
+	background-image: url(../images/true_image.jpg); /* image was taken from https://influencemagazine.com/-/media/Influence/1400x490/TrueFalseLeaders_1400.jpg?h=490&w=1400 */
 	background-repeat: no-repeat;
 	background-position: center;
 }
@@ -451,7 +451,7 @@
 	width: 45%;
 	margin-left: 0px;
 	overflow: auto;
-	background-image: url(./images/false_image.jpg);
+	background-image: url(../images/false_image.jpg); /* image was taken from https://influencemagazine.com/-/media/Influence/1400x490/TrueFalseLeaders_1400.jpg?h=490&w=1400 */
 	background-repeat: no-repeat;
 	background-position: center;
 }
@@ -747,6 +747,11 @@
 
 .tileSelected{
 	background-color: #66c2ff;
+}
+
+.matched-style:hover{
+	background-color: gray;
+	border: 1px solid gray;
 }
 
 /*  MATCHING QUESTION STYLES END */

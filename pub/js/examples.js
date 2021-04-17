@@ -19,19 +19,19 @@ newQuiz.createMatching("Matching the following Countries with their captial city
 newQuiz.createTrueOrFalseQuestion(["Yellow is a primary colour.", "CPU stands for Central Processing Unit.", "An Octopus has three hearts.", "The letter A is the most common letter used in the English language."], [true, true, true, false]);
 
 newQuiz.createSequenceQuestion(["Invention of the Turing Machine.", "American Civil War.", "Extinction of Dinosaurs.", "First time landing on the Moon", "COVID-19."], ["COVID-19.", "First time landing on the Moon", "Invention of the Turing Machine.", "American Civil War.", "Extinction of Dinosaurs."]);
-newQuiz.setAnimationAll("Fade In")
+newQuiz.setAnimationAll("Reveal");
 
 
 const tempDiv2 = document.querySelector('#examplesDiv2');
 
 const newQuiz2 = new QuizBox(tempDiv2);
-newQuiz2.createSequenceQuestion(["Invention of the Turing Machine.", "American Civil War.", "Extinction of Dinosaurs.", "First time landing on the Moon", "COVID-19."], ["COVID-19.", "First time landing on the Moon", "Invention of the Turing Machine.", "American Civil War.", "Extinction of Dinosaurs."]);
-
 newQuiz2.createMultipleChoiceOne("What does HTML stand for?", ["HyperText Machine Learning", "HyperText Markup Language", "Hyper Machine Language", "None of the above", "All of the above"], "HyperText Markup Language");
 
 newQuiz2.createMultipleChoiceOne("What does CSS stand for?", ["Computer Style Sheets", "Colour Style Sheets", "Cascading Style Sheets", "None of the above"], "Cascading Style Sheets");
-
-
+newQuiz2.createTrueOrFalseQuestion(["A byte is equal to 8 bits", "SSD stands for Solid State Drive", "BIOS stands for Beginning Input/Output System", "TCP stands for Transmission Control Protocol"], [true, true, false, true]);
+newQuiz2.createMatching("Matching the following terms with their correct definition or phrase.", ["Database", "DBMS", "Binary"], 
+["Is a collection of data that is stored in a computer.", "Is a language that is made up of 0s and 1s.", "Stands for Database Management System."], 
+[["Database", "Is a collection of data that is stored in a computer."],["DBMS", "Stands for Database Management System."], ["Binary", "Is a language made up of 0s and 1s."]]);
 
 
 const tempDiv3 = document.querySelector('#examplesDiv3');
@@ -65,5 +65,6 @@ const newQuiz7 = new QuizBox(tempDiv7);
 newQuiz7.createMultipleChoiceOne("What does HTML stand for?", ["HyperText Machine Learning", "HyperText Markup Language", "Hyper Machine Language", "None of the above", "All of the above"], "HyperText Markup Language");
 newQuiz7.createMultipleChoiceOne("What does CSS stand for?", ["Computer Style Sheets", "Colour Style Sheets", "Cascading Style Sheets", "None of the above"], "Cascading Style Sheets");
 newQuiz7.setAnimationAll("Fade In")
+
 
 

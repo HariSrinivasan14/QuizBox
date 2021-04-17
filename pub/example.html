@@ -52,11 +52,6 @@
                     <br>
                     <br>
                     const newQuiz = new <span class="Name">QuizBox</span>(tempDiv);
-                    <!-- <br>
-                    <br>
-                    newQuiz.<span class="Name">createMultipleChoiceOne</span>(<span class="stringText">"What does HTML stand for?"</span>, [<span class="stringText">"HyperText Machine Learning"</span>, 
-                    <span class="stringText">"HyperText Markup Language"</span>, <span class="stringText">"Hyper Machine Language"</span>, <span class="stringText">"None of the above"</span>, 
-                    <span class="stringText">"All of the above"</span>], <span class="stringText">"HyperText Markup Language"</span>); -->
                     <br>
                     <br>
                     newQuiz.<span class="Name">createMultipleChoiceMany</span>(<span class="stringText">"Which of the following cities are located in Ontario? 
@@ -76,7 +71,6 @@
                     [<span class="stringText">"South Korea"</span>, <span class="stringText">"Seoul"</span>], [<span class="stringText">"Turkey"</span>, <span class="stringText">"Ankara"</span>], [<span class="stringText">"Uganda"</span>, <span class="stringText">"Kampala"</span>]]);
                     <br>
                     <br>
-
                     newQuiz.<span class="Name">createTrueOrFalseQuestion</span>([<span class="stringText">"Yellow is a primary colour."</span>, <span class="stringText">"CPU stands for Central Processing Unit."</span>, 
                     <span class="stringText">"An Octopus has three hearts."</span>, <span class="stringText">"The letter A is the most common letter used in the English language."</span>], 
                     [<span class="stringText">true</span>, <span class="stringText">true</span>, <span class="stringText">true</span>, <span class="stringText">false</span>]);
@@ -89,7 +83,7 @@
                     <span class="stringText">"American Civil War."</span>, <span class="stringText">"Extinction of Dinosaurs."</span>]);
                     <br>
                     <br>
-                    newQuiz.<span class="Name">setAnimationAll</span>(<span class="stringText">"Fade In"</span>)
+                    newQuiz.<span class="Name">setAnimationAll</span>(<span class="stringText">"Reveal"</span>)
 
                 </p>
             </div>
@@ -103,8 +97,40 @@
 
         </div>
         
-
-
+        <div class="CodeBoxMain4">
+            <h3 class="h2-style"> Code used to create the above example:</h3>
+            <br>
+            <div class="codeBox">
+                <p>
+                    const tempDiv2 = document.querySelector(<span class="stringText">'#examplesDiv2'</span>);
+                    <br>
+                    <br>
+                    const newQuiz2 = new <span class="Name">QuizBox</span>(tempDiv2);
+                    <br>
+                    <br>
+                    newQuiz2.<span class="Name">createMultipleChoiceOne</span>(<span class="stringText">"What does HTML stand for?"</span>, [<span class="stringText">"HyperText Machine Learning"</span>, 
+                    <span class="stringText">"HyperText Markup Language"</span>, <span class="stringText">"Hyper Machine Language"</span>, <span class="stringText">"None of the above"</span>, 
+                    <span class="stringText">"All of the above"</span>], <span class="stringText">"HyperText Markup Language"</span>);
+                    <br>
+                    <br>
+                    newQuiz2.<span class="Name">createMultipleChoiceOne</span>(<span class="stringText">"What does CSS stand for?"</span>, [<span class="stringText">"Computer Style Sheets"</span>, 
+                    <span class="stringText">"Colour Style Sheets"</span>, <span class="stringText">"Cascading Style Sheets"</span>, <span class="stringText">"None of the above"</span>, 
+                    <span class="stringText">"All of the above"</span>], <span class="stringText">"Cascading Style Sheets"</span>);
+                    <br>
+                    <br>
+                    newQuiz.<span class="Name">createTrueOrFalseQuestion</span>([<span class="stringText">"A byte is equal to 8 bits"</span>, <span class="stringText">"SSD stands for Solid State Drive"</span>, 
+                    <span class="stringText">"BIOS stands for Beginning Input/Output System"</span>, <span class="stringText">"TCP stands for Transmission Control Protocol"</span>], 
+                    [<span class="stringText">true</span>, <span class="stringText">true</span>, <span class="stringText">false</span>, <span class="stringText">true</span>]);
+                    <br>
+                    <br>
+                    newQuiz.<span class="Name">createMatching</span>(<span class="stringText">"Matching the following terms with their correct definition or phrase."</span>, [<span class="stringText">"Database"</span>, 
+                    <span class="stringText">"DBMS"</span>, <span class="stringText">"Binary"</span>], [<span class="stringText">"Is a collection of data that is stored in a computer"</span>, 
+                    <span class="stringText">"Is a language that is made up of 0s and 1s."</span>, <span class="stringText">"Stands for Database Management System."</span>], [[<span class="stringText">"Database"</span>, 
+                    <span class="stringText">"Is a collection of data that is stored in a computer"</span>], [<span class="stringText">"DBMS"</span>, <span class="stringText">"Stands for Database Management System."</span>], 
+                    [<span class="stringText">"Binary"</span>, <span class="stringText">"Is a language that is made up of 0s and 1s."</span>]]);
+                </p>
+            </div>
+        </div>
 
     </div>
 
