@@ -30,13 +30,13 @@ To create your first quiz, you must first create a QuizBox object in your JS fil
 
 Now that your have a QuizBox object, you can start adding questions to the quiz. For example, to make a multiple choice question with one correct answer:
 
-        quiz.createMultipleChoiceOne("What does HTML stand for?", ["HyperText Machine Learning", "HyperText Markup Language", "Hyper Machine Language", "None of the above", "All 
-        of the above"], "HyperText Markup Language");
+        quiz.createMultipleChoiceOne("What does HTML stand for?", ["HyperText Machine Learning", "HyperText Markup Language", 
+        "Hyper Machine Language", "None of the above", "All of the above"], "HyperText Markup Language");
 
 
 Other types of questions can be created and added to the quiz in a similar manner.
 
-Below are tables that describe different API functions that can be used to create the Quiz.
+Please refer to the link below that describes the different API functions that can be used to create the Quiz.
 
 
 ### link to the Documentation page: https://quiz-box.herokuapp.com/documentation.html
