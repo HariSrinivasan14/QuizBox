@@ -37,7 +37,7 @@
 
     <div id="Examples">
         <div class="SubHeaderDiv">
-            <H1 class = "API-header3">Example 1: </H1>
+            <H1 class = "API-header3">Example 1: General Knowledge Quiz</H1>
         </div>
 
         <div id="examplesDiv">
@@ -52,16 +52,11 @@
                     <br>
                     <br>
                     const newQuiz = new <span class="Name">QuizBox</span>(tempDiv);
-                    <br>
+                    <!-- <br>
                     <br>
                     newQuiz.<span class="Name">createMultipleChoiceOne</span>(<span class="stringText">"What does HTML stand for?"</span>, [<span class="stringText">"HyperText Machine Learning"</span>, 
                     <span class="stringText">"HyperText Markup Language"</span>, <span class="stringText">"Hyper Machine Language"</span>, <span class="stringText">"None of the above"</span>, 
-                    <span class="stringText">"All of the above"</span>], <span class="stringText">"HyperText Markup Language"</span>);
-                    <br>
-                    <br>
-                    newQuiz.<span class="Name">createFillInTheBlank</span>([<span class="stringText">"Red is a ___ colour."</span>, <span class="stringText">"RAM stands for ___."</span>, 
-                    <span class="stringText">"The capital city of Canada is ___."</span>, <span class="stringText">"The hottest planet in our solar system is ___"</span>], 
-                    [<span class="stringText">"primary"</span>, <span class="stringText">"Random Access Memory"</span>, <span class="stringText">"Ottawa"</span>, <span class="stringText">"Venus"</span>]);
+                    <span class="stringText">"All of the above"</span>], <span class="stringText">"HyperText Markup Language"</span>); -->
                     <br>
                     <br>
                     newQuiz.<span class="Name">createMultipleChoiceMany</span>(<span class="stringText">"Which of the following cities are located in Ontario? 
@@ -70,6 +65,18 @@
                     <span class="stringText">"Brampton"</span>, <span class="stringText">"Hamilton"</span>, <span class="stringText">"Mississauga"</span>]);
                     <br>
                     <br>
+                    newQuiz.<span class="Name">createFillInTheBlank</span>([<span class="stringText">"Red is a ___ colour."</span>, <span class="stringText">"RAM stands for ___."</span>, 
+                    <span class="stringText">"The capital city of Canada is ___."</span>, <span class="stringText">"The hottest planet in our solar system is ___"</span>], 
+                    [<span class="stringText">"primary"</span>, <span class="stringText">"Random Access Memory"</span>, <span class="stringText">"Ottawa"</span>, <span class="stringText">"Venus"</span>]);
+                    <br>
+                    <br>
+                    newQuiz.<span class="Name">createMatching</span>(<span class="stringText">"Matching the following Countries with their captial city"</span>, [<span class="stringText">"Switzerland"</span>, 
+                    <span class="stringText">"South Korea"</span>, <span class="stringText">"Turkey"</span>, <span class="stringText">"Uganda"</span>], [<span class="stringText">"Ankara"</span>, 
+                    <span class="stringText">"Bern"</span>, <span class="stringText">"Seoul"</span>, <span class="stringText">"Kampala"</span>], [[<span class="stringText">"Switzerland"</span>, <span class="stringText">"Bern"</span>],
+                    [<span class="stringText">"South Korea"</span>, <span class="stringText">"Seoul"</span>], [<span class="stringText">"Turkey"</span>, <span class="stringText">"Ankara"</span>], [<span class="stringText">"Uganda"</span>, <span class="stringText">"Kampala"</span>]]);
+                    <br>
+                    <br>
+
                     newQuiz.<span class="Name">createTrueOrFalseQuestion</span>([<span class="stringText">"Yellow is a primary colour."</span>, <span class="stringText">"CPU stands for Central Processing Unit."</span>, 
                     <span class="stringText">"An Octopus has three hearts."</span>, <span class="stringText">"The letter A is the most common letter used in the English language."</span>], 
                     [<span class="stringText">true</span>, <span class="stringText">true</span>, <span class="stringText">true</span>, <span class="stringText">false</span>]);

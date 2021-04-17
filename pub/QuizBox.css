@@ -655,25 +655,33 @@
 	margin-top: 30px;
 	overflow: auto;
 }
-
+.titleDivMatching-style{
+	width: 440px;
+	height: 90px;
+	overflow: auto;
+}
+.mainMatchingDiv{
+	margin-top: 10px;
+	height: 350px;
+	overflow: auto;
+}
 .titleMatching-style{
-	font-size: 150%;
+	font-size: 20px;
 	margin-bottom: 13px;
 	margin-top: 0px;
 	font-weight: bold;
 	display: inline-block;
 }
 .matchTile1Div{
-	width: 200px;
-	height: 405px;
+	width: 190px;
+	height: 340px;
 	float: left;
 	overflow: auto;
-	border: 1px #18A0FB solid;
 	border-radius: 10px;
 }
 .matchTile2Div{
-	width: 200px;
-	height: 405px;
+	width: 220px;
+	height: 340px;
 	float: left;
 	overflow: auto;
 	border: 1px grey solid;
@@ -682,14 +690,13 @@
 }
 .matchTile1-style{
 	display: inline-block;
-	min-width: 90px;
-	max-width: 120px;
+	width: 100px;
 	max-height: 90px;
 	border: 1px solid #18A0FB;
 	margin-bottom: 10px;
 	margin-left: 15px;
 	padding-top: 20px;
-	padding-right: 20px;
+	padding-right: 0px;
 	padding-bottom: 20px;
 	padding-left: 20px;
 	border-radius: 10px;
@@ -709,7 +716,7 @@
 
 .matchTile2-style{
 	display: inline-block;
-	width: 140px;
+	width: 160px;
 	height: 55px;
 	border: 1px solid grey;
 	margin-bottom: 10px;

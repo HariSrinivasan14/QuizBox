@@ -223,7 +223,7 @@
                         </td>
                         <td>
                             <ul class="Bullet">
-                                <li><b>statements:</b> is string that represents the question.</li>
+                                <li><b>statements:</b> is an array of strings where each string is a true or false statement.</li>
                                 <br>
                                 <li><b>answer:</b> is an array of Boolean values. The value at an index indicates
                                     the validity of the statement at the same index in the array “statements”. 
@@ -287,11 +287,94 @@
                             </ul>
                         </td>
                     </tr>
+
+                    <tr class="createQuizTableRow">
+                        <td class="Name">
+                            <b><p>getUserAnswer</p></b>
+                        </td>
+                        <td class="description">
+                            <p>Returns the answers that were submitted by a user to the Quiz. Note that the user's answers will not be recorded and 
+                                formatted until they submitted the quiz. Hence, this function should only be called once it is known 
+                                that the user has submitted the quiz.
+                            </p>
+                        </td>
+                        <td>
+                            <p>None</p>
+                            </ul>
+                        </td>
+                        <td>
+                            <p>
+                                Is an array of JS objects where each contains the user's answers. The format of each JS objects depends on the type of question.
+                            </p>
+                            <b>Format of each JS Object:</b>
+                                <ul class="innerBullet">
+                                    <li>Multiple Choice One Question JS object has the following attributes:</li>
+                                        <br>
+                                        <ul>
+                                            <li>
+                                                <b>questionType:</b> "Multiple Choice one"   
+                                            </li>
+                                            <li>
+                                                <b>userAnswer:</b> A string that represents the option that the user picked
+                                            </li>
+                                        </ul>
+                                    <li>Multiple Choice Many JS object has the following attributes:</li>
+                                        <br>
+                                        <ul>
+                                            <li>
+                                                <b>questionType:</b> "Multiple Choice Many"    
+                                            </li>
+                                            <li>
+                                                <b>userAnswer:</b> An array of strings, where each string repersents the an option that the user picked
+                                            </li>
+                                        </ul>
+                                    <li>True Or False JS object has the following attributes:</li>
+                                        <br>
+                                        <ul>
+                                            <li>
+                                                <b>questionType:</b> "True or False"    
+                                            </li>
+                                            <li>
+                                                <b>questionsUserAnswerAsTrue:</b> an array of integers where each integer repersents a statement number. 
+                                                Statement numbers in this array indicate the statements that the user picked to be true. 
+                                            </li>
+                                            <li>
+                                                <b>questionsUserAnswerAsFalse:</b> an array of integers where each integer repersents a statement number. 
+                                                Statement numbers in this array indicate the statements that the user picked to be false. 
+                                            </li>
+                                            <li>
+                                                <b>NOTE:</b> Statement numbers are determined based on the index the statement was at in the array, 
+                                                statements which is parameter that is passed in when creating the true or false question. 
+                                                Please see the "createTrueOrFalseQuestion" section that is located in this table for more information. 
+                                            </li>
+                                        </ul>
+                                    <li>Sequence</li>
+                                    <li>Fill in the blank</li>
+                                    <li>Matching</li>
+                                </ul>
+                        </td>
+                        <td>
+                            <ul>
+                                <li><b>NOTE:</b> If a developer wants to create this type of multiple-choice question, they must first create a QuizBox object.</li>
+                                <br>
+                                <li><b>Example:</b>
+                                    <ul class="innerBullet">
+                                        <li><p><b>Const</b> elementToAddQuizTo = document.querySelector('body');</p></li>
+                                        <li><p> <b>Const</b> newQuiz = new <span class="Name">QuizBox</span>(elementToAddQuizTo);</p></li>
+                                        <li><p>newQuiz.<span class="Name">createSequenceQuestion</span> ([“World War 2”, “World
+                                            War 1”, “COVID-19”], [“COVID-19”, “World War 1”, “World War 2”]);</p></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+
+                    
                 </tbody>
             </table>
         </div>
 
-
+<!-- section for ANIMATION APIs -->
         <div>
             <h1 class="API-header2">Animation APIs</h1>
 

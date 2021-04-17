@@ -4,7 +4,7 @@
 
 (function(global, document) { 
 
-
+	let _quizBoxIdNum = 1
 
 	function QuizBox(mainDiv) {
 
@@ -12,7 +12,9 @@
 		this.numQuestions = 0;
 		this.isGraded = false;
 		this.QuizBoxDiv = document.createElement('div');
-		this.QuizBoxDiv.className = "QuizBox-style";	
+		this.QuizBoxDiv.className = "QuizBox-style";
+		this.QuizBoxDiv.id = "Q" + _quizBoxIdNum;
+		_quizBoxIdNum += 1
 		mainDiv.append(this.QuizBoxDiv);
 		_addNavigationButtons.bind(this)();
 		this.userAnswers = []
@@ -253,9 +255,24 @@
 	function _trueOrFalseDragOver(e){
 		e.preventDefault();
 		const elementDragging = document.querySelector('.draggingTile');
+		let elementID = null;
+		if(elementDragging.parentElement.className === "startDiv"){
+			elementID = elementDragging.parentElement.parentElement.parentElement.id;
+		}else if(elementDragging.parentElement.className === "trueDiv" || elementDragging.parentElement.className === "falseDiv"){
+			elementID = elementDragging.parentElement.parentElement.parentElement.parentElement.id
+		}
 		try{
-			if(e.target.className === "trueDiv" || e.target.className === "falseDiv" || e.target.className === "startDiv"){
-				e.target.appendChild(elementDragging);
+			let targetID = null;
+			if(e.target.className === "trueDiv" || e.target.className === "falseDiv"){
+				targetID = e.target.parentElement.parentElement.parentElement.id;
+				if(targetID === elementID){
+					e.target.appendChild(elementDragging);
+				}
+			}else if(e.target.className === "startDiv"){
+				targetID = e.target.parentElement.parentElement.id;
+				if(targetID === elementID){
+					e.target.appendChild(elementDragging);
+				}
 			}
 		}catch{
 			return;
@@ -281,8 +298,10 @@
 			notDraggingElements.push(notDraggingElementsNodeList[counter]);
 		}
 		const closestElement = _getClosestElement(notDraggingElements, e.clientY);
+		let elementID = elementDragging.parentElement.parentElement.parentElement.parentElement.id
+		let targetID = e.target.parentElement.parentElement.parentElement.id;
 		try{
-			if(e.target.className === "eventTextDiv-style" || e.target.className === "eventDropDiv-style"){
+			if((e.target.className === "eventTextDiv-style" || e.target.className === "eventDropDiv-style") && elementID === targetID){
 				if(closestElement === null){
 					e.target.appendChild(elementDragging);
 				}else{
@@ -471,7 +490,7 @@
 				score += 1
 			}	
 		}
-		this.userAnswers[questionNum] = {questionType: "Sequence Question", userAnswer: seqArr}
+		this.userAnswers[questionNum] = {questionType: "Sequence", userAnswer: seqArr}
 		return score;
 	}
 	
@@ -488,7 +507,7 @@
 				}
 			}
 		}
-		this.userAnswers[questionNum] = {questionType: "Sequence Question", userAnswer: fillInBlankArr}
+		this.userAnswers[questionNum] = {questionType: "Fill in the Blanks", userAnswer: fillInBlankArr}
 		return score;
 	}
 
@@ -651,7 +670,7 @@ QuizBox.prototype = {
 		toolTip.innerHTML = "(How to answer?)"
 		toolTip.className = "toolTipDiv";
 		const toolTipText = document.createElement('span');
-		toolTipText.innerHTML = "Drag the blue tiles into green box if the statement is true. Otherwise drag the tile into the red box. Note 1 refers to question 1, 2 refers to question 2, etc.";
+		toolTipText.innerHTML = "Drag the blue tiles into green box if the statement is true. Otherwise drag the tile into the red box. Note 1 refers to statement 1, 2 refers to statement 2, etc.";
 		toolTipText.className = "toolTipText";
 		toolTip.appendChild(toolTipText);
 		
@@ -797,7 +816,7 @@ QuizBox.prototype = {
 		_updateAttributes.bind(this)(mainDivFill ,"questionFillInBlank-style", answers, answers.length);
 	},
 
-	createMatching: function(match1, match2, answer) {
+	createMatching: function(titleOfQuestion, match1, match2, answer) {
 		const mainDivMatching = document.createElement('div');
 		const titleDiv = document.createElement('div');
 		const questionMainDiv = document.createElement('div');
@@ -806,7 +825,8 @@ QuizBox.prototype = {
 		
 		const title = document.createElement('p');
 		titleDiv.appendChild(title);
-		title.innerHTML = "Matching";
+		titleDiv.className = "titleDivMatching-style";
+		title.innerHTML = titleOfQuestion;
 		title.className = "titleMatching-style";
 		const match1Div = document.createElement('div');
 		match1Div.className ="matchTile1Div";
@@ -819,6 +839,8 @@ QuizBox.prototype = {
 		toolTipText.className = "toolTipText";
 		toolTip.appendChild(toolTipText);
 		titleDiv.appendChild(toolTip);
+
+		questionMainDiv.className = "mainMatchingDiv";
 
 		for(let counter = 0; counter < match1.length; counter++){
 			const matchQuestion = document.createElement('p');
@@ -848,12 +870,16 @@ QuizBox.prototype = {
 
 
 	setAnimation: function(animationName, questionNum) {
+		if(questionNum <= 0 || questionNum > this.numQuestions){
+			return false;
+		}	
 		if(animationName === "Fade In"){ 
 			this.questionObjects[questionNum - 1].animation = "questionFadeIn";
 			
 			if(questionNum === 1){ // animation when the browswer is refreshed
 				this.questionObjects[this.currentQuestion].question.classList.add("questionFadeIn") 
 			}
+			return true;
 		}else if(animationName === "Scroll"){ 
 			this.questionObjects[questionNum - 1].animation = "questionScroll";
 
@@ -868,6 +894,7 @@ QuizBox.prototype = {
 					this.questionObjects[this.currentQuestion].question.classList.add("questionScroll") 
 				}
 			}
+			return true;
 		}else if(animationName === "Reveal"){
 			this.questionObjects[questionNum - 1].animation = "questionReveal";
 
@@ -883,15 +910,19 @@ QuizBox.prototype = {
 					this.questionObjects[this.currentQuestion].question.classList.add("questionReveal") 
 				}
 			}
+			return true;
 		}else if(animationName === "Slide Down"){ 
 			this.questionObjects[questionNum - 1].animation = "questionSlide";
 
 			if(questionNum === 1){ // animation when the browswer is refreshed
 				this.questionObjects[this.currentQuestion].question.classList.add("questionSlide") 
 			}
+			return true;
 		}else if(animationName === "Instant"){ // default
 			this.questionObjects[questionNum - 1].animation = null;
+			return true;
 		}
+		return false;
 	},
 
 	setAnimationAll: function(animationName) {
