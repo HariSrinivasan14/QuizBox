@@ -31,7 +31,7 @@ newQuiz2.createMultipleChoiceOne("What does CSS stand for?", ["Computer Style Sh
 newQuiz2.createTrueOrFalseQuestion(["A byte is equal to 8 bits", "SSD stands for Solid State Drive", "BIOS stands for Beginning Input/Output System", "TCP stands for Transmission Control Protocol"], [true, true, false, true]);
 newQuiz2.createMatching("Matching the following terms with their correct definition or phrase.", ["Database", "DBMS", "Binary"], 
 ["Is a collection of data that is stored in a computer.", "Is a language that is made up of 0s and 1s.", "Stands for Database Management System."], 
-[["Database", "Is a collection of data that is stored in a computer."],["DBMS", "Stands for Database Management System."], ["Binary", "Is a language made up of 0s and 1s."]]);
+[["Database", "Is a collection of data that is stored in a computer."],["DBMS", "Stands for Database Management System."], ["Binary", "Is a language that is made up of 0s and 1s."]]);
 
 
 const tempDiv3 = document.querySelector('#examplesDiv3');
