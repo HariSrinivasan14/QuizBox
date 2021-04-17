@@ -705,6 +705,11 @@
 
 }
 
+.matchTile1-style:hover{
+	transform: translateY(-5px);
+	background-color:  #ccebff;
+}
+
 .matchTile1Selected-style{
 	background-color:  #ccebff;
 }
@@ -728,6 +733,13 @@
 	border-radius: 10px;
 	overflow: auto;
 }
+
+.matchTile2-style:hover{
+	transform: translateY(-5px);
+	background-color:  #ccebff;
+	border: 1px solid #18A0FB;
+}
+
 .matchTile2Selected-style{
 	background-color:  #ccebff;
 	border: 1px solid #18A0FB;
