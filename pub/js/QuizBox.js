@@ -500,7 +500,6 @@
 		for(let counter = 0; counter < questions.length; counter++){
 			let boxesArr = Array.from(questions[counter].querySelectorAll('.inputBox-style'));
 			for(let counter2 = 0; counter2 < boxesArr.length; counter2++){
-				console.log(boxesArr[counter2].value);
 				fillInBlankArr.push(boxesArr[counter2].value);
 				if (boxesArr[counter2].value.toLowerCase() === answer[counter + counter2].toLowerCase()){
 					score += 1
