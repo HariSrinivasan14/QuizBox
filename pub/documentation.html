@@ -38,16 +38,16 @@
             <p class="p-style2">
                 To start using this library, include the script tag, <codeText>&lt;script defer type=&quot;text/javascript&quot; 
                 src='js/QuizBox.js'&gt;&lt;/script&gt; </codeText>, and the link tag, <codeText> &lt;link rel=&quot;stylesheet&quot; 
-                type=&quot;text/css&quot; href=&quot;QuizBox.css&quot;&gt;</codeText> in the HTML file that you want to create the quiz in. 
-                Moreover, create a JS file and include it in the same HTML file (i.e. include the script tag, <codeText>&lt;script defer type=&quot;
-                text/javascript&quot; src='Path to the JS file'&gt;&lt;/script&gt; </codeText>) that contains the script tag and the link tag that was stated before. 
+                type=&quot;text/css&quot; href=&quot;QuizBox.css&quot;&gt;</codeText> in the HTML file. Moreover, create a JS file and include it in the 
+                same HTML file (i.e. include the script tag, <codeText>&lt;script defer type=&quot;
+                text/javascript&quot; src='Path to the JS file'&gt;&lt;/script&gt; </codeText>) that contains the script tag and the link tag. 
             </p>
             <br>
             <p class="p-style">
-                <b>NOTE:</b> that the path for QuizBox.js and QuizBox.css could differ depending on where QuizBox.js and QuizBox.css is placed with repect to the HTML file.
+                <b>NOTE:</b> The path for QuizBox.js and QuizBox.css could differ depending on where QuizBox.js and QuizBox.css is placed with repect to the HTML file.
             </p>
             <p class="p-style">
-                Before moving on to the next step, please ensure that the following tags in the HTML file:
+                Before moving on to the next step, please ensure that the following tags are included in the HTML file:
             </p>
                 <ul class="p-style">
                     <li> <codeText> &lt;script defer type=&quot;text/javascript&quot; src='js/QuizBox.js'&gt;&lt;/script&gt; </codeText></li>
@@ -63,7 +63,7 @@
         <h2 class= "h2-style2" > Step 2:</h2>
         <div>
             <p class="p-style">
-                To create your first quiz, you must first create a QuizBox object in your JS file that you included in your HTML file. This can be done as such:
+                To create your first quiz, you must first create a QuizBox object in your JS file. This can be done as shown below:
             </p>
             <p class="p-style3"><codeText> const parentElementOfQuiz = document.querySelector('body'); </codeText> </p>
             <p class="p-style3"><codeText> const quiz =  new QuizBox(parentElementOfQuiz); </codeText> </p>
@@ -118,21 +118,21 @@
                             <b><p>QuizBox</p></b>
                         </td>
                         <td class="description">
-                            <p>Given the parameter element, the function will return a JS object that represents a quiz.</p>
+                            <p>Given the parameter mainDiv, the function will return a JS object that represents a quiz.</p>
                         </td>
                         <td>
-                            <p><b>Element</b>: is a DOM element that the quiz will appear in the browser.</p>
+                            <p><b>mainDiv</b>: is a DOM element that the quiz will appear in the browser.</p>
                         </td>
                         <td>
-                            <p>None</p>
+                            <p class="center-p">None</p>
                         </td>
                         <td>
                             <ul class="innerBullet">
                                 <li><b>Example:</b>
                                     <ul>
-                                        <li><p>Const elementToAddQuizTo = document.querySelector('body');</p></li>
+                                        <li><p> <b>Const</b> elementToAddQuizTo = document.querySelector('body');</p></li>
                                         <li><p> <b>Const</b> newQuiz = new <span class="Name">QuizBox</span>(elementToAddQuizTo);</p></li>
-                                        <li><p><b>NOTE:</b> the quiz will appear in the body element.</p></li>
+                                        <li><p><b>NOTE:</b> The quiz will appear in the body element.</p></li>
                                     </ul>
                                 </li>
                               </ul>
@@ -143,7 +143,7 @@
                             <b><p>createMultipleChoiceOne</p></b>
                         </td>
                         <td class="description">
-                            <p>Given the parameters, question, options and answer, the function will create a multiple-choice question and add it to the quiz. 
+                            <p>Given the parameters, question, options and answer, the function will create a multiple-choice question and add it to the quiz.
                                 Users can answer the question by selecting one of the options as their answer to the question.</p>
                         </td>
                         <td>
@@ -156,7 +156,7 @@
                             </ul>
                         </td>
                         <td>
-                            <p>None</p>
+                            <p class="center-p">None</p>
                         </td>
                         <td>
                             <ul>
@@ -164,7 +164,7 @@
                                 <br>
                                 <li><b>Example:</b>
                                     <ul class="innerBullet">
-                                        <li><p>Const elementToAddQuizTo = document.querySelector('body');</p></li>
+                                        <li><p> <b>Const</b> elementToAddQuizTo = document.querySelector('body');</p></li>
                                         <li><p> <b>Const</b> newQuiz = new <span class="Name">QuizBox</span>(elementToAddQuizTo);</p></li>
                                         <li><p>newQuiz.<span class="Name">createMultipleChoiceOne</span> (“What is 2 + 2”, [“1”, “2”, “3”, “4”], “4”);</p></li>
                                       </ul>
@@ -180,7 +180,7 @@
                         <td class="description">
                             <p>Given the parameters, question, options and answers, the function will create a 
                                 multiple-choice question and add it to the quiz. Users can answer the question by 
-                                selecting multiple options as their answer to the question.</p>
+                                selecting multiple options as their answer.</p>
                         </td>
                         <td>
                             <ul class="Bullet">
@@ -193,7 +193,7 @@
                             </ul>
                         </td>
                         <td>
-                            <p>None</p>
+                            <p class="center-p">None</p>
                         </td>
                         <td>
                             <ul>
@@ -219,7 +219,7 @@
                         <td class="description">
                             <p>Given the parameters, statements and answers, the function will create a true or false question and add it to the quiz. 
                                 Users can answer the question by dragging tiles (each tile represents a statement) into the red box 
-                                (statements in this box are considered false) or into green box (statements in this box are considered true).</p>
+                                (statements in this box are considered false) or into the green box (statements in this box are considered true).</p>
                         </td>
                         <td>
                             <ul class="Bullet">
@@ -227,16 +227,16 @@
                                 <br>
                                 <li><b>answer:</b> is an array of Boolean values. The value at an index indicates
                                     the validity of the statement at the same index in the array “statements”. 
-                                    For example, if the value at index 0 in the array “answers” is true then the 
-                                    statement at index 0 in the array “statements” is true.</li>
+                                    For example, if the value at index 0 in the array, “answers”, is true then the 
+                                    statement at index 0 in the array, “statements”, is true.</li>
                             </ul>
                         </td>
                         <td>
-                            <p>None</p>
+                            <p class="center-p">None</p>
                         </td>
                         <td>
                             <ul>
-                                <li><b>NOTE:</b> If a developer wants to create this type of multiple-choice question, they must first create a QuizBox object.</li>
+                                <li><b>NOTE:</b> If a developer wants to create a true or false question, they must first create a QuizBox object.</li>
                                 <br>
                                 <li><b>Example:</b>
                                     <ul class="innerBullet">
@@ -266,15 +266,15 @@
                                 <br>
                                 <li><b>answer:</b> is an array of strings that are contained in the array “events”. 
                                     Note that the event at index 0 is the most recent event and the event at
-                                    length of “answer” - 1 is the oldest event.</li>
+                                    the last index is the oldest event.</li>
                             </ul>
                         </td>
                         <td>
-                            <p>None</p>
+                            <p class="center-p">None</p>
                         </td>
                         <td>
                             <ul>
-                                <li><b>NOTE:</b> If a developer wants to create this type of multiple-choice question, they must first create a QuizBox object.</li>
+                                <li><b>NOTE:</b> If a developer wants to create a sequence question, they must first create a QuizBox object.</li>
                                 <br>
                                 <li><b>Example:</b>
                                     <ul class="innerBullet">
@@ -290,7 +290,107 @@
 
                     <tr class="createQuizTableRow">
                         <td class="Name">
-                            <b><p>getUserAnswer</p></b>
+                            <b><p>createFillInTheBlank</p></b>
+                        </td>
+                        <td class="description">
+                            <p>
+                                Given the parameters, questions and answers, 
+                                the function will create a fill in the blank question and add it to the quiz. 
+                                Users can answer the question by typing into the text boxes.
+                            </p>
+                        </td>
+                        <td>
+                            <ul class="Bullet">
+                                <li>
+                                    <b>questions:</b> is an array of strings where each string is an question. 
+                                    To indicate a blank space, type three underscores without space. 
+                                    For example, Blue is a ___ (three underscores) colour.
+                                </li>
+                                <br>
+                                <li>
+                                    <b>answer:</b> is an array of strings. The string at each index repersents the answer to a blank space in the questions array. Morover, 
+                                    the string at index 0 represents the answer to the first blank space in questions, 
+                                    the string at index 1 represents the answer to the second blank space in questions, etc. 
+                                </li>
+                            </ul>
+                        </td>
+                        <td>
+                            <p class="center-p">None</p>
+                        </td>
+                        <td>
+                            <ul>
+                                <li><b>NOTE:</b> If a developer wants to create a fill in the blank question, they must first create a QuizBox object.</li>
+                                <br>
+                                <li><b>Example:</b>
+                                    <ul class="innerBullet">
+                                        <li><p><b>Const</b> elementToAddQuizTo = document.querySelector('body');</p></li>
+                                        <li><p> <b>Const</b> newQuiz = new <span class="Name">QuizBox</span>(elementToAddQuizTo);</p></li>
+                                        <li><p>newQuiz.<span class="Name">createFillInTheBlank</span> (["Red is a ___ colour.", "RAM stands for ___."], 
+                                            [“primary”, “Random Access Memory”]);</p></li>
+                                      </ul>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+
+                    <tr class="createQuizTableRow">
+                        <td class="Name">
+                            <b><p>createMatching</p></b>
+                        </td>
+                        <td class="description">
+                            <p>
+                                Given the parameters, titleOfQuestion, match1, match2 and answers, the function 
+                                will create a matching question and add it to the quiz. Users can answer the 
+                                question by clicking a tile from first column and then clicking a tile from the second column.
+                            </p>
+                        </td>
+                        <td>
+                            <ul class="Bullet">
+                                <li>
+                                    <b>titleOfQuestion:</b> is a string that represents the title of the question. 
+                                    This title should be a description of what is suppose to be matched
+                                </li>
+                                <br>
+                                <li>
+                                    <b>match1:</b> is an array of strings. 
+                                    This array should contain words or phrases that are related to words and phrases in the array, match2. 
+                                </li>
+                                <br>
+                                <li>
+                                    <b>match2:</b> is an array of strings. 
+                                    This array should contain words or phrases that are related to words and phrases in the array, match1. 
+                                </li>
+                                <br>
+                                <li>
+                                    <b>answer:</b> an array of arrays, where the nested array is an array of strings. The strings in the nested 
+                                    array are two words/phrases that are related to each other. Please note that the nested should contain exactly two strings 
+                                </li>
+                            </ul>
+                        </td>
+                        <td>
+                            <p class="center-p">None</p>
+                        </td>
+                        <td>
+                            <ul>
+                                <li><b>NOTE:</b> If a developer wants to create a Matching question, they must first create a QuizBox object.</li>
+                                <br>
+                                <li><b>Example:</b>
+                                    <ul class="innerBullet">
+                                        <li><p><b>Const</b> elementToAddQuizTo = document.querySelector('body');</p></li>
+                                        <li><p> <b>Const</b> newQuiz = new <span class="Name">QuizBox</span>(elementToAddQuizTo);</p></li>
+                                        <li><p>newQuiz.<span class="Name">createMatching</span> ("Matching the following Countries with their captial city", 
+                                            ["Switzerland", "South Korea"], [ "Bern", "Seoul"], [["Switzerland", "Bern"],["South Korea", "Seoul"]]);</p></li>
+                                      </ul>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+
+
+
+                    <tr class="createQuizTableRow">
+                        <td class="Name">
+                            <b><p>getUserAnswers</p></b>
                         </td>
                         <td class="description">
                             <p>Returns the answers that were submitted by a user to the Quiz. Note that the user's answers will not be recorded and 
@@ -299,7 +399,7 @@
                             </p>
                         </td>
                         <td>
-                            <p>None</p>
+                            <p class="center-p">None</p>
                             </ul>
                         </td>
                         <td>
@@ -348,9 +448,41 @@
                                                 Please see the "createTrueOrFalseQuestion" section that is located in this table for more information. 
                                             </li>
                                         </ul>
-                                    <li>Sequence</li>
-                                    <li>Fill in the blank</li>
+                                    <li>Sequence JS object has the following attributes:</li>
+                                        <br>
+                                        <ul>
+                                            <li>
+                                                <b>questionType:</b> "Sequence"    
+                                            </li>
+                                            <li>
+                                                <b>userAnswer:</b> an array of strings where each string is an event. 
+                                                The order (from left to right) in which the events are in this array, 
+                                                is the order in which the user rerranged the events from most recent to oldest 
+                                            </li>
+                                        </ul>
+                                    <li>Fill in the blank JS object has the following attributes:</li>
+                                        <br>
+                                        <ul>
+                                            <li>
+                                                <b>questionType:</b> "Fill in the blank"    
+                                            </li>
+                                            <li>
+                                                <b>userAnswer:</b> an array of strings. The string at each index repersents the user's answer to a blank space. For example, 
+                                                the string at index 0 represents the user's answer to the first blank space, the string at index 1 
+                                                represents the user's answer to the second blank space, etc.  
+                                            </li>
+                                        </ul>
                                     <li>Matching</li>
+                                        <br>
+                                        <ul>
+                                            <li>
+                                                <b>questionType:</b> "Matching"    
+                                            </li>
+                                            <li>
+                                                <b>userAnswer:</b> an array of arrays, where the nested array is an array of strings. 
+                                                The strings in the nested array are the two words/phrases that the user selected to be related to each other.  
+                                            </li>
+                                        </ul>
                                 </ul>
                         </td>
                         <td>
@@ -361,8 +493,7 @@
                                     <ul class="innerBullet">
                                         <li><p><b>Const</b> elementToAddQuizTo = document.querySelector('body');</p></li>
                                         <li><p> <b>Const</b> newQuiz = new <span class="Name">QuizBox</span>(elementToAddQuizTo);</p></li>
-                                        <li><p>newQuiz.<span class="Name">createSequenceQuestion</span> ([“World War 2”, “World
-                                            War 1”, “COVID-19”], [“COVID-19”, “World War 1”, “World War 2”]);</p></li>
+                                        <li><p>newQuiz.<span class="Name">gettingUserAnswers</span> ();</p></li>
                                     </ul>
                                 </li>
                             </ul>
@@ -406,22 +537,56 @@
                             <b><p>setAnimation</p></b>
                         </td>
                         <td class="description">
-                            <p>Given the parameter element, the function will return a JS object that represents a quiz.</p>
-                        </td>
-                        <td>
-                            <p><b>Element</b>: is a DOM element that the quiz will appear in the browser.</p>
-                            <p><b>To see examples of different types of animations <a href="example.html#animationHeader">click here.</a></b></p>
-                        </td>
-                        <td>
-                            <p>None</p>
+                            <p>given the parameters animationName and questionNumber, 
+                                the function will set the transition animation (i.e. animation that occurs when going from one question to another) 
+                                for a question based on the questionNumber.
+                            </p>
+                            <p>
+                                <b>Note:</b> setting a transition animation for a question will remove any previous animation that was set for that question.
+                            </p>
                         </td>
                         <td>
                             <ul class="innerBullet">
+                                <li>
+                                    <p><b>animationName:</b> a string that repersents the name of an animation</p>
+                                    <ul>
+                                        <li><p>there are four types of transition animation:</p></li>
+                                            <ul>
+                                                <li><p>Instant.</p></li>
+                                                <li><p>Fade In.</p></li>
+                                                <li><p>Reveal.</p></li>
+                                                <li><p>Slide Down.</p></li>
+                                                <li><p>Scroll.</p></li>
+                                            </ul>
+                                    </ul>
+                                </li>
+                                <li> 
+                                    <p><b>questionNumber:</b> an integer that represents a question number. The animation will be set to the question with this number. 
+                                    For example if questionNumber is 6, then transition animation will be set to question 6.</p> 
+                                </li>
+                                <li>
+                                    <p><b>To see examples of different types of animations <a href="example.html#animationHeader">click here.</a></b></p> 
+                                </li>
+                              </ul>
+                            
+                            
+                        </td>
+                        <td>
+                            <ul class="innerBullet">
+                                <li> <p>returns true if the animation was succussfully set to a question</p></li>
+                                <li><p>otherwise returns false.</p></li>
+                              </ul>
+                        </td>
+                        <td>
+                            <ul class="innerBullet">
+                                <li><b>NOTE:</b> If a developer wants to use this function, they must first create a QuizBox object.</li>
+                                <br>
                                 <li><b>Example:</b>
                                     <ul>
                                         <li><p>Const elementToAddQuizTo = document.querySelector('body');</p></li>
                                         <li><p> <b>Const</b> newQuiz = new <span class="Name">QuizBox</span>(elementToAddQuizTo);</p></li>
-                                        <li><p><b>NOTE:</b> the quiz will appear in the body element.</p></li>
+                                        <li><p>newQuiz.<span class="Name">createMultipleChoiceOne</span> (“What is 2 + 2”, [“1”, “2”, “3”, “4”], “4”);</p></li>
+                                        <li><p>newQuiz.<span class="Name">setAnimation</span> (“Fade In”, 1);</p></li>
                                       </ul>
                                 </li>
                               </ul>
@@ -429,19 +594,34 @@
                     </tr>
                     <tr class="createQuizTableRow">
                         <td class="Name">
-                            <b><p>createMultipleChoiceOne</p></b>
+                            <b><p>setAnimationAll</p></b>
                         </td>
                         <td class="description">
-                            <p>Given the parameters, question, options and answer, the function will create a multiple-choice question and add it to the quiz. 
-                                Users can answer the question by selecting one of the options as their answer to the question.</p>
+                            <p>Given the parameter animationName, the function will set the transition animation 
+                                (i.e. animation that occurs when going from one question to another) for all of the question that are created so far.
+                            </p>
+                            <p>
+                                <b>Note:</b> setting a transition animation for all of the questions will remove any previous animation that was set to any of the questions.
+                            </p>
                         </td>
                         <td>
                             <ul class="Bullet">
-                                <li><b>question:</b> is string that represents the question.</li>
-                                <br>
-                                <li><b>options::</b> is an array of strings where each string is an answer option to the question.</li>
-                                <br>
-                                <li><b>answer:</b> is a string that is contained in the “options” array. This string represents the answer to the question.</li>
+                                <li>
+                                    <p><b>animationName:</b> a string that repersents the name of an animation</p>
+                                    <ul>
+                                        <li><p>there are four types of transition animation:</p></li>
+                                            <ul>
+                                                <li><p>Instant.</p></li>
+                                                <li><p>Fade In.</p></li>
+                                                <li><p>Reveal.</p></li>
+                                                <li><p>Slide Down.</p></li>
+                                                <li><p>Scroll.</p></li>
+                                            </ul>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <p><b>To see examples of different types of animations <a href="example.html#animationHeader">click here.</a></b></p> 
+                                </li>
                             </ul>
                         </td>
                         <td>
@@ -449,25 +629,27 @@
                         </td>
                         <td>
                             <ul>
-                                <li><b>NOTE:</b> If a developer wants to create this type of multiple-choice question, they must first create a QuizBox object.</li>
+                                <li><b>NOTE:</b> If a developer wants to use this function, they must first create a QuizBox object.</li>
                                 <br>
                                 <li><b>Example:</b>
                                     <ul class="innerBullet">
                                         <li><p>Const elementToAddQuizTo = document.querySelector('body');</p></li>
                                         <li><p> <b>Const</b> newQuiz = new <span class="Name">QuizBox</span>(elementToAddQuizTo);</p></li>
                                         <li><p>newQuiz.<span class="Name">createMultipleChoiceOne</span> (“What is 2 + 2”, [“1”, “2”, “3”, “4”], “4”);</p></li>
+                                        <li><p>newQuiz.<span class="Name">setAnimationAll</span> (“Fade In”);</p></li>
                                       </ul>
                                 </li>
                             </ul>
                         </td>
                     </tr>
-
                 </tbody>
             </table>
         </div>
 
     </div>
 
+    <div class="footer-style">
+    </div>
 
 
  </body>

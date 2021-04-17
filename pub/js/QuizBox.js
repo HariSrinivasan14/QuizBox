@@ -931,7 +931,7 @@ QuizBox.prototype = {
 		}
 	},
 
-	getUserAnswer: function(){
+	getUserAnswers: function(){
 		return this.userAnswers
 	}
 
